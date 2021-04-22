@@ -1,0 +1,26 @@
+{
+  "name": "StorX",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "solhint": "./node_modules/.bin/solhint -f table contracts/**/*.sol",
+    "prettier:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol",
+    "watch": "onchange  -d 1000 './contracts/*/*.sol' --  npm run prettier:solidity"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "onchange": "^7.1.0",
+    "prettier": "^2.2.1",
+    "prettier-plugin-solidity": "^1.0.0-beta.9",
+    "solhint-plugin-prettier": "0.0.5",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {}
+}
