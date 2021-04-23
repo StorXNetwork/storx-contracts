@@ -17,5 +17,6 @@ contract StorxToken is StandardToken {
         symbol = _symbol;
         decimals = _decimals;
         balances[msg.sender] = _totalSupply;
+        totalSupply_ = _totalSupply;
     }
 }
