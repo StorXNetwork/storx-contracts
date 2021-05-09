@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../AddressUtils.sol";
+import '../AddressUtils.sol';
 
 /**
  * @title ERC20Basic
@@ -8,10 +8,13 @@ import "../AddressUtils.sol";
  * See https://github.com/ethereum/EIPs/issues/179
  */
 contract ERC20Basic {
-  function totalSupply() public view returns (uint256);
-  function balanceOf(address _who) public view returns (uint256);
-  function transfer(address _to, uint256 _value) public returns (bool);
-  event Transfer(address indexed from, address indexed to, uint256 value);
+    function totalSupply() public view returns (uint256);
+
+    function balanceOf(address _who) public view returns (uint256);
+
+    function transfer(address _to, uint256 _value) public returns (bool);
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
 }
 
 /**
@@ -315,11 +318,11 @@ contract StroxStaking is Ownable {
         _;
     }
 
-    function canWithdrawStake() public view returns(bool) {
+    function canWithdrawStake() public view returns (bool) {
         require(stakes[msg.sender].exists, 'StorX: stakeholder does not exists');
         require(stakes[msg.sender].staked == false, 'StorX: stakeholder still has stake');
         uint256 unstakeTenure = block.timestamp - stakes[msg.sender].unstakedTime;
-        return coolOff < unstakeTenure;   
+        return coolOff < unstakeTenure;
     }
 
     constructor(IERC20 token_, uint256 interest_) public {
@@ -397,7 +400,7 @@ contract StroxStaking is Ownable {
         require(stakes[msg.sender].staked == false, 'StorX: stakeholder still has stake');
         uint256 unstakeTenure = block.timestamp - stakes[msg.sender].unstakedTime;
         if (coolOff < unstakeTenure) return 0;
-        return coolOff-unstakeTenure;
+        return coolOff - unstakeTenure;
     }
 
     /**

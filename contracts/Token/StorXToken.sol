@@ -1,8 +1,9 @@
 pragma solidity ^0.4.24;
 
+import './Operator.sol';
 import './StandardToken.sol';
 
-contract StorxToken is StandardToken {
+contract StorxToken is StandardToken, Operator {
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -18,5 +19,12 @@ contract StorxToken is StandardToken {
         decimals = _decimals;
         balances[msg.sender] = _totalSupply;
         totalSupply_ = _totalSupply;
+    }
+
+    /**
+     * calls internal function _mint()
+     */
+    function mint(address to, uint256 amount) public onlyOperator {
+        _mint(to, amount);
     }
 }
