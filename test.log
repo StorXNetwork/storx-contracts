@@ -6,117 +6,140 @@ Compiling your contracts...
 > Everything is up to date, there is nothing to compile.
 
 
-[0m[0m
-[0m  Contract: StandardToken[0m
-[0m    total supply[0m
-    [32m  ✓[0m[90m returns the total amount of tokens[0m
-[0m    balanceOf[0m
-[0m      when the requested account has no tokens[0m
-      [32m  ✓[0m[90m returns zero[0m
-[0m      when the requested account has some tokens[0m
-      [32m  ✓[0m[90m returns the total amount of tokens[0m
-[0m    transfer[0m
-[0m      when the recipient is not the zero address[0m
-[0m        when the sender does not have enough balance[0m
-        [32m  ✓[0m[90m reverts[0m[31m (575ms)[0m
-[0m        when the sender has enough balance[0m
-        [32m  ✓[0m[90m transfers the requested amount[0m[33m (64ms)[0m
-        [32m  ✓[0m[90m emits a transfer event[0m[33m (47ms)[0m
-[0m      when the recipient is the zero address[0m
-      [32m  ✓[0m[90m reverts[0m
 
-[0m  Contract: DetailedERC20[0m
-  [32m  ✓[0m[90m has a name[0m
-  [32m  ✓[0m[90m has a symbol[0m
-  [32m  ✓[0m[90m has an amount of decimals[0m
+  Contract: StandardToken
+    total supply
+      ✓ returns the total amount of tokens
+    balanceOf
+      when the requested account has no tokens
+        ✓ returns zero
+      when the requested account has some tokens
+        ✓ returns the total amount of tokens
+    transfer
+      when the recipient is not the zero address
+        when the sender does not have enough balance
+          ✓ reverts
+        when the sender has enough balance
+          ✓ transfers the requested amount (58ms)
+          ✓ emits a transfer event (39ms)
+      when the recipient is the zero address
+        ✓ reverts (38ms)
 
-[0m  Contract: StandardToken[0m
-[0m    total supply[0m
-    [32m  ✓[0m[90m returns the total amount of tokens[0m
-[0m    balanceOf[0m
-[0m      when the requested account has no tokens[0m
-      [32m  ✓[0m[90m returns zero[0m
-[0m      when the requested account has some tokens[0m
-      [32m  ✓[0m[90m returns the total amount of tokens[0m
-[0m    transfer[0m
-[0m      when the recipient is not the zero address[0m
-[0m        when the sender does not have enough balance[0m
-        [32m  ✓[0m[90m reverts[0m
-[0m        when the sender has enough balance[0m
-        [32m  ✓[0m[90m transfers the requested amount[0m[33m (62ms)[0m
-        [32m  ✓[0m[90m emits a transfer event[0m[33m (39ms)[0m
-[0m      when the recipient is the zero address[0m
-      [32m  ✓[0m[90m reverts[0m[33m (38ms)[0m
-[0m    approve[0m
-[0m      when the spender is not the zero address[0m
-[0m        when the sender has enough balance[0m
-        [32m  ✓[0m[90m emits an approval event[0m
-[0m          when there was no approved amount before[0m
-          [32m  ✓[0m[90m approves the requested amount[0m[33m (47ms)[0m
-[0m          when the spender had an approved amount[0m
-          [32m  ✓[0m[90m approves the requested amount and replaces the previous one[0m[33m (47ms)[0m
-[0m        when the sender does not have enough balance[0m
-        [32m  ✓[0m[90m emits an approval event[0m
-[0m          when there was no approved amount before[0m
-          [32m  ✓[0m[90m approves the requested amount[0m[33m (43ms)[0m
-[0m          when the spender had an approved amount[0m
-          [32m  ✓[0m[90m approves the requested amount and replaces the previous one[0m[33m (47ms)[0m
-[0m      when the spender is the zero address[0m
-      [32m  ✓[0m[90m approves the requested amount[0m[33m (54ms)[0m
-      [32m  ✓[0m[90m emits an approval event[0m
-[0m    transfer from[0m
-[0m      when the recipient is not the zero address[0m
-[0m        when the spender has enough approved balance[0m
-[0m          when the owner has enough balance[0m
-          [32m  ✓[0m[90m transfers the requested amount[0m[33m (57ms)[0m
-          [32m  ✓[0m[90m decreases the spender allowance[0m[33m (61ms)[0m
-          [32m  ✓[0m[90m emits a transfer event[0m[33m (43ms)[0m
-[0m          when the owner does not have enough balance[0m
-          [32m  ✓[0m[90m reverts[0m
-[0m        when the spender does not have enough approved balance[0m
-[0m          when the owner has enough balance[0m
-          [32m  ✓[0m[90m reverts[0m
-[0m          when the owner does not have enough balance[0m
-          [32m  ✓[0m[90m reverts[0m
-[0m      when the recipient is the zero address[0m
-      [32m  ✓[0m[90m reverts[0m
-[0m    decrease approval[0m
-[0m      when the spender is not the zero address[0m
-[0m        when the sender has enough balance[0m
-        [32m  ✓[0m[90m emits an approval event[0m
-[0m          when there was no approved amount before[0m
-          [32m  ✓[0m[90m keeps the allowance to zero[0m[31m (88ms)[0m
-[0m          when the spender had an approved amount[0m
-          [32m  ✓[0m[90m decreases the spender allowance subtracting the requested amount[0m[33m (67ms)[0m
-          [32m  ✓[0m[90m sets the allowance to zero when all allowance is removed[0m[33m (53ms)[0m
-          [32m  ✓[0m[90m sets the allowance to zero when more than the full allowance is removed[0m[33m (53ms)[0m
-[0m        when the sender does not have enough balance[0m
-        [32m  ✓[0m[90m emits an approval event[0m
-[0m          when there was no approved amount before[0m
-          [32m  ✓[0m[90m keeps the allowance to zero[0m[33m (50ms)[0m
-[0m          when the spender had an approved amount[0m
-          [32m  ✓[0m[90m decreases the spender allowance subtracting the requested amount[0m[33m (62ms)[0m
-[0m      when the spender is the zero address[0m
-      [32m  ✓[0m[90m decreases the requested amount[0m[33m (48ms)[0m
-      [32m  ✓[0m[90m emits an approval event[0m[33m (40ms)[0m
-[0m    increase approval[0m
-[0m      when the spender is not the zero address[0m
-[0m        when the sender has enough balance[0m
-        [32m  ✓[0m[90m emits an approval event[0m[33m (38ms)[0m
-[0m          when there was no approved amount before[0m
-          [32m  ✓[0m[90m approves the requested amount[0m[33m (42ms)[0m
-[0m          when the spender had an approved amount[0m
-          [32m  ✓[0m[90m increases the spender allowance adding the requested amount[0m[33m (44ms)[0m
-[0m        when the sender does not have enough balance[0m
-        [32m  ✓[0m[90m emits an approval event[0m
-[0m          when there was no approved amount before[0m
-          [32m  ✓[0m[90m approves the requested amount[0m[33m (72ms)[0m
-[0m          when the spender had an approved amount[0m
-          [32m  ✓[0m[90m increases the spender allowance adding the requested amount[0m[33m (55ms)[0m
-[0m      when the spender is the zero address[0m
-      [32m  ✓[0m[90m approves the requested amount[0m[33m (52ms)[0m
-      [32m  ✓[0m[90m emits an approval event[0m
+  Contract: DetailedERC20
+    ✓ has a name (71ms)
+    ✓ has a symbol
+    ✓ has an amount of decimals
+
+  Contract: Ownable
+    when not owner
+      ✓ does not display owner
+      ✓ reverts on ownership change
+      ✓ reverts on renounce owner
+    when owner
+      ✓ display owner
+      ✓ ownership changes (53ms)
+      ✓ renounce owner (46ms)
+
+  Contract: Operator
+    when not owner
+      ✓ reverts on ownership change
+    when owner
+      ✓ operator changes (43ms)
+
+  Contract: OperatableMint
+    when not operator
+      ✓ reverts on mint
+    when operator
+      ✓ adds balance to recipient corrrectly
+      ✓ increases total supply corrrectly
+      ✓ mint log emitted corrrectly
+
+  Contract: StandardToken
+    total supply
+      ✓ returns the total amount of tokens
+    balanceOf
+      when the requested account has no tokens
+        ✓ returns zero
+      when the requested account has some tokens
+        ✓ returns the total amount of tokens
+    transfer
+      when the recipient is not the zero address
+        when the sender does not have enough balance
+          ✓ reverts
+        when the sender has enough balance
+          ✓ transfers the requested amount (56ms)
+          ✓ emits a transfer event
+      when the recipient is the zero address
+        ✓ reverts
+    approve
+      when the spender is not the zero address
+        when the sender has enough balance
+          ✓ emits an approval event
+          when there was no approved amount before
+            ✓ approves the requested amount (42ms)
+          when the spender had an approved amount
+            ✓ approves the requested amount and replaces the previous one (52ms)
+        when the sender does not have enough balance
+          ✓ emits an approval event
+          when there was no approved amount before
+            ✓ approves the requested amount (45ms)
+          when the spender had an approved amount
+            ✓ approves the requested amount and replaces the previous one
+      when the spender is the zero address
+        ✓ approves the requested amount (47ms)
+        ✓ emits an approval event
+    transfer from
+      when the recipient is not the zero address
+        when the spender has enough approved balance
+          when the owner has enough balance
+            ✓ transfers the requested amount (54ms)
+            ✓ decreases the spender allowance (38ms)
+            ✓ emits a transfer event
+          when the owner does not have enough balance
+            ✓ reverts
+        when the spender does not have enough approved balance
+          when the owner has enough balance
+            ✓ reverts
+          when the owner does not have enough balance
+            ✓ reverts
+      when the recipient is the zero address
+        ✓ reverts
+    decrease approval
+      when the spender is not the zero address
+        when the sender has enough balance
+          ✓ emits an approval event
+          when there was no approved amount before
+            ✓ keeps the allowance to zero (39ms)
+          when the spender had an approved amount
+            ✓ decreases the spender allowance subtracting the requested amount (47ms)
+            ✓ sets the allowance to zero when all allowance is removed
+            ✓ sets the allowance to zero when more than the full allowance is removed (38ms)
+        when the sender does not have enough balance
+          ✓ emits an approval event
+          when there was no approved amount before
+            ✓ keeps the allowance to zero (40ms)
+          when the spender had an approved amount
+            ✓ decreases the spender allowance subtracting the requested amount (43ms)
+      when the spender is the zero address
+        ✓ decreases the requested amount (62ms)
+        ✓ emits an approval event
+    increase approval
+      when the spender is not the zero address
+        when the sender has enough balance
+          ✓ emits an approval event
+          when there was no approved amount before
+            ✓ approves the requested amount
+          when the spender had an approved amount
+            ✓ increases the spender allowance adding the requested amount (43ms)
+        when the sender does not have enough balance
+          ✓ emits an approval event
+          when there was no approved amount before
+            ✓ approves the requested amount (43ms)
+          when the spender had an approved amount
+            ✓ increases the spender allowance adding the requested amount (41ms)
+      when the spender is the zero address
+        ✓ approves the requested amount (49ms)
+        ✓ emits an approval event
 
 
-[92m [0m[32m 50 passing[0m[90m (6s)[0m
-
+  62 passing (7s)
