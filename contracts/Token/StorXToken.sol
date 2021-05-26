@@ -8,17 +8,20 @@ contract StorxToken is StandardToken, Operator {
     string public symbol;
     uint8 public decimals;
 
-    constructor(
+    function initialize(
         string _name,
         string _symbol,
         uint8 _decimals,
         uint256 _totalSupply
-    ) public {
+    ) initializer public {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
         balances[msg.sender] = _totalSupply;
         totalSupply_ = _totalSupply;
+
+        _initializeOwner();
+        _initializeOperator();
     }
 
     /**
