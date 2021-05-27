@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "truffle test >> test.log",
+    "test-proxy": "truffle test ./test/testProxy/*.js",
+    "test-token": "truffle test ./test/testToken/*.js",
+    "test-all": "truffle test ",
     "solhint": "./node_modules/.bin/solhint -f table contracts/**/*.sol",
     "prettier:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol",
     "watch": "onchange  -d 1000 './contracts/*/*.sol' --  npm run prettier:solidity"
@@ -25,6 +27,7 @@
   "dependencies": {
     "@openzeppelin/test-environment": "^0.1.4",
     "@openzeppelin/test-helpers": "^0.5.6",
+    "bignumber.js": "^9.0.1",
     "chai": "^4.2.0",
     "chai-bignumber": "^3.0.0",
     "lodash": "^4.17.20",

@@ -1,4 +1,6 @@
-const { tokenParams } = require('../config');
+const Tokenomics = require('./Tokenomics.json');
+
+const { tokenParams } = require('../../config');
 const { assertRevert } = require('./helpers/assertRevert');
 const BasicToken = artifacts.require('StorxToken');
 
@@ -7,13 +9,20 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
 
   beforeEach(async function () {
     this.token = await BasicToken.new(...tokenParams, { from: owner });
+    await this.token.initialize(
+      Tokenomics.name,
+      Tokenomics.symbol,
+      Tokenomics.decimals,
+      Tokenomics.initialSupply,
+      { from: owner }
+    );
   });
 
   describe('total supply', function () {
     it('returns the total amount of tokens', async function () {
       const totalSupply = await this.token.totalSupply();
 
-      assert.equal(totalSupply, 100);
+      assert.equal(totalSupply, Tokenomics.initialSupply);
     });
   });
 
@@ -30,7 +39,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
       it('returns the total amount of tokens', async function () {
         const balance = await this.token.balanceOf(owner);
 
-        assert.equal(balance, 100);
+        assert.equal(balance, Tokenomics.initialSupply);
       });
     });
   });

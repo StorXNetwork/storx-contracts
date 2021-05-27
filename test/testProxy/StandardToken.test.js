@@ -1,14 +1,25 @@
-const { tokenParams } = require('../config');
+const { tokenParams } = require('../../config');
 const { assertRevert } = require('./helpers/assertRevert');
 const StandardTokenMock = artifacts.require('StorxToken');
+const Proxy_Mock = artifacts.require('StorXTokenProxy');
+const Tokenomics = require('./Tokenomics.json');
 
 // TOTAL SUPPLY - 100
 
-contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
+contract('StandardToken', function ([_, owner, recipient, anotherAccount, proxyAdmin]) {
   const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
   beforeEach(async function () {
-    this.token = await StandardTokenMock.new(...tokenParams,{from:owner});
+    const implementation = await StandardTokenMock.new({ from: owner });
+    const proxyAddress = await Proxy_Mock.new(implementation.address, { from: proxyAdmin });
+    this.token = await StandardTokenMock.at(proxyAddress.address);
+    await this.token.initialize(
+      Tokenomics.name,
+      Tokenomics.symbol,
+      Tokenomics.decimals,
+      Tokenomics.initialSupply,
+      { from: owner }
+    );
   });
 
   describe('total supply', function () {
@@ -69,7 +80,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
           assert.equal(logs[0].event, 'Transfer');
           assert.equal(logs[0].args.from, owner);
           assert.equal(logs[0].args.to, to);
-          assert(logs[0].args.value.toNumber()==(amount));
+          assert(logs[0].args.value.toNumber() == amount);
         });
       });
     });
@@ -97,7 +108,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
           assert.equal(logs[0].event, 'Approval');
           assert.equal(logs[0].args.owner, owner);
           assert.equal(logs[0].args.spender, spender);
-          assert(logs[0].args.value.toNumber()==(amount));
+          assert(logs[0].args.value.toNumber() == amount);
         });
 
         describe('when there was no approved amount before', function () {
@@ -133,7 +144,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
           assert.equal(logs[0].event, 'Approval');
           assert.equal(logs[0].args.owner, owner);
           assert.equal(logs[0].args.spender, spender);
-          assert(logs[0].args.value.toNumber()==(amount));
+          assert(logs[0].args.value.toNumber() == amount);
         });
 
         describe('when there was no approved amount before', function () {
@@ -178,7 +189,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
         assert.equal(logs[0].event, 'Approval');
         assert.equal(logs[0].args.owner, owner);
         assert.equal(logs[0].args.spender, spender);
-        assert(logs[0].args.value.toNumber()==(amount));
+        assert(logs[0].args.value.toNumber() == amount);
       });
     });
   });
@@ -211,7 +222,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
             await this.token.transferFrom(owner, to, amount, { from: spender });
 
             const allowance = await this.token.allowance(owner, spender);
-            assert(allowance.toNumber()==(0));
+            assert(allowance.toNumber() == 0);
           });
 
           it('emits a transfer event', async function () {
@@ -221,7 +232,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
             assert.equal(logs[0].event, 'Transfer');
             assert.equal(logs[0].args.from, owner);
             assert.equal(logs[0].args.to, to);
-            assert(logs[0].args.value.toNumber()==(amount));
+            assert(logs[0].args.value.toNumber() == amount);
           });
         });
 
@@ -285,7 +296,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
           assert.equal(logs[0].event, 'Approval');
           assert.equal(logs[0].args.owner, owner);
           assert.equal(logs[0].args.spender, spender);
-          assert(logs[0].args.value.toNumber()==(0));
+          assert(logs[0].args.value.toNumber() == 0);
         });
 
         describe('when there was no approved amount before', function () {
@@ -335,7 +346,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
           assert.equal(logs[0].event, 'Approval');
           assert.equal(logs[0].args.owner, owner);
           assert.equal(logs[0].args.spender, spender);
-          assert(logs[0].args.value.toNumber()==(0));
+          assert(logs[0].args.value.toNumber() == 0);
         });
 
         describe('when there was no approved amount before', function () {
@@ -380,7 +391,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
         assert.equal(logs[0].event, 'Approval');
         assert.equal(logs[0].args.owner, owner);
         assert.equal(logs[0].args.spender, spender);
-        assert(logs[0].args.value.toNumber()==(0));
+        assert(logs[0].args.value.toNumber() == 0);
       });
     });
   });
@@ -399,7 +410,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
           assert.equal(logs[0].event, 'Approval');
           assert.equal(logs[0].args.owner, owner);
           assert.equal(logs[0].args.spender, spender);
-          assert(logs[0].args.value.toNumber()==(amount));
+          assert(logs[0].args.value.toNumber() == amount);
         });
 
         describe('when there was no approved amount before', function () {
@@ -435,7 +446,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
           assert.equal(logs[0].event, 'Approval');
           assert.equal(logs[0].args.owner, owner);
           assert.equal(logs[0].args.spender, spender);
-          assert(logs[0].args.value.toNumber()==(amount));
+          assert(logs[0].args.value.toNumber() == amount);
         });
 
         describe('when there was no approved amount before', function () {
@@ -479,7 +490,7 @@ contract('StandardToken', function ([_, owner, recipient, anotherAccount]) {
         assert.equal(logs[0].event, 'Approval');
         assert.equal(logs[0].args.owner, owner);
         assert.equal(logs[0].args.spender, spender);
-        assert(logs[0].args.value.toNumber()==(amount));
+        assert(logs[0].args.value.toNumber() == amount);
       });
     });
   });

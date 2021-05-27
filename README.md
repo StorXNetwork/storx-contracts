@@ -4,6 +4,12 @@
 
 - [GCV](http://gcv.raavan.online)
 
+## Testing
+
+- Test Token Via Proxy ```npm run test-proxy```
+- Test Token Directly ```npm run test-token```
+- Test Both ```npm run test-all```
+
 ## Deployments
 
 - ERC20 Token - [xdc2657f0eba2835eb322775838ea9bda0510c66cfb](https://explorer.apothem.network/addr/xdc2657f0eba2835eb322775838ea9bda0510c66cfb)

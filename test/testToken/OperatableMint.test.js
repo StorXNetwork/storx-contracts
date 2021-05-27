@@ -1,8 +1,9 @@
 const { assert } = require('chai');
 const { check } = require('prettier');
-const { tokenParams } = require('../config');
+const { tokenParams } = require('../../config');
 const { assertRevertWithMsg, assertRevert } = require('./helpers/assertRevert');
 const StorxToken = artifacts.require('StorxToken');
+const Tokenomics = require('./Tokenomics.json');
 
 const NOT_OPERATOR = 'operator: caller is not the operator';
 
@@ -13,6 +14,13 @@ contract('Ownable', function ([_, owner, newOwner]) {
 
   beforeEach(async function () {
     this.token = await StorxToken.new(...tokenParams, { from: owner });
+    await this.token.initialize(
+      Tokenomics.name,
+      Tokenomics.symbol,
+      Tokenomics.decimals,
+      Tokenomics.initialSupply,
+      { from: owner }
+    );
   });
 
   describe('when not owner', function () {
@@ -62,6 +70,13 @@ contract('Operator', function ([_, owner, newOperator]) {
 
   beforeEach(async function () {
     this.token = await StorxToken.new(...tokenParams, { from: owner });
+    await this.token.initialize(
+      Tokenomics.name,
+      Tokenomics.symbol,
+      Tokenomics.decimals,
+      Tokenomics.initialSupply,
+      { from: owner }
+    );
   });
 
   describe('when not owner', function () {
@@ -88,6 +103,13 @@ contract('OperatableMint', function ([_, owner, recipient, anotherAccount]) {
 
   beforeEach(async function () {
     this.token = await StorxToken.new(...tokenParams, { from: owner });
+    await this.token.initialize(
+      Tokenomics.name,
+      Tokenomics.symbol,
+      Tokenomics.decimals,
+      Tokenomics.initialSupply,
+      { from: owner }
+    );
   });
 
   describe('when not operator', function () {
