@@ -1,13 +1,79 @@
+// File: contracts/Token/Initializable.sol
+
+pragma solidity 0.4.24;
+
+
+/**
+ * @title Initializable
+ *
+ * @dev Helper contract to support initializer functions. To use it, replace
+ * the constructor with a function that has the `initializer` modifier.
+ * WARNING: Unlike constructors, initializer functions must be manually
+ * invoked. This applies both to deploying an Initializable contract, as well
+ * as extending an Initializable contract via inheritance.
+ * WARNING: When used with inheritance, manual care must be taken to not invoke
+ * a parent initializer twice, or ensure that all initializers are idempotent,
+ * because this is not dealt with automatically as with constructors.
+ */
+contract Initializable {
+
+  /**
+   * @dev Indicates that the contract has been initialized.
+   */
+  bool private initialized;
+
+  /**
+   * @dev Indicates that the contract is in the process of being initialized.
+   */
+  bool private initializing;
+
+  /**
+   * @dev Modifier to use in the initializer function of a contract.
+   */
+  modifier initializer() {
+    require(initializing || isConstructor() || !initialized, "Contract instance has already been initialized");
+
+    bool isTopLevelCall = !initializing;
+    if (isTopLevelCall) {
+      initializing = true;
+      initialized = true;
+    }
+
+    _;
+
+    if (isTopLevelCall) {
+      initializing = false;
+    }
+  }
+
+  /// @dev Returns true if and only if the function is running in the constructor
+  function isConstructor() private view returns (bool) {
+    // extcodesize checks the size of the code stored in an address, and
+    // address returns the current address. Since the code is still not
+    // deployed when running a constructor, any checks on its code size will
+    // yield zero, making it an effective way to detect if a contract is
+    // under construction or not.
+    address self = address(this);
+    uint256 cs;
+    assembly { cs := extcodesize(self) }
+    return cs == 0;
+  }
+
+  // Reserved storage space to allow for layout changes in the future.
+  uint256[50] private ______gap;
+}
+
 // File: contracts/Token/Ownable.sol
 
 pragma solidity ^0.4.24;
+
 
 /**
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
  * functions, this simplifies the implementation of "user permissions".
  */
-contract Ownable {
+contract Ownable is Initializable {
     address public owner;
 
     event OwnershipRenounced(address indexed previousOwner);
@@ -17,7 +83,7 @@ contract Ownable {
      * @dev The Ownable constructor sets the original `owner` of the contract to the sender
      * account.
      */
-    constructor() public {
+    function _initializeOwner() initializer internal {
         owner = msg.sender;
     }
 
@@ -71,7 +137,7 @@ contract Operator is Ownable {
 
     event OperatorTransferred(address indexed previousOperator, address indexed newOperator);
 
-    constructor() internal {
+    function _initializeOperator() initializer internal {
         _operator = msg.sender;
         emit OperatorTransferred(address(0), _operator);
     }
@@ -367,17 +433,20 @@ contract StorxToken is StandardToken, Operator {
     string public symbol;
     uint8 public decimals;
 
-    constructor(
+    function initialize(
         string _name,
         string _symbol,
         uint8 _decimals,
         uint256 _totalSupply
-    ) public {
+    ) initializer public {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
         balances[msg.sender] = _totalSupply;
         totalSupply_ = _totalSupply;
+
+        _initializeOwner();
+        _initializeOperator();
     }
 
     /**
