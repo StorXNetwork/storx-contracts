@@ -19,4 +19,9 @@
 
 
 - STORX ( Initializabe ) - [xdc4f46b002bb005584f86906ce55b2c2ec0bc51f0d](https://explorer.apothem.network/addr/xdc4f46b002bb005584f86906ce55b2c2ec0bc51f0d) [Code](/flats/StorxToken.flat.sol)
-- STORX PROXY - [xdc74af83496c3e6f53e2ae46ac1ad258c99bfbc367](https://explorer.apothem.network/addr/xdc74af83496c3e6f53e2ae46ac1ad258c99bfbc367) [Code](/flats/Proxy.flat.sol)
+- STORX PROXY - [xdc74af83496c3e6f53e2ae46ac1ad258c99bfbc367](https://explorer.apothem.network/addr/xdc74af83496c3e6f53e2ae46ac1ad258c99bfbc367) [Code](/flats/Proxy.flat.sol)  
+  
+UPDATED TOKENOMICS:
+- Proxy: [xdc459e773e8476dd1c1912aee4d346ef0700308c54](https://explorer.apothem.network/addr/xdc459e773e8476dd1c1912aee4d346ef0700308c54) [Code](/flats/Proxy.flat.sol)  
+- Implementation: [xdc0643a9f683888e74442d5e313d357dc6b6122543](https://explorer.apothem.network/addr/xdc0643a9f683888e74442d5e313d357dc6b6122543) [Code](/flats/StorxToken.flat.sol)
+
