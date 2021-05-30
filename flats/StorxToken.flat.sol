@@ -2,7 +2,6 @@
 
 pragma solidity 0.4.24;
 
-
 /**
  * @title Initializable
  *
@@ -16,51 +15,55 @@ pragma solidity 0.4.24;
  * because this is not dealt with automatically as with constructors.
  */
 contract Initializable {
+    /**
+     * @dev Indicates that the contract has been initialized.
+     */
+    bool private initialized;
 
-  /**
-   * @dev Indicates that the contract has been initialized.
-   */
-  bool private initialized;
+    /**
+     * @dev Indicates that the contract is in the process of being initialized.
+     */
+    bool private initializing;
 
-  /**
-   * @dev Indicates that the contract is in the process of being initialized.
-   */
-  bool private initializing;
+    /**
+     * @dev Modifier to use in the initializer function of a contract.
+     */
+    modifier initializer() {
+        require(
+            initializing || isConstructor() || !initialized,
+            'Contract instance has already been initialized'
+        );
 
-  /**
-   * @dev Modifier to use in the initializer function of a contract.
-   */
-  modifier initializer() {
-    require(initializing || isConstructor() || !initialized, "Contract instance has already been initialized");
+        bool isTopLevelCall = !initializing;
+        if (isTopLevelCall) {
+            initializing = true;
+            initialized = true;
+        }
 
-    bool isTopLevelCall = !initializing;
-    if (isTopLevelCall) {
-      initializing = true;
-      initialized = true;
+        _;
+
+        if (isTopLevelCall) {
+            initializing = false;
+        }
     }
 
-    _;
-
-    if (isTopLevelCall) {
-      initializing = false;
+    /// @dev Returns true if and only if the function is running in the constructor
+    function isConstructor() private view returns (bool) {
+        // extcodesize checks the size of the code stored in an address, and
+        // address returns the current address. Since the code is still not
+        // deployed when running a constructor, any checks on its code size will
+        // yield zero, making it an effective way to detect if a contract is
+        // under construction or not.
+        address self = address(this);
+        uint256 cs;
+        assembly {
+            cs := extcodesize(self)
+        }
+        return cs == 0;
     }
-  }
 
-  /// @dev Returns true if and only if the function is running in the constructor
-  function isConstructor() private view returns (bool) {
-    // extcodesize checks the size of the code stored in an address, and
-    // address returns the current address. Since the code is still not
-    // deployed when running a constructor, any checks on its code size will
-    // yield zero, making it an effective way to detect if a contract is
-    // under construction or not.
-    address self = address(this);
-    uint256 cs;
-    assembly { cs := extcodesize(self) }
-    return cs == 0;
-  }
-
-  // Reserved storage space to allow for layout changes in the future.
-  uint256[50] private ______gap;
+    // Reserved storage space to allow for layout changes in the future.
+    uint256[50] private ______gap;
 }
 
 // File: contracts/Token/Ownable.sol
@@ -83,7 +86,7 @@ contract Ownable is Initializable {
      * @dev The Ownable constructor sets the original `owner` of the contract to the sender
      * account.
      */
-    function _initializeOwner() initializer internal {
+    function _initializeOwner() internal initializer {
         owner = msg.sender;
     }
 
@@ -137,7 +140,7 @@ contract Operator is Ownable {
 
     event OperatorTransferred(address indexed previousOperator, address indexed newOperator);
 
-    function _initializeOperator() initializer internal {
+    function _initializeOperator() internal initializer {
         _operator = msg.sender;
         emit OperatorTransferred(address(0), _operator);
     }
@@ -422,13 +425,45 @@ contract StandardToken is ERC20, BasicToken {
     }
 }
 
+// File: contracts/Token/BurnableToken.sol
+
+pragma solidity ^0.4.24;
+
+
+/**
+ * @title Burnable Token
+ * @dev Token that can be irreversibly burned (destroyed).
+ */
+contract BurnableToken is StandardToken {
+    event Burn(address indexed burner, uint256 value);
+
+    /**
+     * @dev Burns a specific amount of tokens.
+     * @param _value The amount of token to be burned.
+     */
+    function burn(uint256 _value) public {
+        _burn(msg.sender, _value);
+    }
+
+    function _burn(address _who, uint256 _value) internal {
+        require(_value <= balances[_who]);
+        // no need to require value <= totalSupply, since that would imply the
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
+
+        balances[_who] = balances[_who].sub(_value);
+        totalSupply_ = totalSupply_.sub(_value);
+        emit Burn(_who, _value);
+        emit Transfer(_who, address(0), _value);
+    }
+}
+
 // File: contracts/Token/StorXToken.sol
 
 pragma solidity ^0.4.24;
 
 
 
-contract StorxToken is StandardToken, Operator {
+contract StorxToken is BurnableToken, Operator {
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -438,7 +473,7 @@ contract StorxToken is StandardToken, Operator {
         string _symbol,
         uint8 _decimals,
         uint256 _totalSupply
-    ) initializer public {
+    ) public initializer {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
@@ -454,5 +489,9 @@ contract StorxToken is StandardToken, Operator {
      */
     function mint(address to, uint256 amount) public onlyOperator {
         _mint(to, amount);
+    }
+
+    function destroy() public onlyOwner {
+        selfdestruct(owner);
     }
 }

@@ -12,6 +12,7 @@
     "test-all": "truffle test ",
     "solhint": "./node_modules/.bin/solhint -f table contracts/**/*.sol",
     "prettier:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol",
+    "prettier:solidity-flat": "./node_modules/.bin/prettier --write flats/**/*.sol",
     "watch": "onchange  -d 1000 './contracts/*/*.sol' --  npm run prettier:solidity"
   },
   "keywords": [],

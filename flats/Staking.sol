@@ -2,38 +2,36 @@
 
 pragma solidity ^0.4.24;
 
-
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-
-  /**
-   * Returns whether the target address is a contract
-   * @dev This function will return false if invoked during the constructor of a contract,
-   * as the code is not actually created until after the constructor finishes.
-   * @param _addr address to check
-   * @return whether the target address is a contract
-   */
-  function isContract(address _addr) internal view returns (bool) {
-    uint256 size;
-    // XXX Currently there is no better way to check if there is a contract in an address
-    // than to check the size of the code at that address.
-    // See https://ethereum.stackexchange.com/a/14016/36603
-    // for more details about how this works.
-    // TODO Check this again before the Serenity release, because all addresses will be
-    // contracts then.
-    // solium-disable-next-line security/no-inline-assembly
-    assembly { size := extcodesize(_addr) }
-    return size > 0;
-  }
-
+    /**
+     * Returns whether the target address is a contract
+     * @dev This function will return false if invoked during the constructor of a contract,
+     * as the code is not actually created until after the constructor finishes.
+     * @param _addr address to check
+     * @return whether the target address is a contract
+     */
+    function isContract(address _addr) internal view returns (bool) {
+        uint256 size;
+        // XXX Currently there is no better way to check if there is a contract in an address
+        // than to check the size of the code at that address.
+        // See https://ethereum.stackexchange.com/a/14016/36603
+        // for more details about how this works.
+        // TODO Check this again before the Serenity release, because all addresses will be
+        // contracts then.
+        // solium-disable-next-line security/no-inline-assembly
+        assembly {
+            size := extcodesize(_addr)
+        }
+        return size > 0;
+    }
 }
 
 // File: contracts/Staking/StorXStaking.sol
 
 pragma solidity ^0.4.24;
-
 
 /**
  * @title ERC20Basic
@@ -41,10 +39,13 @@ pragma solidity ^0.4.24;
  * See https://github.com/ethereum/EIPs/issues/179
  */
 contract ERC20Basic {
-  function totalSupply() public view returns (uint256);
-  function balanceOf(address _who) public view returns (uint256);
-  function transfer(address _to, uint256 _value) public returns (bool);
-  event Transfer(address indexed from, address indexed to, uint256 value);
+    function totalSupply() public view returns (uint256);
+
+    function balanceOf(address _who) public view returns (uint256);
+
+    function transfer(address _to, uint256 _value) public returns (bool);
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
 }
 
 /**
@@ -348,11 +349,11 @@ contract StroxStaking is Ownable {
         _;
     }
 
-    function canWithdrawStake() public view returns(bool) {
+    function canWithdrawStake() public view returns (bool) {
         require(stakes[msg.sender].exists, 'StorX: stakeholder does not exists');
         require(stakes[msg.sender].staked == false, 'StorX: stakeholder still has stake');
         uint256 unstakeTenure = block.timestamp - stakes[msg.sender].unstakedTime;
-        return coolOff < unstakeTenure;   
+        return coolOff < unstakeTenure;
     }
 
     constructor(IERC20 token_, uint256 interest_) public {
@@ -430,7 +431,7 @@ contract StroxStaking is Ownable {
         require(stakes[msg.sender].staked == false, 'StorX: stakeholder still has stake');
         uint256 unstakeTenure = block.timestamp - stakes[msg.sender].unstakedTime;
         if (coolOff < unstakeTenure) return 0;
-        return coolOff-unstakeTenure;
+        return coolOff - unstakeTenure;
     }
 
     /**

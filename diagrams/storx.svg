@@ -1,329 +1,430 @@
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [  <!ENTITY quot "&#34;">  <!ENTITY amp "&#38;">  <!ENTITY apos "&#39;">  <!ENTITY lt "&#60;">  <!ENTITY gt "&#62;">  <!ENTITY nbsp "&#160;">  <!ENTITY iexcl "&#161;">  <!ENTITY cent "&#162;">  <!ENTITY pound "&#163;">  <!ENTITY curren "&#164;">  <!ENTITY yen "&#165;">  <!ENTITY brvbar "&#166;">  <!ENTITY sect "&#167;">  <!ENTITY uml "&#168;">  <!ENTITY copy "&#169;">  <!ENTITY ordf "&#170;">  <!ENTITY laquo "&#171;">  <!ENTITY not "&#172;">  <!ENTITY shy "&#173;">  <!ENTITY reg "&#174;">  <!ENTITY macr "&#175;">  <!ENTITY deg "&#176;">  <!ENTITY plusmn "&#177;">  <!ENTITY sup2 "&#178;">  <!ENTITY sup3 "&#179;">  <!ENTITY acute "&#180;">  <!ENTITY micro "&#181;">  <!ENTITY para "&#182;">  <!ENTITY middot "&#183;">  <!ENTITY cedil "&#184;">  <!ENTITY sup1 "&#185;">  <!ENTITY ordm "&#186;">  <!ENTITY raquo "&#187;">  <!ENTITY frac14 "&#188;">  <!ENTITY frac12 "&#189;">  <!ENTITY frac34 "&#190;">  <!ENTITY iquest "&#191;">  <!ENTITY Agrave "&#192;">  <!ENTITY Aacute "&#193;">  <!ENTITY Acirc "&#194;">  <!ENTITY Atilde "&#195;">  <!ENTITY Auml "&#196;">  <!ENTITY Aring "&#197;">  <!ENTITY AElig "&#198;">  <!ENTITY Ccedil "&#199;">  <!ENTITY Egrave "&#200;">  <!ENTITY Eacute "&#201;">  <!ENTITY Ecirc "&#202;">  <!ENTITY Euml "&#203;">  <!ENTITY Igrave "&#204;">  <!ENTITY Iacute "&#205;">  <!ENTITY Icirc "&#206;">  <!ENTITY Iuml "&#207;">  <!ENTITY ETH "&#208;">  <!ENTITY Ntilde "&#209;">  <!ENTITY Ograve "&#210;">  <!ENTITY Oacute "&#211;">  <!ENTITY Ocirc "&#212;">  <!ENTITY Otilde "&#213;">  <!ENTITY Ouml "&#214;">  <!ENTITY times "&#215;">  <!ENTITY Oslash "&#216;">  <!ENTITY Ugrave "&#217;">  <!ENTITY Uacute "&#218;">  <!ENTITY Ucirc "&#219;">  <!ENTITY Uuml "&#220;">  <!ENTITY Yacute "&#221;">  <!ENTITY THORN "&#222;">  <!ENTITY szlig "&#223;">  <!ENTITY agrave "&#224;">  <!ENTITY aacute "&#225;">  <!ENTITY acirc "&#226;">  <!ENTITY atilde "&#227;">  <!ENTITY auml "&#228;">  <!ENTITY aring "&#229;">  <!ENTITY aelig "&#230;">  <!ENTITY ccedil "&#231;">  <!ENTITY egrave "&#232;">  <!ENTITY eacute "&#233;">  <!ENTITY ecirc "&#234;">  <!ENTITY euml "&#235;">  <!ENTITY igrave "&#236;">  <!ENTITY iacute "&#237;">  <!ENTITY icirc "&#238;">  <!ENTITY iuml "&#239;">  <!ENTITY eth "&#240;">  <!ENTITY ntilde "&#241;">  <!ENTITY ograve "&#242;">  <!ENTITY oacute "&#243;">  <!ENTITY ocirc "&#244;">  <!ENTITY otilde "&#245;">  <!ENTITY ouml "&#246;">  <!ENTITY divide "&#247;">  <!ENTITY oslash "&#248;">  <!ENTITY ugrave "&#249;">  <!ENTITY uacute "&#250;">  <!ENTITY ucirc "&#251;">  <!ENTITY uuml "&#252;">  <!ENTITY yacute "&#253;">  <!ENTITY thorn "&#254;">  <!ENTITY yuml "&#255;">  <!ENTITY OElig "&#338;">  <!ENTITY oelig "&#339;">  <!ENTITY Scaron "&#352;">  <!ENTITY scaron "&#353;">  <!ENTITY Yuml "&#376;">  <!ENTITY fnof "&#402;">  <!ENTITY circ "&#710;">  <!ENTITY tilde "&#732;">  <!ENTITY Alpha "&#913;">  <!ENTITY Beta "&#914;">  <!ENTITY Gamma "&#915;">  <!ENTITY Delta "&#916;">  <!ENTITY Epsilon "&#917;">  <!ENTITY Zeta "&#918;">  <!ENTITY Eta "&#919;">  <!ENTITY Theta "&#920;">  <!ENTITY Iota "&#921;">  <!ENTITY Kappa "&#922;">  <!ENTITY Lambda "&#923;">  <!ENTITY Mu "&#924;">  <!ENTITY Nu "&#925;">  <!ENTITY Xi "&#926;">  <!ENTITY Omicron "&#927;">  <!ENTITY Pi "&#928;">  <!ENTITY Rho "&#929;">  <!ENTITY Sigma "&#931;">  <!ENTITY Tau "&#932;">  <!ENTITY Upsilon "&#933;">  <!ENTITY Phi "&#934;">  <!ENTITY Chi "&#935;">  <!ENTITY Psi "&#936;">  <!ENTITY Omega "&#937;">  <!ENTITY alpha "&#945;">  <!ENTITY beta "&#946;">  <!ENTITY gamma "&#947;">  <!ENTITY delta "&#948;">  <!ENTITY epsilon "&#949;">  <!ENTITY zeta "&#950;">  <!ENTITY eta "&#951;">  <!ENTITY theta "&#952;">  <!ENTITY iota "&#953;">  <!ENTITY kappa "&#954;">  <!ENTITY lambda "&#955;">  <!ENTITY mu "&#956;">  <!ENTITY nu "&#957;">  <!ENTITY xi "&#958;">  <!ENTITY omicron "&#959;">  <!ENTITY pi "&#960;">  <!ENTITY rho "&#961;">  <!ENTITY sigmaf "&#962;">  <!ENTITY sigma "&#963;">  <!ENTITY tau "&#964;">  <!ENTITY upsilon "&#965;">  <!ENTITY phi "&#966;">  <!ENTITY chi "&#967;">  <!ENTITY psi "&#968;">  <!ENTITY omega "&#969;">  <!ENTITY thetasym "&#977;">  <!ENTITY upsih "&#978;">  <!ENTITY piv "&#982;">  <!ENTITY ensp "&#8194;">  <!ENTITY emsp "&#8195;">  <!ENTITY thinsp "&#8201;">  <!ENTITY zwnj "&#8204;">  <!ENTITY zwj "&#8205;">  <!ENTITY lrm "&#8206;">  <!ENTITY rlm "&#8207;">  <!ENTITY ndash "&#8211;">  <!ENTITY mdash "&#8212;">  <!ENTITY lsquo "&#8216;">  <!ENTITY rsquo "&#8217;">  <!ENTITY sbquo "&#8218;">  <!ENTITY ldquo "&#8220;">  <!ENTITY rdquo "&#8221;">  <!ENTITY bdquo "&#8222;">  <!ENTITY dagger "&#8224;">  <!ENTITY Dagger "&#8225;">  <!ENTITY bull "&#8226;">  <!ENTITY hellip "&#8230;">  <!ENTITY permil "&#8240;">  <!ENTITY prime "&#8242;">  <!ENTITY Prime "&#8243;">  <!ENTITY lsaquo "&#8249;">  <!ENTITY rsaquo "&#8250;">  <!ENTITY oline "&#8254;">  <!ENTITY frasl "&#8260;">  <!ENTITY euro "&#8364;">  <!ENTITY image "&#8465;">  <!ENTITY weierp "&#8472;">  <!ENTITY real "&#8476;">  <!ENTITY trade "&#8482;">  <!ENTITY alefsym "&#8501;">  <!ENTITY larr "&#8592;">  <!ENTITY uarr "&#8593;">  <!ENTITY rarr "&#8594;">  <!ENTITY darr "&#8595;">  <!ENTITY harr "&#8596;">  <!ENTITY crarr "&#8629;">  <!ENTITY lArr "&#8656;">  <!ENTITY uArr "&#8657;">  <!ENTITY rArr "&#8658;">  <!ENTITY dArr "&#8659;">  <!ENTITY hArr "&#8660;">  <!ENTITY forall "&#8704;">  <!ENTITY part "&#8706;">  <!ENTITY exist "&#8707;">  <!ENTITY empty "&#8709;">  <!ENTITY nabla "&#8711;">  <!ENTITY isin "&#8712;">  <!ENTITY notin "&#8713;">  <!ENTITY ni "&#8715;">  <!ENTITY prod "&#8719;">  <!ENTITY sum "&#8721;">  <!ENTITY minus "&#8722;">  <!ENTITY lowast "&#8727;">  <!ENTITY radic "&#8730;">  <!ENTITY prop "&#8733;">  <!ENTITY infin "&#8734;">  <!ENTITY ang "&#8736;">  <!ENTITY and "&#8743;">  <!ENTITY or "&#8744;">  <!ENTITY cap "&#8745;">  <!ENTITY cup "&#8746;">  <!ENTITY int "&#8747;">  <!ENTITY there4 "&#8756;">  <!ENTITY sim "&#8764;">  <!ENTITY cong "&#8773;">  <!ENTITY asymp "&#8776;">  <!ENTITY ne "&#8800;">  <!ENTITY equiv "&#8801;">  <!ENTITY le "&#8804;">  <!ENTITY ge "&#8805;">  <!ENTITY sub "&#8834;">  <!ENTITY sup "&#8835;">  <!ENTITY nsub "&#8836;">  <!ENTITY sube "&#8838;">  <!ENTITY supe "&#8839;">  <!ENTITY oplus "&#8853;">  <!ENTITY otimes "&#8855;">  <!ENTITY perp "&#8869;">  <!ENTITY sdot "&#8901;">  <!ENTITY lceil "&#8968;">  <!ENTITY rceil "&#8969;">  <!ENTITY lfloor "&#8970;">  <!ENTITY rfloor "&#8971;">  <!ENTITY lang "&#9001;">  <!ENTITY rang "&#9002;">  <!ENTITY loz "&#9674;">  <!ENTITY spades "&#9824;">  <!ENTITY clubs "&#9827;">  <!ENTITY hearts "&#9829;">  <!ENTITY diams "&#9830;"> ]><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="528pt" height="1898pt" viewBox="0.00 0.00 528.03 1898.00">
-<g id="graph0" class="graph" transform="translate(4,1894) scale(1)" data-name="G">
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [  <!ENTITY quot "&#34;">  <!ENTITY amp "&#38;">  <!ENTITY apos "&#39;">  <!ENTITY lt "&#60;">  <!ENTITY gt "&#62;">  <!ENTITY nbsp "&#160;">  <!ENTITY iexcl "&#161;">  <!ENTITY cent "&#162;">  <!ENTITY pound "&#163;">  <!ENTITY curren "&#164;">  <!ENTITY yen "&#165;">  <!ENTITY brvbar "&#166;">  <!ENTITY sect "&#167;">  <!ENTITY uml "&#168;">  <!ENTITY copy "&#169;">  <!ENTITY ordf "&#170;">  <!ENTITY laquo "&#171;">  <!ENTITY not "&#172;">  <!ENTITY shy "&#173;">  <!ENTITY reg "&#174;">  <!ENTITY macr "&#175;">  <!ENTITY deg "&#176;">  <!ENTITY plusmn "&#177;">  <!ENTITY sup2 "&#178;">  <!ENTITY sup3 "&#179;">  <!ENTITY acute "&#180;">  <!ENTITY micro "&#181;">  <!ENTITY para "&#182;">  <!ENTITY middot "&#183;">  <!ENTITY cedil "&#184;">  <!ENTITY sup1 "&#185;">  <!ENTITY ordm "&#186;">  <!ENTITY raquo "&#187;">  <!ENTITY frac14 "&#188;">  <!ENTITY frac12 "&#189;">  <!ENTITY frac34 "&#190;">  <!ENTITY iquest "&#191;">  <!ENTITY Agrave "&#192;">  <!ENTITY Aacute "&#193;">  <!ENTITY Acirc "&#194;">  <!ENTITY Atilde "&#195;">  <!ENTITY Auml "&#196;">  <!ENTITY Aring "&#197;">  <!ENTITY AElig "&#198;">  <!ENTITY Ccedil "&#199;">  <!ENTITY Egrave "&#200;">  <!ENTITY Eacute "&#201;">  <!ENTITY Ecirc "&#202;">  <!ENTITY Euml "&#203;">  <!ENTITY Igrave "&#204;">  <!ENTITY Iacute "&#205;">  <!ENTITY Icirc "&#206;">  <!ENTITY Iuml "&#207;">  <!ENTITY ETH "&#208;">  <!ENTITY Ntilde "&#209;">  <!ENTITY Ograve "&#210;">  <!ENTITY Oacute "&#211;">  <!ENTITY Ocirc "&#212;">  <!ENTITY Otilde "&#213;">  <!ENTITY Ouml "&#214;">  <!ENTITY times "&#215;">  <!ENTITY Oslash "&#216;">  <!ENTITY Ugrave "&#217;">  <!ENTITY Uacute "&#218;">  <!ENTITY Ucirc "&#219;">  <!ENTITY Uuml "&#220;">  <!ENTITY Yacute "&#221;">  <!ENTITY THORN "&#222;">  <!ENTITY szlig "&#223;">  <!ENTITY agrave "&#224;">  <!ENTITY aacute "&#225;">  <!ENTITY acirc "&#226;">  <!ENTITY atilde "&#227;">  <!ENTITY auml "&#228;">  <!ENTITY aring "&#229;">  <!ENTITY aelig "&#230;">  <!ENTITY ccedil "&#231;">  <!ENTITY egrave "&#232;">  <!ENTITY eacute "&#233;">  <!ENTITY ecirc "&#234;">  <!ENTITY euml "&#235;">  <!ENTITY igrave "&#236;">  <!ENTITY iacute "&#237;">  <!ENTITY icirc "&#238;">  <!ENTITY iuml "&#239;">  <!ENTITY eth "&#240;">  <!ENTITY ntilde "&#241;">  <!ENTITY ograve "&#242;">  <!ENTITY oacute "&#243;">  <!ENTITY ocirc "&#244;">  <!ENTITY otilde "&#245;">  <!ENTITY ouml "&#246;">  <!ENTITY divide "&#247;">  <!ENTITY oslash "&#248;">  <!ENTITY ugrave "&#249;">  <!ENTITY uacute "&#250;">  <!ENTITY ucirc "&#251;">  <!ENTITY uuml "&#252;">  <!ENTITY yacute "&#253;">  <!ENTITY thorn "&#254;">  <!ENTITY yuml "&#255;">  <!ENTITY OElig "&#338;">  <!ENTITY oelig "&#339;">  <!ENTITY Scaron "&#352;">  <!ENTITY scaron "&#353;">  <!ENTITY Yuml "&#376;">  <!ENTITY fnof "&#402;">  <!ENTITY circ "&#710;">  <!ENTITY tilde "&#732;">  <!ENTITY Alpha "&#913;">  <!ENTITY Beta "&#914;">  <!ENTITY Gamma "&#915;">  <!ENTITY Delta "&#916;">  <!ENTITY Epsilon "&#917;">  <!ENTITY Zeta "&#918;">  <!ENTITY Eta "&#919;">  <!ENTITY Theta "&#920;">  <!ENTITY Iota "&#921;">  <!ENTITY Kappa "&#922;">  <!ENTITY Lambda "&#923;">  <!ENTITY Mu "&#924;">  <!ENTITY Nu "&#925;">  <!ENTITY Xi "&#926;">  <!ENTITY Omicron "&#927;">  <!ENTITY Pi "&#928;">  <!ENTITY Rho "&#929;">  <!ENTITY Sigma "&#931;">  <!ENTITY Tau "&#932;">  <!ENTITY Upsilon "&#933;">  <!ENTITY Phi "&#934;">  <!ENTITY Chi "&#935;">  <!ENTITY Psi "&#936;">  <!ENTITY Omega "&#937;">  <!ENTITY alpha "&#945;">  <!ENTITY beta "&#946;">  <!ENTITY gamma "&#947;">  <!ENTITY delta "&#948;">  <!ENTITY epsilon "&#949;">  <!ENTITY zeta "&#950;">  <!ENTITY eta "&#951;">  <!ENTITY theta "&#952;">  <!ENTITY iota "&#953;">  <!ENTITY kappa "&#954;">  <!ENTITY lambda "&#955;">  <!ENTITY mu "&#956;">  <!ENTITY nu "&#957;">  <!ENTITY xi "&#958;">  <!ENTITY omicron "&#959;">  <!ENTITY pi "&#960;">  <!ENTITY rho "&#961;">  <!ENTITY sigmaf "&#962;">  <!ENTITY sigma "&#963;">  <!ENTITY tau "&#964;">  <!ENTITY upsilon "&#965;">  <!ENTITY phi "&#966;">  <!ENTITY chi "&#967;">  <!ENTITY psi "&#968;">  <!ENTITY omega "&#969;">  <!ENTITY thetasym "&#977;">  <!ENTITY upsih "&#978;">  <!ENTITY piv "&#982;">  <!ENTITY ensp "&#8194;">  <!ENTITY emsp "&#8195;">  <!ENTITY thinsp "&#8201;">  <!ENTITY zwnj "&#8204;">  <!ENTITY zwj "&#8205;">  <!ENTITY lrm "&#8206;">  <!ENTITY rlm "&#8207;">  <!ENTITY ndash "&#8211;">  <!ENTITY mdash "&#8212;">  <!ENTITY lsquo "&#8216;">  <!ENTITY rsquo "&#8217;">  <!ENTITY sbquo "&#8218;">  <!ENTITY ldquo "&#8220;">  <!ENTITY rdquo "&#8221;">  <!ENTITY bdquo "&#8222;">  <!ENTITY dagger "&#8224;">  <!ENTITY Dagger "&#8225;">  <!ENTITY bull "&#8226;">  <!ENTITY hellip "&#8230;">  <!ENTITY permil "&#8240;">  <!ENTITY prime "&#8242;">  <!ENTITY Prime "&#8243;">  <!ENTITY lsaquo "&#8249;">  <!ENTITY rsaquo "&#8250;">  <!ENTITY oline "&#8254;">  <!ENTITY frasl "&#8260;">  <!ENTITY euro "&#8364;">  <!ENTITY image "&#8465;">  <!ENTITY weierp "&#8472;">  <!ENTITY real "&#8476;">  <!ENTITY trade "&#8482;">  <!ENTITY alefsym "&#8501;">  <!ENTITY larr "&#8592;">  <!ENTITY uarr "&#8593;">  <!ENTITY rarr "&#8594;">  <!ENTITY darr "&#8595;">  <!ENTITY harr "&#8596;">  <!ENTITY crarr "&#8629;">  <!ENTITY lArr "&#8656;">  <!ENTITY uArr "&#8657;">  <!ENTITY rArr "&#8658;">  <!ENTITY dArr "&#8659;">  <!ENTITY hArr "&#8660;">  <!ENTITY forall "&#8704;">  <!ENTITY part "&#8706;">  <!ENTITY exist "&#8707;">  <!ENTITY empty "&#8709;">  <!ENTITY nabla "&#8711;">  <!ENTITY isin "&#8712;">  <!ENTITY notin "&#8713;">  <!ENTITY ni "&#8715;">  <!ENTITY prod "&#8719;">  <!ENTITY sum "&#8721;">  <!ENTITY minus "&#8722;">  <!ENTITY lowast "&#8727;">  <!ENTITY radic "&#8730;">  <!ENTITY prop "&#8733;">  <!ENTITY infin "&#8734;">  <!ENTITY ang "&#8736;">  <!ENTITY and "&#8743;">  <!ENTITY or "&#8744;">  <!ENTITY cap "&#8745;">  <!ENTITY cup "&#8746;">  <!ENTITY int "&#8747;">  <!ENTITY there4 "&#8756;">  <!ENTITY sim "&#8764;">  <!ENTITY cong "&#8773;">  <!ENTITY asymp "&#8776;">  <!ENTITY ne "&#8800;">  <!ENTITY equiv "&#8801;">  <!ENTITY le "&#8804;">  <!ENTITY ge "&#8805;">  <!ENTITY sub "&#8834;">  <!ENTITY sup "&#8835;">  <!ENTITY nsub "&#8836;">  <!ENTITY sube "&#8838;">  <!ENTITY supe "&#8839;">  <!ENTITY oplus "&#8853;">  <!ENTITY otimes "&#8855;">  <!ENTITY perp "&#8869;">  <!ENTITY sdot "&#8901;">  <!ENTITY lceil "&#8968;">  <!ENTITY rceil "&#8969;">  <!ENTITY lfloor "&#8970;">  <!ENTITY rfloor "&#8971;">  <!ENTITY lang "&#9001;">  <!ENTITY rang "&#9002;">  <!ENTITY loz "&#9674;">  <!ENTITY spades "&#9824;">  <!ENTITY clubs "&#9827;">  <!ENTITY hearts "&#9829;">  <!ENTITY diams "&#9830;"> ]><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="528pt" height="1914pt" viewBox="0.00 0.00 528.03 1914.00">
+<g id="graph0" class="graph" transform="translate(4,1910) scale(1)" data-name="G">
 
-<polygon fill="#2e3e56" stroke="transparent" points="-4,4 -4,-1894 524.0273,-1894 524.0273,4 -4,4" style=""></polygon>
+<polygon fill="#2e3e56" stroke="transparent" points="-4,4 -4,-1910 524.0273,-1910 524.0273,4 -4,4" style=""></polygon>
 <g id="clust1" class="cluster">
-<title style="">clusterOwnable</title>
-<path fill="#445773" stroke="#445773" d="M20,-8C20,-8 401.0273,-8 401.0273,-8 407.0273,-8 413.0273,-14 413.0273,-20 413.0273,-20 413.0273,-243 413.0273,-243 413.0273,-249 407.0273,-255 401.0273,-255 401.0273,-255 20,-255 20,-255 14,-255 8,-249 8,-243 8,-243 8,-20 8,-20 8,-14 14,-8 20,-8" style=""></path>
-<text text-anchor="middle" x="210.5136" y="-238.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">Ownable</text>
+<title style="">clusterInitializable</title>
+<path fill="#445773" stroke="#445773" d="M52.794,-8C52.794,-8 376.377,-8 376.377,-8 382.377,-8 388.377,-14 388.377,-20 388.377,-20 388.377,-81 388.377,-81 388.377,-87 382.377,-93 376.377,-93 376.377,-93 52.794,-93 52.794,-93 46.794,-93 40.794,-87 40.794,-81 40.794,-81 40.794,-20 40.794,-20 40.794,-14 46.794,-8 52.794,-8" style=""></path>
+<text text-anchor="middle" x="214.5855" y="-76.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">Initializable</text>
 </g>
 <g id="clust2" class="cluster">
-<title style="">clusterOperator</title>
-<path fill="#445773" stroke="#445773" d="M33.9572,-263C33.9572,-263 392.9734,-263 392.9734,-263 398.9734,-263 404.9734,-269 404.9734,-275 404.9734,-275 404.9734,-552 404.9734,-552 404.9734,-558 398.9734,-564 392.9734,-564 392.9734,-564 33.9572,-564 33.9572,-564 27.9572,-564 21.9572,-558 21.9572,-552 21.9572,-552 21.9572,-275 21.9572,-275 21.9572,-269 27.9572,-263 33.9572,-263" style=""></path>
-<text text-anchor="middle" x="213.4653" y="-547.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">Operator</text>
+<title style="">clusterOwnable</title>
+<path fill="#445773" stroke="#445773" d="M20,-101C20,-101 401.0273,-101 401.0273,-101 407.0273,-101 413.0273,-107 413.0273,-113 413.0273,-113 413.0273,-336 413.0273,-336 413.0273,-342 407.0273,-348 401.0273,-348 401.0273,-348 20,-348 20,-348 14,-348 8,-342 8,-336 8,-336 8,-113 8,-113 8,-107 14,-101 20,-101" style=""></path>
+<text text-anchor="middle" x="210.5136" y="-331.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">Ownable</text>
 </g>
 <g id="clust3" class="cluster">
-<title style="">clusterERC20Basic</title>
-<path fill="#445773" stroke="#445773" d="M53.2257,-572C53.2257,-572 156.3628,-572 156.3628,-572 162.3628,-572 168.3628,-578 168.3628,-584 168.3628,-584 168.3628,-745 168.3628,-745 168.3628,-751 162.3628,-757 156.3628,-757 156.3628,-757 53.2257,-757 53.2257,-757 47.2257,-757 41.2257,-751 41.2257,-745 41.2257,-745 41.2257,-584 41.2257,-584 41.2257,-578 47.2257,-572 53.2257,-572" style=""></path>
-<text text-anchor="middle" x="104.7942" y="-740.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">ERC20Basic</text>
+<title style="">clusterOperator</title>
+<path fill="#445773" stroke="#445773" d="M24.8236,-356C24.8236,-356 392.9734,-356 392.9734,-356 398.9734,-356 404.9734,-362 404.9734,-368 404.9734,-368 404.9734,-645 404.9734,-645 404.9734,-651 398.9734,-657 392.9734,-657 392.9734,-657 24.8236,-657 24.8236,-657 18.8236,-657 12.8236,-651 12.8236,-645 12.8236,-645 12.8236,-368 12.8236,-368 12.8236,-362 18.8236,-356 24.8236,-356" style=""></path>
+<text text-anchor="middle" x="208.8985" y="-640.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">Operator</text>
 </g>
 <g id="clust4" class="cluster">
-<title style="">clusterSafeMath</title>
-<path fill="#445773" stroke="#445773" d="M66.7942,-765C66.7942,-765 143.7942,-765 143.7942,-765 149.7942,-765 155.7942,-771 155.7942,-777 155.7942,-777 155.7942,-992 155.7942,-992 155.7942,-998 149.7942,-1004 143.7942,-1004 143.7942,-1004 66.7942,-1004 66.7942,-1004 60.7942,-1004 54.7942,-998 54.7942,-992 54.7942,-992 54.7942,-777 54.7942,-777 54.7942,-771 60.7942,-765 66.7942,-765" style=""></path>
-<text text-anchor="middle" x="105.2942" y="-987.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">SafeMath &nbsp;(lib)</text>
+<title style="">clusterERC20Basic</title>
+<path fill="#445773" stroke="#445773" d="M53.2257,-665C53.2257,-665 156.3628,-665 156.3628,-665 162.3628,-665 168.3628,-671 168.3628,-677 168.3628,-677 168.3628,-838 168.3628,-838 168.3628,-844 162.3628,-850 156.3628,-850 156.3628,-850 53.2257,-850 53.2257,-850 47.2257,-850 41.2257,-844 41.2257,-838 41.2257,-838 41.2257,-677 41.2257,-677 41.2257,-671 47.2257,-665 53.2257,-665" style=""></path>
+<text text-anchor="middle" x="104.7942" y="-833.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">ERC20Basic</text>
 </g>
 <g id="clust5" class="cluster">
-<title style="">clusterBasicToken</title>
-<path fill="#445773" stroke="#445773" d="M53.2257,-1012C53.2257,-1012 156.3628,-1012 156.3628,-1012 162.3628,-1012 168.3628,-1018 168.3628,-1024 168.3628,-1024 168.3628,-1185 168.3628,-1185 168.3628,-1191 162.3628,-1197 156.3628,-1197 156.3628,-1197 53.2257,-1197 53.2257,-1197 47.2257,-1197 41.2257,-1191 41.2257,-1185 41.2257,-1185 41.2257,-1024 41.2257,-1024 41.2257,-1018 47.2257,-1012 53.2257,-1012" style=""></path>
-<text text-anchor="middle" x="104.7942" y="-1180.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">BasicToken</text>
+<title style="">clusterSafeMath</title>
+<path fill="#445773" stroke="#445773" d="M66.7942,-858C66.7942,-858 143.7942,-858 143.7942,-858 149.7942,-858 155.7942,-864 155.7942,-870 155.7942,-870 155.7942,-1085 155.7942,-1085 155.7942,-1091 149.7942,-1097 143.7942,-1097 143.7942,-1097 66.7942,-1097 66.7942,-1097 60.7942,-1097 54.7942,-1091 54.7942,-1085 54.7942,-1085 54.7942,-870 54.7942,-870 54.7942,-864 60.7942,-858 66.7942,-858" style=""></path>
+<text text-anchor="middle" x="105.2942" y="-1080.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">SafeMath &nbsp;(lib)</text>
 </g>
 <g id="clust6" class="cluster">
-<title style="">clusterERC20</title>
-<path fill="#445773" stroke="#445773" d="M47.3485,-1205C47.3485,-1205 162.24,-1205 162.24,-1205 168.24,-1205 174.24,-1211 174.24,-1217 174.24,-1217 174.24,-1378 174.24,-1378 174.24,-1384 168.24,-1390 162.24,-1390 162.24,-1390 47.3485,-1390 47.3485,-1390 41.3485,-1390 35.3485,-1384 35.3485,-1378 35.3485,-1378 35.3485,-1217 35.3485,-1217 35.3485,-1211 41.3485,-1205 47.3485,-1205" style=""></path>
-<text text-anchor="middle" x="104.7942" y="-1373.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">ERC20</text>
+<title style="">clusterBasicToken</title>
+<path fill="#445773" stroke="#445773" d="M53.2257,-1105C53.2257,-1105 156.3628,-1105 156.3628,-1105 162.3628,-1105 168.3628,-1111 168.3628,-1117 168.3628,-1117 168.3628,-1278 168.3628,-1278 168.3628,-1284 162.3628,-1290 156.3628,-1290 156.3628,-1290 53.2257,-1290 53.2257,-1290 47.2257,-1290 41.2257,-1284 41.2257,-1278 41.2257,-1278 41.2257,-1117 41.2257,-1117 41.2257,-1111 47.2257,-1105 53.2257,-1105" style=""></path>
+<text text-anchor="middle" x="104.7942" y="-1273.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">BasicToken</text>
 </g>
 <g id="clust7" class="cluster">
-<title style="">clusterStandardToken</title>
-<path fill="#445773" stroke="#445773" d="M240.5685,-1398C240.5685,-1398 394.0472,-1398 394.0472,-1398 400.0472,-1398 406.0472,-1404 406.0472,-1410 406.0472,-1410 406.0472,-1733 406.0472,-1733 406.0472,-1739 400.0472,-1745 394.0472,-1745 394.0472,-1745 240.5685,-1745 240.5685,-1745 234.5685,-1745 228.5685,-1739 228.5685,-1733 228.5685,-1733 228.5685,-1410 228.5685,-1410 228.5685,-1404 234.5685,-1398 240.5685,-1398" style=""></path>
-<text text-anchor="middle" x="317.3079" y="-1728.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">StandardToken</text>
+<title style="">clusterERC20</title>
+<path fill="#445773" stroke="#445773" d="M47.3485,-1298C47.3485,-1298 162.24,-1298 162.24,-1298 168.24,-1298 174.24,-1304 174.24,-1310 174.24,-1310 174.24,-1471 174.24,-1471 174.24,-1477 168.24,-1483 162.24,-1483 162.24,-1483 47.3485,-1483 47.3485,-1483 41.3485,-1483 35.3485,-1477 35.3485,-1471 35.3485,-1471 35.3485,-1310 35.3485,-1310 35.3485,-1304 41.3485,-1298 47.3485,-1298" style=""></path>
+<text text-anchor="middle" x="104.7942" y="-1466.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">ERC20</text>
 </g>
 <g id="clust8" class="cluster">
-<title style="">clusterStorxToken</title>
-<path fill="#445773" stroke="#445773" d="M41.2733,-1398C41.2733,-1398 168.3152,-1398 168.3152,-1398 174.3152,-1398 180.3152,-1404 180.3152,-1410 180.3152,-1410 180.3152,-1517 180.3152,-1517 180.3152,-1523 174.3152,-1529 168.3152,-1529 168.3152,-1529 41.2733,-1529 41.2733,-1529 35.2733,-1529 29.2733,-1523 29.2733,-1517 29.2733,-1517 29.2733,-1410 29.2733,-1410 29.2733,-1404 35.2733,-1398 41.2733,-1398" style=""></path>
-<text text-anchor="middle" x="104.7942" y="-1512.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">StorxToken</text>
+<title style="">clusterStandardToken</title>
+<path fill="#445773" stroke="#445773" d="M240.5685,-1136C240.5685,-1136 394.0472,-1136 394.0472,-1136 400.0472,-1136 406.0472,-1142 406.0472,-1148 406.0472,-1148 406.0472,-1471 406.0472,-1471 406.0472,-1477 400.0472,-1483 394.0472,-1483 394.0472,-1483 240.5685,-1483 240.5685,-1483 234.5685,-1483 228.5685,-1477 228.5685,-1471 228.5685,-1471 228.5685,-1148 228.5685,-1148 228.5685,-1142 234.5685,-1136 240.5685,-1136" style=""></path>
+<text text-anchor="middle" x="317.3079" y="-1466.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">StandardToken</text>
 </g>
 <g id="clust9" class="cluster">
-<title style="">clusteroldValue</title>
-<path fill="#3b4b63" stroke="#e8726d" stroke-dasharray="5,2" d="M453.0273,-1467C453.0273,-1467 499.0273,-1467 499.0273,-1467 505.0273,-1467 511.0273,-1473 511.0273,-1479 511.0273,-1479 511.0273,-1532 511.0273,-1532 511.0273,-1538 505.0273,-1544 499.0273,-1544 499.0273,-1544 453.0273,-1544 453.0273,-1544 447.0273,-1544 441.0273,-1538 441.0273,-1532 441.0273,-1532 441.0273,-1479 441.0273,-1479 441.0273,-1473 447.0273,-1467 453.0273,-1467" style=""></path>
-<text text-anchor="middle" x="476.0273" y="-1527.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">oldValue</text>
+<title style="">clusterBurnableToken</title>
+<path fill="#445773" stroke="#445773" d="M80.0575,-1684C80.0575,-1684 346.8731,-1684 346.8731,-1684 352.8731,-1684 358.8731,-1690 358.8731,-1696 358.8731,-1696 358.8731,-1749 358.8731,-1749 358.8731,-1755 352.8731,-1761 346.8731,-1761 346.8731,-1761 80.0575,-1761 80.0575,-1761 74.0575,-1761 68.0575,-1755 68.0575,-1749 68.0575,-1749 68.0575,-1696 68.0575,-1696 68.0575,-1690 74.0575,-1684 80.0575,-1684" style=""></path>
+<text text-anchor="middle" x="213.4653" y="-1744.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">BurnableToken</text>
 </g>
 <g id="clust10" class="cluster">
-<title style="">clustertotalSupply_</title>
-<path fill="#3b4b63" stroke="#e8726d" stroke-dasharray="5,2" d="M445.0273,-1382C445.0273,-1382 508.0273,-1382 508.0273,-1382 514.0273,-1382 520.0273,-1388 520.0273,-1394 520.0273,-1394 520.0273,-1447 520.0273,-1447 520.0273,-1453 514.0273,-1459 508.0273,-1459 508.0273,-1459 445.0273,-1459 445.0273,-1459 439.0273,-1459 433.0273,-1453 433.0273,-1447 433.0273,-1447 433.0273,-1394 433.0273,-1394 433.0273,-1388 439.0273,-1382 445.0273,-1382" style=""></path>
-<text text-anchor="middle" x="476.5273" y="-1442.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">totalSupply_</text>
+<title style="">clusterStorxToken</title>
+<path fill="#445773" stroke="#445773" d="M63.9671,-1491C63.9671,-1491 397.2784,-1491 397.2784,-1491 403.2784,-1491 409.2784,-1497 409.2784,-1503 409.2784,-1503 409.2784,-1664 409.2784,-1664 409.2784,-1670 403.2784,-1676 397.2784,-1676 397.2784,-1676 63.9671,-1676 63.9671,-1676 57.9671,-1676 51.9671,-1670 51.9671,-1664 51.9671,-1664 51.9671,-1503 51.9671,-1503 51.9671,-1497 57.9671,-1491 63.9671,-1491" style=""></path>
+<text text-anchor="middle" x="230.6228" y="-1659.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">StorxToken</text>
 </g>
 <g id="clust11" class="cluster">
-<title style="">cluster_01</title>
-<polygon fill="#2e3e56" stroke="#000000" points="31.7942,-1753 31.7942,-1882 352.3079,-1882 352.3079,-1753 31.7942,-1753" style=""></polygon>
-<text text-anchor="middle" x="192.051" y="-1865.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Legend</text>
+<title style="">clusteroldValue</title>
+<path fill="#3b4b63" stroke="#e8726d" stroke-dasharray="5,2" d="M453.0273,-1136C453.0273,-1136 499.0273,-1136 499.0273,-1136 505.0273,-1136 511.0273,-1142 511.0273,-1148 511.0273,-1148 511.0273,-1201 511.0273,-1201 511.0273,-1207 505.0273,-1213 499.0273,-1213 499.0273,-1213 453.0273,-1213 453.0273,-1213 447.0273,-1213 441.0273,-1207 441.0273,-1201 441.0273,-1201 441.0273,-1148 441.0273,-1148 441.0273,-1142 447.0273,-1136 453.0273,-1136" style=""></path>
+<text text-anchor="middle" x="476.0273" y="-1196.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">oldValue</text>
 </g>
-<!-- Ownable.&lt;Constructor&gt; -->
-<g id="node1" class="node" data-name="Ownable.&lt;Constructor&gt;">
+<g id="clust12" class="cluster">
+<title style="">clustertotalSupply_</title>
+<path fill="#3b4b63" stroke="#e8726d" stroke-dasharray="5,2" d="M445.0273,-1425C445.0273,-1425 508.0273,-1425 508.0273,-1425 514.0273,-1425 520.0273,-1431 520.0273,-1437 520.0273,-1437 520.0273,-1544 520.0273,-1544 520.0273,-1550 514.0273,-1556 508.0273,-1556 508.0273,-1556 445.0273,-1556 445.0273,-1556 439.0273,-1556 433.0273,-1550 433.0273,-1544 433.0273,-1544 433.0273,-1437 433.0273,-1437 433.0273,-1431 439.0273,-1425 445.0273,-1425" style=""></path>
+<text text-anchor="middle" x="476.5273" y="-1539.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">totalSupply_</text>
+</g>
+<g id="clust13" class="cluster">
+<title style="">cluster_01</title>
+<polygon fill="#2e3e56" stroke="#000000" points="31.7942,-1769 31.7942,-1898 352.3079,-1898 352.3079,-1769 31.7942,-1769" style=""></polygon>
+<text text-anchor="middle" x="192.051" y="-1881.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Legend</text>
+</g>
+<!-- Initializable.initializer -->
+<g id="node1" class="node" data-name="Initializable.initializer">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-204" rx="67.5419" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-199.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&lt;Constructor&gt;</text>
+<polygon fill="#edad56" stroke="#1bc6a6" stroke-width="3" points="156.7946,-30.5442 156.7946,-45.4558 126.3335,-56 83.255,-56 52.7938,-45.4558 52.7938,-30.5442 83.255,-20 126.3335,-20 156.7946,-30.5442" style=""></polygon>
+<polygon fill="none" stroke="#1bc6a6" stroke-width="3" points="160.7946,-27.6959 160.7946,-48.3041 127.0062,-60 82.5822,-60 48.7938,-48.3041 48.7938,-27.6959 82.5822,-16 127.0062,-16 160.7946,-27.6959" style=""></polygon>
+<text text-anchor="middle" x="104.7942" y="-33.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">initializer</text>
+</g>
+<!-- Initializable.isConstructor -->
+<g id="node2" class="node" data-name="Initializable.isConstructor">
+
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-38" rx="63.1383" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-33.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">isConstructor</text>
+</g>
+<!-- Initializable.initializer&#45;&gt;Initializable.isConstructor -->
+<g id="edge1" class="edge" data-name="Initializable.initializer->Initializable.isConstructor">
+
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M160.9077,-38C186.3143,-38 216.6836,-38 243.8735,-38" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="244.1216,-41.5001 254.1216,-38 244.1215,-34.5001 244.1216,-41.5001" style=""></polygon>
+</g>
+<!-- Ownable._initializeOwner -->
+<g id="node3" class="node" data-name="Ownable._initializeOwner">
+
+<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-297" rx="75.8566" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-292.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_initializeOwner</text>
 </g>
 <!-- Ownable.onlyOwner -->
-<g id="node2" class="node" data-name="Ownable.onlyOwner">
+<g id="node4" class="node" data-name="Ownable.onlyOwner">
 
-<polygon fill="#edad56" stroke="#1bc6a6" stroke-width="3" points="163.7301,-138.5442 163.7301,-153.4558 129.2062,-164 80.3822,-164 45.8584,-153.4558 45.8584,-138.5442 80.3822,-128 129.2062,-128 163.7301,-138.5442" style=""></polygon>
-<polygon fill="none" stroke="#1bc6a6" stroke-width="3" points="167.728,-135.583 167.728,-156.417 129.8029,-168 79.7856,-168 41.8605,-156.417 41.8605,-135.583 79.7856,-124 129.8029,-124 167.728,-135.583" style=""></polygon>
-<text text-anchor="middle" x="104.7942" y="-141.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">onlyOwner</text>
+<polygon fill="#edad56" stroke="#1bc6a6" stroke-width="3" points="163.7301,-231.5442 163.7301,-246.4558 129.2062,-257 80.3822,-257 45.8584,-246.4558 45.8584,-231.5442 80.3822,-221 129.2062,-221 163.7301,-231.5442" style=""></polygon>
+<polygon fill="none" stroke="#1bc6a6" stroke-width="3" points="167.728,-228.583 167.728,-249.417 129.8029,-261 79.7856,-261 41.8605,-249.417 41.8605,-228.583 79.7856,-217 129.8029,-217 167.728,-228.583" style=""></polygon>
+<text text-anchor="middle" x="104.7942" y="-234.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">onlyOwner</text>
 </g>
 <!-- Ownable.renounceOwnership -->
-<g id="node3" class="node" data-name="Ownable.renounceOwnership">
+<g id="node5" class="node" data-name="Ownable.renounceOwnership">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-88" rx="88.5889" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">renounceOwnership</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-181" rx="88.5889" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-176.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">renounceOwnership</text>
 </g>
 <!-- Ownable.transferOwnership -->
-<g id="node4" class="node" data-name="Ownable.transferOwnership">
+<g id="node6" class="node" data-name="Ownable.transferOwnership">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-34" rx="82.782" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferOwnership</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-127" rx="82.782" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-122.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferOwnership</text>
 </g>
 <!-- Ownable._transferOwnership -->
-<g id="node5" class="node" data-name="Ownable._transferOwnership">
+<g id="node7" class="node" data-name="Ownable._transferOwnership">
 
-<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-34" rx="87.9394" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_transferOwnership</text>
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-127" rx="87.9394" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-122.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_transferOwnership</text>
 </g>
 <!-- Ownable.transferOwnership&#45;&gt;Ownable._transferOwnership -->
-<g id="edge1" class="edge" data-name="Ownable.transferOwnership->Ownable._transferOwnership">
+<g id="edge2" class="edge" data-name="Ownable.transferOwnership->Ownable._transferOwnership">
 
-<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M187.8706,-34C198.1923,-34 208.8208,-34 219.3403,-34" style=""></path>
-<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="219.379,-37.5001 229.379,-34 219.379,-30.5001 219.379,-37.5001" style=""></polygon>
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M187.8706,-127C198.1923,-127 208.8208,-127 219.3403,-127" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="219.379,-130.5001 229.379,-127 219.379,-123.5001 219.379,-130.5001" style=""></polygon>
 </g>
-<!-- Operator.&lt;Constructor&gt; -->
-<g id="node6" class="node" data-name="Operator.&lt;Constructor&gt;">
+<!-- Operator._initializeOperator -->
+<g id="node8" class="node" data-name="Operator._initializeOperator">
 
-<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-513" rx="67.5419" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-508.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&lt;Constructor&gt;</text>
+<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-606" rx="83.9412" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-601.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_initializeOperator</text>
 </g>
 <!-- Operator.operator -->
-<g id="node7" class="node" data-name="Operator.operator">
+<g id="node9" class="node" data-name="Operator.operator">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-459" rx="43.4183" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-454.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">operator</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-552" rx="43.4183" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-547.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">operator</text>
 </g>
 <!-- Operator.onlyOperator -->
-<g id="node8" class="node" data-name="Operator.onlyOperator">
+<g id="node10" class="node" data-name="Operator.onlyOperator">
 
-<polygon fill="#edad56" stroke="#1bc6a6" stroke-width="3" points="172.6286,-393.5442 172.6286,-408.4558 132.8921,-419 76.6963,-419 36.9599,-408.4558 36.9599,-393.5442 76.6963,-383 132.8921,-383 172.6286,-393.5442" style=""></polygon>
-<polygon fill="none" stroke="#1bc6a6" stroke-width="3" points="176.6382,-390.469 176.6382,-411.531 133.4163,-423 76.1722,-423 32.9502,-411.531 32.9502,-390.469 76.1722,-379 133.4163,-379 176.6382,-390.469" style=""></polygon>
-<text text-anchor="middle" x="104.7942" y="-396.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">onlyOperator</text>
+<polygon fill="#edad56" stroke="#1bc6a6" stroke-width="3" points="172.6286,-486.5442 172.6286,-501.4558 132.8921,-512 76.6963,-512 36.9599,-501.4558 36.9599,-486.5442 76.6963,-476 132.8921,-476 172.6286,-486.5442" style=""></polygon>
+<polygon fill="none" stroke="#1bc6a6" stroke-width="3" points="176.6382,-483.469 176.6382,-504.531 133.4163,-516 76.1722,-516 32.9502,-504.531 32.9502,-483.469 76.1722,-472 133.4163,-472 176.6382,-483.469" style=""></polygon>
+<text text-anchor="middle" x="104.7942" y="-489.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">onlyOperator</text>
 </g>
 <!-- Operator.isOperator -->
-<g id="node9" class="node" data-name="Operator.isOperator">
+<g id="node11" class="node" data-name="Operator.isOperator">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-343" rx="51.5823" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-338.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">isOperator</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-436" rx="51.5823" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-431.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">isOperator</text>
 </g>
 <!-- Operator.transferOperator -->
-<g id="node10" class="node" data-name="Operator.transferOperator">
+<g id="node12" class="node" data-name="Operator.transferOperator">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-289" rx="74.6744" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-284.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferOperator</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-382" rx="74.6744" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-377.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferOperator</text>
 </g>
 <!-- Operator._transferOperator -->
-<g id="node11" class="node" data-name="Operator._transferOperator">
+<g id="node13" class="node" data-name="Operator._transferOperator">
 
-<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-289" rx="79.8314" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-284.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_transferOperator</text>
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-382" rx="79.8314" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-377.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_transferOperator</text>
 </g>
 <!-- Operator.transferOperator&#45;&gt;Operator._transferOperator -->
-<g id="edge2" class="edge" data-name="Operator.transferOperator->Operator._transferOperator">
+<g id="edge3" class="edge" data-name="Operator.transferOperator->Operator._transferOperator">
 
-<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M179.7186,-289C195.0108,-289 211.254,-289 227.0173,-289" style=""></path>
-<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="227.2921,-292.5001 237.292,-289 227.292,-285.5001 227.2921,-292.5001" style=""></polygon>
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M179.7186,-382C195.0108,-382 211.254,-382 227.0173,-382" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="227.2921,-385.5001 237.292,-382 227.292,-378.5001 227.2921,-385.5001" style=""></polygon>
 </g>
 <!-- ERC20Basic.totalSupply -->
-<g id="node12" class="node" data-name="ERC20Basic.totalSupply">
+<g id="node14" class="node" data-name="ERC20Basic.totalSupply">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-706" rx="55.6372" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-701.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">totalSupply</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-799" rx="55.6372" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-794.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">totalSupply</text>
 </g>
 <!-- ERC20Basic.balanceOf -->
-<g id="node13" class="node" data-name="ERC20Basic.balanceOf">
+<g id="node15" class="node" data-name="ERC20Basic.balanceOf">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-652" rx="50.9211" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-647.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">balanceOf</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-745" rx="50.9211" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-740.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">balanceOf</text>
 </g>
 <!-- ERC20Basic.transfer -->
-<g id="node14" class="node" data-name="ERC20Basic.transfer">
+<g id="node16" class="node" data-name="ERC20Basic.transfer">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-598" rx="40.5441" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-593.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transfer</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-691" rx="40.5441" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-686.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transfer</text>
 </g>
 <!-- SafeMath.mul -->
-<g id="node15" class="node" data-name="SafeMath.mul">
+<g id="node17" class="node" data-name="SafeMath.mul">
 
-<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-953" rx="27" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-948.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">mul</text>
+<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-1046" rx="27" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1041.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">mul</text>
 </g>
 <!-- SafeMath.div -->
-<g id="node16" class="node" data-name="SafeMath.div">
+<g id="node18" class="node" data-name="SafeMath.div">
 
-<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-899" rx="27" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-894.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">div</text>
+<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-992" rx="27" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-987.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">div</text>
 </g>
 <!-- SafeMath.sub -->
-<g id="node17" class="node" data-name="SafeMath.sub">
+<g id="node19" class="node" data-name="SafeMath.sub">
 
-<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-845" rx="27" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-840.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">sub</text>
+<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-938" rx="27" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-933.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">sub</text>
 </g>
 <!-- SafeMath.add -->
-<g id="node18" class="node" data-name="SafeMath.add">
+<g id="node20" class="node" data-name="SafeMath.add">
 
-<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-791" rx="27" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-786.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">add</text>
+<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="104.7942" cy="-884" rx="27" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-879.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">add</text>
 </g>
 <!-- BasicToken.totalSupply -->
-<g id="node19" class="node" data-name="BasicToken.totalSupply">
+<g id="node21" class="node" data-name="BasicToken.totalSupply">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1146" rx="55.6372" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1141.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">totalSupply</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1239" rx="55.6372" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1234.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">totalSupply</text>
 </g>
 <!-- BasicToken.transfer -->
-<g id="node20" class="node" data-name="BasicToken.transfer">
+<g id="node22" class="node" data-name="BasicToken.transfer">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1092" rx="40.5441" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1087.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transfer</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1185" rx="40.5441" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1180.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transfer</text>
 </g>
 <!-- BasicToken.balanceOf -->
-<g id="node21" class="node" data-name="BasicToken.balanceOf">
+<g id="node23" class="node" data-name="BasicToken.balanceOf">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1038" rx="50.9211" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1033.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">balanceOf</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1131" rx="50.9211" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1126.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">balanceOf</text>
 </g>
 <!-- ERC20.allowance -->
-<g id="node22" class="node" data-name="ERC20.allowance">
+<g id="node24" class="node" data-name="ERC20.allowance">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1339" rx="50.3586" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1334.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">allowance</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1432" rx="50.3586" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1427.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">allowance</text>
 </g>
 <!-- ERC20.transferFrom -->
-<g id="node23" class="node" data-name="ERC20.transferFrom">
+<g id="node25" class="node" data-name="ERC20.transferFrom">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1285" rx="61.3916" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1280.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferFrom</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1378" rx="61.3916" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1373.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferFrom</text>
 </g>
 <!-- ERC20.approve -->
-<g id="node24" class="node" data-name="ERC20.approve">
+<g id="node26" class="node" data-name="ERC20.approve">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1231" rx="42.2777" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1226.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">approve</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1324" rx="42.2777" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1319.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">approve</text>
 </g>
 <!-- StandardToken.transferFrom -->
-<g id="node25" class="node" data-name="StandardToken.transferFrom">
+<g id="node27" class="node" data-name="StandardToken.transferFrom">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1694" rx="61.3916" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-1689.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferFrom</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1432" rx="61.3916" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1427.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">transferFrom</text>
 </g>
 <!-- StandardToken.approve -->
-<g id="node26" class="node" data-name="StandardToken.approve">
+<g id="node28" class="node" data-name="StandardToken.approve">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1640" rx="42.2777" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-1635.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">approve</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1378" rx="42.2777" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1373.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">approve</text>
 </g>
 <!-- StandardToken.allowance -->
-<g id="node27" class="node" data-name="StandardToken.allowance">
+<g id="node29" class="node" data-name="StandardToken.allowance">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1586" rx="50.3586" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-1581.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">allowance</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1324" rx="50.3586" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1319.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">allowance</text>
 </g>
 <!-- StandardToken.increaseApproval -->
-<g id="node28" class="node" data-name="StandardToken.increaseApproval">
+<g id="node30" class="node" data-name="StandardToken.increaseApproval">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1532" rx="79.2729" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-1527.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">increaseApproval</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1270" rx="79.2729" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1265.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">increaseApproval</text>
 </g>
 <!-- StandardToken.decreaseApproval -->
-<g id="node29" class="node" data-name="StandardToken.decreaseApproval">
+<g id="node31" class="node" data-name="StandardToken.decreaseApproval">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1478" rx="80.9794" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-1473.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">decreaseApproval</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="317.3079" cy="-1162" rx="80.9794" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1157.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">decreaseApproval</text>
 </g>
 <!-- oldValue.sub -->
-<g id="node33" class="node" data-name="oldValue.sub">
+<g id="node41" class="node" data-name="oldValue.sub">
 
-<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="476.0273" cy="-1493" rx="27" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="476.0273" y="-1488.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">sub</text>
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="476.0273" cy="-1162" rx="27" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="476.0273" y="-1157.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">sub</text>
 </g>
 <!-- StandardToken.decreaseApproval&#45;&gt;oldValue.sub -->
-<g id="edge3" class="edge" data-name="StandardToken.decreaseApproval->oldValue.sub">
+<g id="edge4" class="edge" data-name="StandardToken.decreaseApproval->oldValue.sub">
 
-<path fill="none" stroke="#ffffff" stroke-width="2" d="M392.0199,-1485.0608C408.2943,-1486.5988 424.8301,-1488.1615 438.8773,-1489.4891" style=""></path>
-<polygon fill="#ffffff" stroke="#ffffff" stroke-width="2" points="438.8037,-1492.9976 449.0886,-1490.4541 439.4623,-1486.0287 438.8037,-1492.9976" style=""></polygon>
+<path fill="none" stroke="#ffffff" stroke-width="2" d="M398.0625,-1162C412.2778,-1162 426.4335,-1162 438.7042,-1162" style=""></path>
+<polygon fill="#ffffff" stroke="#ffffff" stroke-width="2" points="438.9566,-1165.5001 448.9565,-1162 438.9565,-1158.5001 438.9566,-1165.5001" style=""></polygon>
 </g>
 <!-- StandardToken._mint -->
-<g id="node30" class="node" data-name="StandardToken._mint">
+<g id="node32" class="node" data-name="StandardToken._mint">
 
-<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="317.3079" cy="-1424" rx="33.646" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="317.3079" y="-1419.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_mint</text>
+<ellipse fill="#f2c383" stroke="#f2c383" stroke-width="3" cx="317.3079" cy="-1216" rx="33.646" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1211.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_mint</text>
 </g>
 <!-- totalSupply_.add -->
-<g id="node34" class="node" data-name="totalSupply_.add">
+<g id="node42" class="node" data-name="totalSupply_.add">
 
-<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="476.0273" cy="-1408" rx="27" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="476.0273" y="-1403.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">add</text>
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="476.0273" cy="-1451" rx="27" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="476.0273" y="-1446.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">add</text>
 </g>
 <!-- StandardToken._mint&#45;&gt;totalSupply_.add -->
-<g id="edge4" class="edge" data-name="StandardToken._mint->totalSupply_.add">
+<g id="edge5" class="edge" data-name="StandardToken._mint->totalSupply_.add">
 
-<path fill="none" stroke="#ffffff" stroke-width="2" d="M350.5806,-1420.6459C376.4208,-1418.041 412.2372,-1414.4305 438.9867,-1411.7339" style=""></path>
-<polygon fill="#ffffff" stroke="#ffffff" stroke-width="2" points="439.5168,-1415.1983 449.1153,-1410.7129 438.8147,-1408.2336 439.5168,-1415.1983" style=""></polygon>
+<path fill="none" stroke="#ffffff" stroke-width="2" d="M351.0116,-1217.5719C371.4386,-1220.2587 396.6341,-1226.9182 413.0273,-1243 438.8646,-1268.3467 461.359,-1372.5239 471.0096,-1423.1403" style=""></path>
+<polygon fill="#ffffff" stroke="#ffffff" stroke-width="2" points="467.5901,-1423.8955 472.8706,-1433.0807 474.4706,-1422.6074 467.5901,-1423.8955" style=""></polygon>
 </g>
-<!-- StorxToken.&lt;Constructor&gt; -->
-<g id="node31" class="node" data-name="StorxToken.&lt;Constructor&gt;">
+<!-- BurnableToken.burn -->
+<g id="node33" class="node" data-name="BurnableToken.burn">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1478" rx="67.5419" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1473.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&lt;Constructor&gt;</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1710" rx="28.9754" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1705.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">burn</text>
+</g>
+<!-- BurnableToken._burn -->
+<g id="node34" class="node" data-name="BurnableToken._burn">
+
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-1710" rx="33.6305" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1705.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_burn</text>
+</g>
+<!-- BurnableToken.burn&#45;&gt;BurnableToken._burn -->
+<g id="edge6" class="edge" data-name="BurnableToken.burn->BurnableToken._burn">
+
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M133.8977,-1710C169.9473,-1710 231.7027,-1710 273.4905,-1710" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="273.6565,-1713.5001 283.6564,-1710 273.6564,-1706.5001 273.6565,-1713.5001" style=""></polygon>
+</g>
+<!-- totalSupply_.sub -->
+<g id="node43" class="node" data-name="totalSupply_.sub">
+
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="476.0273" cy="-1505" rx="27" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="476.0273" y="-1500.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">sub</text>
+</g>
+<!-- BurnableToken._burn&#45;&gt;totalSupply_.sub -->
+<g id="edge7" class="edge" data-name="BurnableToken._burn->totalSupply_.sub">
+
+<path fill="none" stroke="#ffffff" stroke-width="2" d="M350.7874,-1706.9813C371.1274,-1703.503 396.3103,-1696.0318 413.0273,-1680 454.3546,-1640.3664 468.6565,-1571.6723 473.5438,-1533.1943" style=""></path>
+<polygon fill="#ffffff" stroke="#ffffff" stroke-width="2" points="477.0287,-1533.5249 474.6873,-1523.1921 470.074,-1532.7298 477.0287,-1533.5249" style=""></polygon>
+</g>
+<!-- StorxToken.initialize -->
+<g id="node35" class="node" data-name="StorxToken.initialize">
+
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1625" rx="44.6549" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1620.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">initialize</text>
+</g>
+<!-- StorxToken._initializeOwner -->
+<g id="node38" class="node" data-name="StorxToken._initializeOwner">
+
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-1625" rx="75.8566" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1620.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_initializeOwner</text>
+</g>
+<!-- StorxToken.initialize&#45;&gt;StorxToken._initializeOwner -->
+<g id="edge8" class="edge" data-name="StorxToken.initialize->StorxToken._initializeOwner">
+
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M149.8629,-1625C173.5187,-1625 203.3122,-1625 231.1867,-1625" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="231.3545,-1628.5001 241.3545,-1625 231.3544,-1621.5001 231.3545,-1628.5001" style=""></polygon>
+</g>
+<!-- StorxToken._initializeOperator -->
+<g id="node39" class="node" data-name="StorxToken._initializeOperator">
+
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-1571" rx="83.9412" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1566.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">_initializeOperator</text>
+</g>
+<!-- StorxToken.initialize&#45;&gt;StorxToken._initializeOperator -->
+<g id="edge9" class="edge" data-name="StorxToken.initialize->StorxToken._initializeOperator">
+
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M142.7874,-1615.3459C173.3432,-1607.5816 216.9594,-1596.4987 252.9437,-1587.355" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="254.0435,-1590.6869 262.8735,-1584.8318 252.3195,-1583.9025 254.0435,-1590.6869" style=""></polygon>
 </g>
 <!-- StorxToken.mint -->
-<g id="node32" class="node" data-name="StorxToken.mint">
+<g id="node36" class="node" data-name="StorxToken.mint">
 
-<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1424" rx="28.991" ry="18" style=""></ellipse>
-<text text-anchor="middle" x="104.7942" y="-1419.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">mint</text>
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1517" rx="28.991" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1512.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">mint</text>
 </g>
 <!-- StorxToken.mint&#45;&gt;StandardToken._mint -->
-<g id="edge5" class="edge" data-name="StorxToken.mint->StandardToken._mint">
+<g id="edge10" class="edge" data-name="StorxToken.mint->StandardToken._mint">
 
-<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M133.8977,-1424C169.9473,-1424 231.7027,-1424 273.4905,-1424" style=""></path>
-<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="273.6565,-1427.5001 283.6564,-1424 273.6564,-1420.5001 273.6565,-1427.5001" style=""></polygon>
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M133.5703,-1514.957C153.4724,-1511.95 178.9192,-1504.6409 193.5885,-1487 263.6339,-1402.765 157.2484,-1326.1586 228.5685,-1243 239.7678,-1229.9417 257.0731,-1223.0801 273.438,-1219.5174" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="274.2299,-1222.9309 283.443,-1217.6995 272.9784,-1216.0436 274.2299,-1222.9309" style=""></polygon>
+</g>
+<!-- StorxToken.destroy -->
+<g id="node37" class="node" data-name="StorxToken.destroy">
+
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="104.7942" cy="-1571" rx="39.4254" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="104.7942" y="-1566.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">destroy</text>
+</g>
+<!-- StorxToken.selfdestruct -->
+<g id="node40" class="node" data-name="StorxToken.selfdestruct">
+
+<ellipse fill="#edad56" stroke="#edad56" stroke-width="3" cx="317.3079" cy="-1517" rx="55.5908" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="317.3079" y="-1512.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">selfdestruct</text>
+</g>
+<!-- StorxToken.destroy&#45;&gt;StorxToken.selfdestruct -->
+<g id="edge11" class="edge" data-name="StorxToken.destroy->StorxToken.selfdestruct">
+
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M139.4112,-1562.2038C172.9885,-1553.6717 224.4309,-1540.6002 263.3759,-1530.7042" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="264.6653,-1533.9878 273.4954,-1528.1328 262.9414,-1527.2034 264.6653,-1533.9878" style=""></polygon>
 </g>
 <!-- key -->
-<g id="node35" class="node" data-name="key">
+<g id="node44" class="node" data-name="key">
 
-<polygon fill="#edad56" stroke="transparent" stroke-width="3" points="169.7942,-1849 39.7942,-1849 39.7942,-1761 169.7942,-1761 169.7942,-1849" style=""></polygon>
-<text text-anchor="start" x="89.4302" y="-1830.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Internal Call</text>
-<text text-anchor="start" x="85.5382" y="-1810.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">External Call</text>
-<text text-anchor="start" x="62.9996" y="-1790.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Defined Contract</text>
-<text text-anchor="start" x="49.3969" y="-1770.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Undefined Contract</text>
+<polygon fill="#edad56" stroke="transparent" stroke-width="3" points="169.7942,-1865 39.7942,-1865 39.7942,-1777 169.7942,-1777 169.7942,-1865" style=""></polygon>
+<text text-anchor="start" x="89.4302" y="-1846.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Internal Call</text>
+<text text-anchor="start" x="85.5382" y="-1826.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">External Call</text>
+<text text-anchor="start" x="62.9996" y="-1806.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Defined Contract</text>
+<text text-anchor="start" x="49.3969" y="-1786.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Undefined Contract</text>
 </g>
 <!-- key2 -->
-<g id="node36" class="node" data-name="key2">
+<g id="node45" class="node" data-name="key2">
 
-<polygon fill="#edad56" stroke="transparent" stroke-width="3" points="344.3079,-1849 290.3079,-1849 290.3079,-1761 344.3079,-1761 344.3079,-1849" style=""></polygon>
-<text text-anchor="start" x="305.067" y="-1830.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&nbsp;&nbsp;&nbsp;</text>
-<text text-anchor="start" x="305.067" y="-1810.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&nbsp;&nbsp;&nbsp;</text>
-<polygon fill="#445773" stroke="transparent" points="303.3079,-1785 303.3079,-1805 331.3079,-1805 331.3079,-1785 303.3079,-1785" style=""></polygon>
-<text text-anchor="start" x="305.067" y="-1790.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&nbsp;&nbsp;&nbsp;</text>
-<polygon fill="none" stroke="#e8726d" points="305.3079,-1767 305.3079,-1783 329.3079,-1783 329.3079,-1767 305.3079,-1767" style=""></polygon>
+<polygon fill="#edad56" stroke="transparent" stroke-width="3" points="344.3079,-1865 290.3079,-1865 290.3079,-1777 344.3079,-1777 344.3079,-1865" style=""></polygon>
+<text text-anchor="start" x="305.067" y="-1846.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="305.067" y="-1826.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#445773" stroke="transparent" points="303.3079,-1801 303.3079,-1821 331.3079,-1821 331.3079,-1801 303.3079,-1801" style=""></polygon>
+<text text-anchor="start" x="305.067" y="-1806.4" font-family="Times,serif" font-size="14.00" fill="#000000" style="">&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="none" stroke="#e8726d" points="305.3079,-1783 305.3079,-1799 329.3079,-1799 329.3079,-1783 305.3079,-1783" style=""></polygon>
 </g>
 <!-- key&#45;&gt;key2 -->
-<g id="edge6" class="edge" data-name="key->key2">
+<g id="edge12" class="edge" data-name="key->key2">
 
-<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M161.7942,-1835C221.1268,-1835 238.4804,-1835 293.0575,-1835" style=""></path>
-<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="293.3079,-1838.5001 303.3079,-1835 293.3078,-1831.5001 293.3079,-1838.5001" style=""></polygon>
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M161.7942,-1851C221.1268,-1851 238.4804,-1851 293.0575,-1851" style=""></path>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="293.3079,-1854.5001 303.3079,-1851 293.3078,-1847.5001 293.3079,-1854.5001" style=""></polygon>
 </g>
 <!-- key&#45;&gt;key2 -->
-<g id="edge7" class="edge" data-name="key->key2">
+<g id="edge13" class="edge" data-name="key->key2">
 
-<path fill="none" stroke="#ffffff" stroke-width="2" d="M161.7942,-1815C221.1268,-1815 238.4804,-1815 293.0575,-1815" style=""></path>
-<polygon fill="#ffffff" stroke="#ffffff" stroke-width="2" points="293.3079,-1818.5001 303.3079,-1815 293.3078,-1811.5001 293.3079,-1818.5001" style=""></polygon>
+<path fill="none" stroke="#ffffff" stroke-width="2" d="M161.7942,-1831C221.1268,-1831 238.4804,-1831 293.0575,-1831" style=""></path>
+<polygon fill="#ffffff" stroke="#ffffff" stroke-width="2" points="293.3079,-1834.5001 303.3079,-1831 293.3078,-1827.5001 293.3079,-1834.5001" style=""></polygon>
 </g>
 </g>
 </svg>

@@ -13,7 +13,7 @@ contract StorxTokenBad is StandardToken, Operator {
         string _symbol,
         uint8 _decimals,
         uint256 _totalSupply
-    ) initializer public {
+    ) public initializer {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;

@@ -9,7 +9,7 @@ contract Operator is Ownable {
 
     event OperatorTransferred(address indexed previousOperator, address indexed newOperator);
 
-    function _initializeOperator() initializer internal {
+    function _initializeOperator() internal initializer {
         _operator = msg.sender;
         emit OperatorTransferred(address(0), _operator);
     }
