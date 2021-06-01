@@ -70,7 +70,6 @@ contract Initializable {
 
 pragma solidity ^0.4.24;
 
-
 /**
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
@@ -133,7 +132,6 @@ contract Ownable is Initializable {
 // SPDX-License-Identifier: MIT
 
 pragma solidity 0.4.24;
-
 
 contract Operator is Ownable {
     address private _operator;
@@ -429,7 +427,6 @@ contract StandardToken is ERC20, BasicToken {
 
 pragma solidity ^0.4.24;
 
-
 /**
  * @title Burnable Token
  * @dev Token that can be irreversibly burned (destroyed).
@@ -460,8 +457,6 @@ contract BurnableToken is StandardToken {
 // File: contracts/Token/StorXToken.sol
 
 pragma solidity ^0.4.24;
-
-
 
 contract StorxToken is BurnableToken, Operator {
     string public name;
