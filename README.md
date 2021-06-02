@@ -1,31 +1,31 @@
 # StorX Contracts
 
-## View Tool
+This repository contains smart contracts for StorX Token and its Proxy Contract. The Proxy contract has been inspired from USDC contract on ethereum blockhain.
 
-- [GCV](http://gcv.raavan.online)
+## Tokenomics
 
-## Testing
-
-- Test Token Via Proxy ```npm run test-proxy```
-- Test Token Directly ```npm run test-token```
-- Test Both ```npm run test-all```
+- Name: STORX
+- Symbol: SRX
+- Decimals: 18
+- Total Supply: 500 Million
 
 ## Deployments
 
-- ERC20 Token - [xdc2657f0eba2835eb322775838ea9bda0510c66cfb](https://explorer.apothem.network/addr/xdc2657f0eba2835eb322775838ea9bda0510c66cfb)
-- ERC20 Token ( with Mint ) - [xdcea888cf7610842ef69e1b47d5ccda38b6f49b21d](https://explorer.apothem.network/addr/xdcea888cf7610842ef69e1b47d5ccda38b6f49b21d)
-- ERC20 Token Proxy  - [xdc5a02da0a8b23e96aacb011f5b53749dbb025e112](https://explorer.apothem.network/addr/xdc5a02da0a8b23e96aacb011f5b53749dbb025e112)
-- Staking - [xdc9141da9374d3aaaa3415e54d160ca8a6776d51fc](https://explorer.apothem.network/addr/xdc9141da9374d3aaaa3415e54d160ca8a6776d51fc)
+- StorX Token Implementation - [xdcdc34e983e8558651ebb1fd3d2f2cf303bf8fd00a](https://xdc.network/addr/xdcdc34e983e8558651ebb1fd3d2f2cf303bf8fd00a)
+- StorX Token Proxy - [xdc5d5f074837f5d4618b3916ba74de1bf9662a3fed](https://xdc.network/addr/xdc5d5f074837f5d4618b3916ba74de1bf9662a3fed)
 
+## Brief on Proxy
 
-- STORX ( Initializabe ) - [xdc4f46b002bb005584f86906ce55b2c2ec0bc51f0d](https://explorer.apothem.network/addr/xdc4f46b002bb005584f86906ce55b2c2ec0bc51f0d) [Code](/flats/StorxToken.flat.sol)
-- STORX PROXY - [xdc74af83496c3e6f53e2ae46ac1ad258c99bfbc367](https://explorer.apothem.network/addr/xdc74af83496c3e6f53e2ae46ac1ad258c99bfbc367) [Code](/flats/Proxy.flat.sol)  
-  
-UPDATED TOKENOMICS:
-- Proxy: [xdc459e773e8476dd1c1912aee4d346ef0700308c54](https://explorer.apothem.network/addr/xdc459e773e8476dd1c1912aee4d346ef0700308c54) [Code](/flats/Proxy.flat.sol)  
-- Implementation: [xdc0643a9f683888e74442d5e313d357dc6b6122543](https://explorer.apothem.network/addr/xdc0643a9f683888e74442d5e313d357dc6b6122543) [Code](/flats/StorxToken.flat.sol)  
-  
+All the function calls are made to proxy contract which delegate calls to the implementation. The context i.e. address where all data regarding the state of the contract is stored will be on Proxy contract and not on implementation contract.
 
-ADDED BURN & DESTROY:
-- Proxy: [xdc8a000e77af0dc2c1ae42b8cf47ef78f4fd429e66](https://explorer.apothem.network/addr/xdc8a000e77af0dc2c1ae42b8cf47ef78f4fd429e66) [Code](/flats/Proxy.flat.sol)  
-- Implementation: [xdc3db3715985a9891e7b41c2c2dc3f740d1d831d8a](https://explorer.apothem.network/addr/xdc3db3715985a9891e7b41c2c2dc3f740d1d831d8a) [Code](/flats/StorxToken.flat.sol)  
+This empowers us to change the contract functionality at a later stage after deployment. Storage collisions have been coonsidered and the conotract follows [EIP-1967: Standard Proxy Storage Slots](https://eips.ethereum.org/EIPS/eip-1967) for the same, so explorers can identify that the contract is a proxy.
+
+## Testing
+
+- Test Token Via Proxy `npm run test-proxy`
+- Test Token Directly `npm run test-token`
+- Test Both `npm run test-all`
+
+## Audit
+
+AN internal audit has been done of the smarrt contract and its report can be found [here](/audit/report/StorXAudit.pdf)
