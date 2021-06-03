@@ -18,7 +18,7 @@ This repository contains smart contracts for StorX Token and its Proxy Contract.
 
 All the function calls are made to proxy contract which delegate calls to the implementation. The context i.e. address where all data regarding the state of the contract is stored will be on Proxy contract and not on implementation contract.
 
-This empowers us to change the contract functionality at a later stage after deployment. Storage collisions have been coonsidered and the conotract follows [EIP-1967: Standard Proxy Storage Slots](https://eips.ethereum.org/EIPS/eip-1967) for the same, so explorers can identify that the contract is a proxy.
+This empowers us to change the contract functionality at a later stage after deployment. Storage collisions have been considered and the contract follows [EIP-1967: Standard Proxy Storage Slots](https://eips.ethereum.org/EIPS/eip-1967) for the same, so explorers can identify that the contract is a proxy.
 
 ## Testing
 
