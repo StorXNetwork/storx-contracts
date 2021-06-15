@@ -1,0 +1,205 @@
+<?xml version="1.0" standalone="no"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [  <!ENTITY quot "&#34;">  <!ENTITY amp "&#38;">  <!ENTITY apos "&#39;">  <!ENTITY lt "&#60;">  <!ENTITY gt "&#62;">  <!ENTITY nbsp "&#160;">  <!ENTITY iexcl "&#161;">  <!ENTITY cent "&#162;">  <!ENTITY pound "&#163;">  <!ENTITY curren "&#164;">  <!ENTITY yen "&#165;">  <!ENTITY brvbar "&#166;">  <!ENTITY sect "&#167;">  <!ENTITY uml "&#168;">  <!ENTITY copy "&#169;">  <!ENTITY ordf "&#170;">  <!ENTITY laquo "&#171;">  <!ENTITY not "&#172;">  <!ENTITY shy "&#173;">  <!ENTITY reg "&#174;">  <!ENTITY macr "&#175;">  <!ENTITY deg "&#176;">  <!ENTITY plusmn "&#177;">  <!ENTITY sup2 "&#178;">  <!ENTITY sup3 "&#179;">  <!ENTITY acute "&#180;">  <!ENTITY micro "&#181;">  <!ENTITY para "&#182;">  <!ENTITY middot "&#183;">  <!ENTITY cedil "&#184;">  <!ENTITY sup1 "&#185;">  <!ENTITY ordm "&#186;">  <!ENTITY raquo "&#187;">  <!ENTITY frac14 "&#188;">  <!ENTITY frac12 "&#189;">  <!ENTITY frac34 "&#190;">  <!ENTITY iquest "&#191;">  <!ENTITY Agrave "&#192;">  <!ENTITY Aacute "&#193;">  <!ENTITY Acirc "&#194;">  <!ENTITY Atilde "&#195;">  <!ENTITY Auml "&#196;">  <!ENTITY Aring "&#197;">  <!ENTITY AElig "&#198;">  <!ENTITY Ccedil "&#199;">  <!ENTITY Egrave "&#200;">  <!ENTITY Eacute "&#201;">  <!ENTITY Ecirc "&#202;">  <!ENTITY Euml "&#203;">  <!ENTITY Igrave "&#204;">  <!ENTITY Iacute "&#205;">  <!ENTITY Icirc "&#206;">  <!ENTITY Iuml "&#207;">  <!ENTITY ETH "&#208;">  <!ENTITY Ntilde "&#209;">  <!ENTITY Ograve "&#210;">  <!ENTITY Oacute "&#211;">  <!ENTITY Ocirc "&#212;">  <!ENTITY Otilde "&#213;">  <!ENTITY Ouml "&#214;">  <!ENTITY times "&#215;">  <!ENTITY Oslash "&#216;">  <!ENTITY Ugrave "&#217;">  <!ENTITY Uacute "&#218;">  <!ENTITY Ucirc "&#219;">  <!ENTITY Uuml "&#220;">  <!ENTITY Yacute "&#221;">  <!ENTITY THORN "&#222;">  <!ENTITY szlig "&#223;">  <!ENTITY agrave "&#224;">  <!ENTITY aacute "&#225;">  <!ENTITY acirc "&#226;">  <!ENTITY atilde "&#227;">  <!ENTITY auml "&#228;">  <!ENTITY aring "&#229;">  <!ENTITY aelig "&#230;">  <!ENTITY ccedil "&#231;">  <!ENTITY egrave "&#232;">  <!ENTITY eacute "&#233;">  <!ENTITY ecirc "&#234;">  <!ENTITY euml "&#235;">  <!ENTITY igrave "&#236;">  <!ENTITY iacute "&#237;">  <!ENTITY icirc "&#238;">  <!ENTITY iuml "&#239;">  <!ENTITY eth "&#240;">  <!ENTITY ntilde "&#241;">  <!ENTITY ograve "&#242;">  <!ENTITY oacute "&#243;">  <!ENTITY ocirc "&#244;">  <!ENTITY otilde "&#245;">  <!ENTITY ouml "&#246;">  <!ENTITY divide "&#247;">  <!ENTITY oslash "&#248;">  <!ENTITY ugrave "&#249;">  <!ENTITY uacute "&#250;">  <!ENTITY ucirc "&#251;">  <!ENTITY uuml "&#252;">  <!ENTITY yacute "&#253;">  <!ENTITY thorn "&#254;">  <!ENTITY yuml "&#255;">  <!ENTITY OElig "&#338;">  <!ENTITY oelig "&#339;">  <!ENTITY Scaron "&#352;">  <!ENTITY scaron "&#353;">  <!ENTITY Yuml "&#376;">  <!ENTITY fnof "&#402;">  <!ENTITY circ "&#710;">  <!ENTITY tilde "&#732;">  <!ENTITY Alpha "&#913;">  <!ENTITY Beta "&#914;">  <!ENTITY Gamma "&#915;">  <!ENTITY Delta "&#916;">  <!ENTITY Epsilon "&#917;">  <!ENTITY Zeta "&#918;">  <!ENTITY Eta "&#919;">  <!ENTITY Theta "&#920;">  <!ENTITY Iota "&#921;">  <!ENTITY Kappa "&#922;">  <!ENTITY Lambda "&#923;">  <!ENTITY Mu "&#924;">  <!ENTITY Nu "&#925;">  <!ENTITY Xi "&#926;">  <!ENTITY Omicron "&#927;">  <!ENTITY Pi "&#928;">  <!ENTITY Rho "&#929;">  <!ENTITY Sigma "&#931;">  <!ENTITY Tau "&#932;">  <!ENTITY Upsilon "&#933;">  <!ENTITY Phi "&#934;">  <!ENTITY Chi "&#935;">  <!ENTITY Psi "&#936;">  <!ENTITY Omega "&#937;">  <!ENTITY alpha "&#945;">  <!ENTITY beta "&#946;">  <!ENTITY gamma "&#947;">  <!ENTITY delta "&#948;">  <!ENTITY epsilon "&#949;">  <!ENTITY zeta "&#950;">  <!ENTITY eta "&#951;">  <!ENTITY theta "&#952;">  <!ENTITY iota "&#953;">  <!ENTITY kappa "&#954;">  <!ENTITY lambda "&#955;">  <!ENTITY mu "&#956;">  <!ENTITY nu "&#957;">  <!ENTITY xi "&#958;">  <!ENTITY omicron "&#959;">  <!ENTITY pi "&#960;">  <!ENTITY rho "&#961;">  <!ENTITY sigmaf "&#962;">  <!ENTITY sigma "&#963;">  <!ENTITY tau "&#964;">  <!ENTITY upsilon "&#965;">  <!ENTITY phi "&#966;">  <!ENTITY chi "&#967;">  <!ENTITY psi "&#968;">  <!ENTITY omega "&#969;">  <!ENTITY thetasym "&#977;">  <!ENTITY upsih "&#978;">  <!ENTITY piv "&#982;">  <!ENTITY ensp "&#8194;">  <!ENTITY emsp "&#8195;">  <!ENTITY thinsp "&#8201;">  <!ENTITY zwnj "&#8204;">  <!ENTITY zwj "&#8205;">  <!ENTITY lrm "&#8206;">  <!ENTITY rlm "&#8207;">  <!ENTITY ndash "&#8211;">  <!ENTITY mdash "&#8212;">  <!ENTITY lsquo "&#8216;">  <!ENTITY rsquo "&#8217;">  <!ENTITY sbquo "&#8218;">  <!ENTITY ldquo "&#8220;">  <!ENTITY rdquo "&#8221;">  <!ENTITY bdquo "&#8222;">  <!ENTITY dagger "&#8224;">  <!ENTITY Dagger "&#8225;">  <!ENTITY bull "&#8226;">  <!ENTITY hellip "&#8230;">  <!ENTITY permil "&#8240;">  <!ENTITY prime "&#8242;">  <!ENTITY Prime "&#8243;">  <!ENTITY lsaquo "&#8249;">  <!ENTITY rsaquo "&#8250;">  <!ENTITY oline "&#8254;">  <!ENTITY frasl "&#8260;">  <!ENTITY euro "&#8364;">  <!ENTITY image "&#8465;">  <!ENTITY weierp "&#8472;">  <!ENTITY real "&#8476;">  <!ENTITY trade "&#8482;">  <!ENTITY alefsym "&#8501;">  <!ENTITY larr "&#8592;">  <!ENTITY uarr "&#8593;">  <!ENTITY rarr "&#8594;">  <!ENTITY darr "&#8595;">  <!ENTITY harr "&#8596;">  <!ENTITY crarr "&#8629;">  <!ENTITY lArr "&#8656;">  <!ENTITY uArr "&#8657;">  <!ENTITY rArr "&#8658;">  <!ENTITY dArr "&#8659;">  <!ENTITY hArr "&#8660;">  <!ENTITY forall "&#8704;">  <!ENTITY part "&#8706;">  <!ENTITY exist "&#8707;">  <!ENTITY empty "&#8709;">  <!ENTITY nabla "&#8711;">  <!ENTITY isin "&#8712;">  <!ENTITY notin "&#8713;">  <!ENTITY ni "&#8715;">  <!ENTITY prod "&#8719;">  <!ENTITY sum "&#8721;">  <!ENTITY minus "&#8722;">  <!ENTITY lowast "&#8727;">  <!ENTITY radic "&#8730;">  <!ENTITY prop "&#8733;">  <!ENTITY infin "&#8734;">  <!ENTITY ang "&#8736;">  <!ENTITY and "&#8743;">  <!ENTITY or "&#8744;">  <!ENTITY cap "&#8745;">  <!ENTITY cup "&#8746;">  <!ENTITY int "&#8747;">  <!ENTITY there4 "&#8756;">  <!ENTITY sim "&#8764;">  <!ENTITY cong "&#8773;">  <!ENTITY asymp "&#8776;">  <!ENTITY ne "&#8800;">  <!ENTITY equiv "&#8801;">  <!ENTITY le "&#8804;">  <!ENTITY ge "&#8805;">  <!ENTITY sub "&#8834;">  <!ENTITY sup "&#8835;">  <!ENTITY nsub "&#8836;">  <!ENTITY sube "&#8838;">  <!ENTITY supe "&#8839;">  <!ENTITY oplus "&#8853;">  <!ENTITY otimes "&#8855;">  <!ENTITY perp "&#8869;">  <!ENTITY sdot "&#8901;">  <!ENTITY lceil "&#8968;">  <!ENTITY rceil "&#8969;">  <!ENTITY lfloor "&#8970;">  <!ENTITY rfloor "&#8971;">  <!ENTITY lang "&#9001;">  <!ENTITY rang "&#9002;">  <!ENTITY loz "&#9674;">  <!ENTITY spades "&#9824;">  <!ENTITY clubs "&#9827;">  <!ENTITY hearts "&#9829;">  <!ENTITY diams "&#9830;"> ]><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1262pt" height="332pt" viewBox="0.00 0.00 1261.80 332.00">
+<g id="graph0" class="graph" transform="translate(4,328) scale(1)" data-name="G">
+
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-328 1257.8048,-328 1257.8048,4 -4,4" style=""></polygon>
+<!-- SafeERC20 -->
+<g id="node1" class="node" data-name="SafeERC20">
+
+<ellipse fill="none" stroke="#000000" cx="56.6298" cy="-306" rx="56.76" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="56.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">SafeERC20</text>
+</g>
+<!-- StroxStaking -->
+<g id="node2" class="node" data-name="StroxStaking">
+
+<ellipse fill="none" stroke="#000000" cx="214.6298" cy="-234" rx="61.436" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="214.6298" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">StroxStaking</text>
+</g>
+<!-- Ownable -->
+<g id="node3" class="node" data-name="Ownable">
+
+<ellipse fill="none" stroke="#000000" cx="347.6298" cy="-162" rx="45.7867" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="347.6298" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Ownable</text>
+</g>
+<!-- StroxStaking&#45;&gt;Ownable -->
+<g id="edge1" class="edge" data-name="StroxStaking->Ownable">
+
+<path fill="none" stroke="#000000" d="M244.1469,-218.0209C264.0127,-207.2664 290.335,-193.0167 311.4603,-181.5805" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="313.3318,-184.5474 320.4597,-176.7087 309.9993,-178.3915 313.3318,-184.5474" style=""></polygon>
+</g>
+<!-- Initializable -->
+<g id="node12" class="node" data-name="Initializable">
+
+<ellipse fill="none" stroke="#000000" cx="347.6298" cy="-90" rx="57.3147" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="347.6298" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Initializable</text>
+</g>
+<!-- Ownable&#45;&gt;Initializable -->
+<g id="edge6" class="edge" data-name="Ownable->Initializable">
+
+<path fill="none" stroke="#000000" d="M347.6298,-143.8314C347.6298,-136.131 347.6298,-126.9743 347.6298,-118.4166" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="351.1299,-118.4132 347.6298,-108.4133 344.1299,-118.4133 351.1299,-118.4132" style=""></polygon>
+</g>
+<!-- IReputationFeeds -->
+<g id="node4" class="node" data-name="IReputationFeeds">
+
+<ellipse fill="none" stroke="#000000" cx="726.6298" cy="-306" rx="79.3116" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="726.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">IReputationFeeds</text>
+</g>
+<!-- ReputationFeeds -->
+<g id="node5" class="node" data-name="ReputationFeeds">
+
+<ellipse fill="none" stroke="#000000" cx="207.6298" cy="-306" rx="75.8817" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="207.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">ReputationFeeds</text>
+</g>
+<!-- Operatable -->
+<g id="node6" class="node" data-name="Operatable">
+
+<ellipse fill="none" stroke="#000000" cx="347.6298" cy="-234" rx="53.2878" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="347.6298" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Operatable</text>
+</g>
+<!-- ReputationFeeds&#45;&gt;Operatable -->
+<g id="edge2" class="edge" data-name="ReputationFeeds->Operatable">
+
+<path fill="none" stroke="#000000" d="M239.7487,-289.4817C260.3747,-278.8741 287.28,-265.037 309.0612,-253.8353" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="310.7569,-256.899 318.0491,-249.213 307.5554,-250.674 310.7569,-256.899" style=""></polygon>
+</g>
+<!-- Operatable&#45;&gt;Ownable -->
+<g id="edge3" class="edge" data-name="Operatable->Ownable">
+
+<path fill="none" stroke="#000000" d="M341.6774,-215.8314C340.9155,-208.0125 340.6995,-198.6923 341.0294,-190.0221" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="344.5303,-190.1239 341.7026,-179.9134 337.5457,-189.6587 344.5303,-190.1239" style=""></polygon>
+</g>
+<!-- Operatable&#45;&gt;Ownable -->
+<g id="edge4" class="edge" data-name="Operatable->Ownable">
+
+<path fill="none" stroke="#000000" d="M353.5822,-215.8314C354.3442,-208.0125 354.5602,-198.6923 354.2303,-190.0221" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="357.714,-189.6587 353.5571,-179.9134 350.7294,-190.1239 357.714,-189.6587" style=""></polygon>
+</g>
+<!-- ReputationFeed -->
+<g id="node7" class="node" data-name="ReputationFeed">
+
+<ellipse fill="none" stroke="#000000" cx="373.6298" cy="-306" rx="72.371" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="373.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">ReputationFeed</text>
+</g>
+<!-- ReputationFeed&#45;&gt;Operatable -->
+<g id="edge5" class="edge" data-name="ReputationFeed->Operatable">
+
+<path fill="none" stroke="#000000" d="M367.0689,-287.8314C364.1834,-279.8406 360.7316,-270.2819 357.5428,-261.4514" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="360.787,-260.1302 354.0986,-251.9134 354.2031,-262.5077 360.787,-260.1302" style=""></polygon>
+</g>
+<!-- AddressUtils -->
+<g id="node8" class="node" data-name="AddressUtils">
+
+<ellipse fill="none" stroke="#000000" cx="885.6298" cy="-306" rx="61.4109" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="885.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">AddressUtils</text>
+</g>
+<!-- SafeMath -->
+<g id="node9" class="node" data-name="SafeMath">
+
+<ellipse fill="none" stroke="#000000" cx="1013.6298" cy="-306" rx="48.652" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="1013.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">SafeMath</text>
+</g>
+<!-- IERC20 -->
+<g id="node10" class="node" data-name="IERC20">
+
+<ellipse fill="none" stroke="#000000" cx="1122.6298" cy="-306" rx="42.8771" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="1122.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">IERC20</text>
+</g>
+<!-- IRepF -->
+<g id="node11" class="node" data-name="IRepF">
+
+<ellipse fill="none" stroke="#000000" cx="1218.6298" cy="-306" rx="35.3509" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="1218.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">IRepF</text>
+</g>
+<!-- Operator -->
+<g id="node13" class="node" data-name="Operator">
+
+<ellipse fill="none" stroke="#000000" cx="464.6298" cy="-234" rx="45.2035" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="464.6298" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">Operator</text>
+</g>
+<!-- Operator&#45;&gt;Ownable -->
+<g id="edge7" class="edge" data-name="Operator->Ownable">
+
+<path fill="none" stroke="#000000" d="M439.8171,-218.7307C422.6764,-208.1825 399.6826,-194.0324 380.9474,-182.5031" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="382.7577,-179.5076 372.4068,-177.2473 379.089,-185.4692 382.7577,-179.5076" style=""></polygon>
+</g>
+<!-- ERC20Basic -->
+<g id="node14" class="node" data-name="ERC20Basic">
+
+<ellipse fill="none" stroke="#000000" cx="597.6298" cy="-18" rx="60.8525" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="597.6298" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">ERC20Basic</text>
+</g>
+<!-- BasicToken -->
+<g id="node15" class="node" data-name="BasicToken">
+
+<ellipse fill="none" stroke="#000000" cx="540.6298" cy="-90" rx="57.3224" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="540.6298" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">BasicToken</text>
+</g>
+<!-- BasicToken&#45;&gt;ERC20Basic -->
+<g id="edge8" class="edge" data-name="BasicToken->ERC20Basic">
+
+<path fill="none" stroke="#000000" d="M554.7197,-72.2022C561.5533,-63.5704 569.8867,-53.0439 577.3856,-43.5717" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="580.2391,-45.606 583.702,-35.593 574.7508,-41.261 580.2391,-45.606" style=""></polygon>
+</g>
+<!-- ERC20 -->
+<g id="node16" class="node" data-name="ERC20">
+
+<ellipse fill="none" stroke="#000000" cx="655.6298" cy="-90" rx="39.4466" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="655.6298" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">ERC20</text>
+</g>
+<!-- ERC20&#45;&gt;ERC20Basic -->
+<g id="edge9" class="edge" data-name="ERC20->ERC20Basic">
+
+<path fill="none" stroke="#000000" d="M641.8847,-72.937C634.8185,-64.1652 626.0631,-53.2965 618.2098,-43.5476" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="620.881,-41.2843 611.8821,-35.6924 615.4298,-45.6756 620.881,-41.2843" style=""></polygon>
+</g>
+<!-- StandardToken -->
+<g id="node17" class="node" data-name="StandardToken">
+
+<ellipse fill="none" stroke="#000000" cx="598.6298" cy="-162" rx="70.0674" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="598.6298" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">StandardToken</text>
+</g>
+<!-- StandardToken&#45;&gt;BasicToken -->
+<g id="edge11" class="edge" data-name="StandardToken->BasicToken">
+
+<path fill="none" stroke="#000000" d="M584.2928,-144.2022C577.3393,-135.5704 568.8597,-125.0439 561.2292,-115.5717" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="563.801,-113.1849 554.802,-107.593 558.3497,-117.5763 563.801,-113.1849" style=""></polygon>
+</g>
+<!-- StandardToken&#45;&gt;ERC20 -->
+<g id="edge10" class="edge" data-name="StandardToken->ERC20">
+
+<path fill="none" stroke="#000000" d="M612.7197,-144.2022C619.6553,-135.4416 628.1358,-124.7293 635.7208,-115.1482" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="638.6316,-117.1102 642.0945,-107.0972 633.1433,-112.7652 638.6316,-117.1102" style=""></polygon>
+</g>
+<!-- BurnableToken -->
+<g id="node18" class="node" data-name="BurnableToken">
+
+<ellipse fill="none" stroke="#000000" cx="598.6298" cy="-234" rx="71.2114" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="598.6298" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">BurnableToken</text>
+</g>
+<!-- BurnableToken&#45;&gt;StandardToken -->
+<g id="edge12" class="edge" data-name="BurnableToken->StandardToken">
+
+<path fill="none" stroke="#000000" d="M598.6298,-215.8314C598.6298,-208.131 598.6298,-198.9743 598.6298,-190.4166" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="602.1299,-190.4132 598.6298,-180.4133 595.1299,-190.4133 602.1299,-190.4132" style=""></polygon>
+</g>
+<!-- StorxToken -->
+<g id="node19" class="node" data-name="StorxToken">
+
+<ellipse fill="none" stroke="#000000" cx="572.6298" cy="-306" rx="56.7639" ry="18" style=""></ellipse>
+<text text-anchor="middle" x="572.6298" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#000000" style="">StorxToken</text>
+</g>
+<!-- StorxToken&#45;&gt;Operator -->
+<g id="edge14" class="edge" data-name="StorxToken->Operator">
+
+<path fill="none" stroke="#000000" d="M548.123,-289.6621C532.8947,-279.5099 513.1525,-266.3485 496.6889,-255.3727" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="498.1912,-252.1678 487.9292,-249.5329 494.3082,-257.9921 498.1912,-252.1678" style=""></polygon>
+</g>
+<!-- StorxToken&#45;&gt;BurnableToken -->
+<g id="edge13" class="edge" data-name="StorxToken->BurnableToken">
+
+<path fill="none" stroke="#000000" d="M579.1907,-287.8314C582.0326,-279.9617 585.4236,-270.5712 588.5717,-261.8533" style=""></path>
+<polygon fill="#000000" stroke="#000000" points="591.876,-263.0076 591.9806,-252.4133 585.2922,-260.63 591.876,-263.0076" style=""></polygon>
+</g>
+</g>
+</svg>

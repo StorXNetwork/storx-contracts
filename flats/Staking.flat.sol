@@ -29,42 +29,9 @@ library AddressUtils {
     }
 }
 
-// File: contracts/Staking/StorXStaking.sol
+// File: contracts/Staking/SafeMath.sol
 
 pragma solidity ^0.4.24;
-
-/**
- * @title ERC20Basic
- * @dev Simpler version of ERC20 interface
- * See https://github.com/ethereum/EIPs/issues/179
- */
-contract ERC20Basic {
-    function totalSupply() public view returns (uint256);
-
-    function balanceOf(address _who) public view returns (uint256);
-
-    function transfer(address _to, uint256 _value) public returns (bool);
-
-    event Transfer(address indexed from, address indexed to, uint256 value);
-}
-
-/**
- * @title ERC20 interface
- * @dev see https://github.com/ethereum/EIPs/issues/20
- */
-contract ERC20 is ERC20Basic {
-    function allowance(address _owner, address _spender) public view returns (uint256);
-
-    function transferFrom(
-        address _from,
-        address _to,
-        uint256 _value
-    ) public returns (bool);
-
-    function approve(address _spender, uint256 _value) public returns (bool);
-
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-}
 
 /**
  * @title SafeMath
@@ -115,38 +82,9 @@ library SafeMath {
     }
 }
 
-/**
- * @title SafeERC20
- * @dev Wrappers around ERC20 operations that throw on failure.
- * To use this library you can add a `using SafeERC20 for ERC20;` statement to your contract,
- * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
- */
-library SafeERC20 {
-    function safeTransfer(
-        IERC20 _token,
-        address _to,
-        uint256 _value
-    ) internal {
-        require(_token.transfer(_to, _value));
-    }
+// File: contracts/Staking/Ownable.sol
 
-    function safeTransferFrom(
-        IERC20 _token,
-        address _from,
-        address _to,
-        uint256 _value
-    ) internal {
-        require(_token.transferFrom(_from, _to, _value));
-    }
-
-    function safeApprove(
-        IERC20 _token,
-        address _spender,
-        uint256 _value
-    ) internal {
-        require(_token.approve(_spender, _value));
-    }
-}
+pragma solidity ^0.4.24;
 
 /**
  * @title Ownable
@@ -204,6 +142,20 @@ contract Ownable {
         owner = _newOwner;
     }
 }
+
+// File: contracts/Staking/IREF.sol
+
+pragma solidity ^0.4.24;
+
+interface IRepF {
+    function setReputation(address staker, uint256 reputation) external;
+
+    function getReputation() external returns (uint256);
+}
+
+// File: contracts/Staking/IERC20.sol
+
+pragma solidity ^0.4.24;
 
 /**
  * @title IERC20
@@ -269,6 +221,8 @@ interface IERC20 {
         uint256 amount
     ) external returns (bool);
 
+    function mint(address to, uint256 amount) external;
+
     /**
      * @dev Emitted when `value` tokens are moved from one account (`from`) to
      * another (`to`).
@@ -282,6 +236,43 @@ interface IERC20 {
      * a call to {approve}. `value` is the new allowance.
      */
     event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+// File: contracts/Staking/StorXStaking.sol
+
+pragma solidity ^0.4.24;
+
+/**
+ * @title SafeERC20
+ * @dev Wrappers around ERC20 operations that throw on failure.
+ * To use this library you can add a `using SafeERC20 for ERC20;` statement to your contract,
+ * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
+ */
+library SafeERC20 {
+    function safeTransfer(
+        IERC20 _token,
+        address _to,
+        uint256 _value
+    ) internal {
+        require(_token.transfer(_to, _value));
+    }
+
+    function safeTransferFrom(
+        IERC20 _token,
+        address _from,
+        address _to,
+        uint256 _value
+    ) internal {
+        require(_token.transferFrom(_from, _to, _value));
+    }
+
+    function safeApprove(
+        IERC20 _token,
+        address _spender,
+        uint256 _value
+    ) internal {
+        require(_token.approve(_spender, _value));
+    }
 }
 
 contract StroxStaking is Ownable {
@@ -314,6 +305,9 @@ contract StroxStaking is Ownable {
     event ClaimedRewards(address staked_holder, uint256 amount);
 
     IERC20 public token;
+    IRepF public iRepF;
+    uint256 public reputationThreshold;
+    uint256 public hostingCompensation = 750 * 12 * 10**18;
     uint256 internal _totalStaked;
     uint256 public minStakeAmount;
     uint256 public maxStakeAmount;
@@ -394,25 +388,30 @@ contract StroxStaking is Ownable {
     function _earned(address beneficiary_) internal view returns (uint256 earned) {
         require(stakes[beneficiary_].staked, 'StorX: need to stake for earnings');
         uint256 tenure = (block.timestamp - stakes[beneficiary_].lastRedeemedAt);
-        earned = tenure.mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(365);
+        uint256 earnedStake =
+            tenure.mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(365);
+        uint256 earnedHost = tenure.mul(hostingCompensation).mul(interest).div(100).div(365);
+        earned = earnedStake.add(earnedHost);
     }
 
     function earned() public view returns (uint256 earnings) {
         earnings = _earned(msg.sender);
     }
 
-    function claimEarned() public whenStaked canRedeemDrip {
-        uint256 earnings = _earned(msg.sender);
+    function claimEarned(address claimAddress) public canRedeemDrip {
+        require(stakes[claimAddress].staked == true, 'StorX: not staked');
+        uint256 claimerThreshold = iRepF.getReputation(claimAddress);
+        require(claimerThreshold > 0, 'StorX: reputation threshold not met');
+        uint256 earnings = _earned(claimAddress);
         require(earnings > 0, 'StorX: no earnings');
-        require(earnings < token.balanceOf(address(this)), 'StorX: insufficient contract balance');
-        token.transfer(msg.sender, earnings);
+        token.mint(claimAddress, earnings);
 
-        stakes[msg.sender].totalRedeemed += earnings;
-        stakes[msg.sender].lastRedeemedAt += block.timestamp;
+        stakes[claimAddress].totalRedeemed += earnings;
+        stakes[claimAddress].lastRedeemedAt += block.timestamp;
 
         totalRedeemed += earnings;
 
-        emit ClaimedRewards(msg.sender, earnings);
+        emit ClaimedRewards(claimAddress, earnings);
     }
 
     function withdrawStake() public whenUnStaked {
@@ -470,5 +469,17 @@ contract StroxStaking is Ownable {
     function withdrawXdc(address beneficiary_, uint256 amount_) public onlyOwner {
         require(amount_ > 0, 'StorX: xdc amount has to be greater than 0');
         beneficiary_.transfer(amount_);
+    }
+
+    function setIRepF(IRepF repAddr_) public onlyOwner {
+        iRepF = repAddr_;
+    }
+
+    function setReputationThreshold(uint256 threshold) public onlyOwner {
+        reputationThreshold = threshold;
+    }
+
+    function setHostingCompensation(uint256 hostingCompensation_) public onlyOwner {
+        hostingCompensation = hostingCompensation_;
     }
 }
