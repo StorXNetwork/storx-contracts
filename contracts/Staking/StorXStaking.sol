@@ -122,6 +122,7 @@ contract StroxStaking is Ownable {
     function stake(uint256 amount_) public whenNotStaked {
         require(amount_ >= minStakeAmount, 'StorX: invalid amount');
         require(amount_ <= maxStakeAmount, 'StorX: invalid amount');
+        require(iRepF.isStaker(msg.sender), 'StorX: sender not staker');
 
         stakes[msg.sender].staked = true;
         if (stakes[msg.sender].exists == false) {
@@ -165,13 +166,18 @@ contract StroxStaking is Ownable {
     function claimEarned(address claimAddress) public canRedeemDrip {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
         uint256 claimerThreshold = iRepF.getReputation(claimAddress);
-        require(claimerThreshold > 0, 'StorX: reputation threshold not met');
+        if (claimerThreshold < reputationThreshold) {
+            // mark as redeemed and exit early
+            stakes[claimAddress].lastRedeemedAt = block.timestamp;
+            return;
+        }
+
         uint256 earnings = _earned(claimAddress);
         require(earnings > 0, 'StorX: no earnings');
         token.mint(claimAddress, earnings);
 
         stakes[claimAddress].totalRedeemed += earnings;
-        stakes[claimAddress].lastRedeemedAt += block.timestamp;
+        stakes[claimAddress].lastRedeemedAt = block.timestamp;
 
         totalRedeemed += earnings;
 
@@ -197,7 +203,7 @@ contract StroxStaking is Ownable {
         return coolOff - unstakeTenure;
     }
 
-    function thresholdMet(address staker) public view returns (uint256) {
+    function thresholdMet(address staker) public view returns (bool) {
         return iRepF.getReputation(staker) > reputationThreshold;
     }
 
