@@ -107,10 +107,10 @@ contract StroxStaking is Ownable {
         _;
     }
 
-    function canWithdrawStake() public view returns (bool) {
-        require(stakes[msg.sender].exists, 'StorX: stakeholder does not exists');
-        require(stakes[msg.sender].staked == false, 'StorX: stakeholder still has stake');
-        uint256 unstakeTenure = block.timestamp - stakes[msg.sender].unstakedTime;
+    function canWithdrawStake(address staker) public view returns (bool) {
+        require(stakes[staker].exists, 'StorX: stakeholder does not exists');
+        require(stakes[staker].staked == false, 'StorX: stakeholder still has stake');
+        uint256 unstakeTenure = block.timestamp - stakes[staker].unstakedTime;
         return coolOff < unstakeTenure;
     }
 
@@ -158,8 +158,8 @@ contract StroxStaking is Ownable {
         earned = earnedStake.add(earnedHost);
     }
 
-    function earned() public view returns (uint256 earnings) {
-        earnings = _earned(msg.sender);
+    function earned(address staker) public view returns (uint256 earnings) {
+        earnings = _earned(staker);
     }
 
     function claimEarned(address claimAddress) public canRedeemDrip {
@@ -189,12 +189,16 @@ contract StroxStaking is Ownable {
         return lastDripAt + dripInterval;
     }
 
-    function canWithdrawStakeIn() public view returns (uint256) {
-        require(stakes[msg.sender].exists, 'StorX: stakeholder does not exists');
-        require(stakes[msg.sender].staked == false, 'StorX: stakeholder still has stake');
-        uint256 unstakeTenure = block.timestamp - stakes[msg.sender].unstakedTime;
+    function canWithdrawStakeIn(address staker) public view returns (uint256) {
+        require(stakes[staker].exists, 'StorX: stakeholder does not exists');
+        require(stakes[staker].staked == false, 'StorX: stakeholder still has stake');
+        uint256 unstakeTenure = block.timestamp - stakes[staker].unstakedTime;
         if (coolOff < unstakeTenure) return 0;
         return coolOff - unstakeTenure;
+    }
+
+    function thresholdMet(address staker) public view returns (uint256) {
+        return iRepF.getReputation(staker) > reputationThreshold;
     }
 
     /**
