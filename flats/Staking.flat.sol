@@ -311,6 +311,19 @@ contract StroxStaking is Ownable {
     event WithdrewStake(address staked_holder, uint256 amount);
     event ClaimedRewards(address staked_holder, uint256 amount);
 
+    // Parameter Change Events
+    event MinStakeAmountChanged(uint256 prevValue, uint256 newValue);
+    event MaxStakeAmountChanged(uint256 prevValue, uint256 newValue);
+    event RateChanged(uint256 prevValue, uint256 newValue);
+    event CoolOffChanged(uint256 prevValue, uint256 newValue);
+    event RedeemIntervalChanged(uint256 prevValue, uint256 newValue);
+    event ReputationFeedChanged(address prevValue, address newValue);
+    event ReputationThresholdChanged(uint256 prevValue, uint256 newValue);
+    event HostingCompensationChanged(uint256 prevValue, uint256 newValue);
+
+    event WithdrewTokens(address beneficiary_, uint256 amount_);
+    event WithdrewXdc(address beneficiary_, uint256 amount_);
+
     IERC20 public token;
     IRepF public iRepF;
     uint256 public reputationThreshold;
@@ -381,6 +394,8 @@ contract StroxStaking is Ownable {
         stakes[msg.sender].stakedAmount = amount_;
         stakes[msg.sender].balance = 0;
 
+        _totalStaked = _totalStaked.add(amount_);
+
         token.safeTransferFrom(msg.sender, address(this), amount_);
 
         emit Staked(msg.sender, amount_);
@@ -389,6 +404,8 @@ contract StroxStaking is Ownable {
     function unstake() public whenStaked {
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
+
+        _totalStaked = _totalStaked.sub(amount_);
 
         emit Unstaked(msg.sender);
     }
@@ -458,45 +475,63 @@ contract StroxStaking is Ownable {
 
     function setMinStakeAmount(uint256 minStakeAmount_) public onlyOwner {
         require(minStakeAmount_ > 0, 'StorX: minimum stake amount should be greater than 0');
+        uint256 prevValue = minStakeAmount;
         minStakeAmount = minStakeAmount_;
+        emit MinStakeAmountChanged(prevValue, minStakeAmount);
     }
 
     function setMaxStakeAmount(uint256 maxStakeAmount_) public onlyOwner {
         require(maxStakeAmount_ > 0, 'StorX: maximum stake amount should be greater than 0');
+        uint256 prevValue = maxStakeAmount;
         maxStakeAmount = maxStakeAmount_;
+        emit MaxStakeAmountChanged(prevValue, maxStakeAmount);
     }
 
     function setRate(uint256 interest_) public onlyOwner {
+        uint256 prevValue = interest;
         interest = interest_;
+        emit RateChanged(prevValue, interest);
     }
 
     function setCoolOff(uint256 coolOff_) public onlyOwner {
+        uint256 prevValue = coolOff;
         coolOff = coolOff_;
+        emit CoolOffChanged(prevValue, coolOff);
     }
 
     function setRedeemInterval(uint256 redeemInterval_) public onlyOwner {
+        uint256 prevValue = redeemInterval;
         redeemInterval = redeemInterval_;
+        emit RedeemIntervalChanged(prevValue, redeemInterval);
+    }
+
+    function setIRepF(IRepF repAddr_) public onlyOwner {
+        address prevValue = address(iRepF);
+        iRepF = repAddr_;
+        emit ReputationFeedChanged(prevValue, address(iRepF));
+    }
+
+    function setReputationThreshold(uint256 threshold) public onlyOwner {
+        address prevValue = reputationThreshold;
+        reputationThreshold = threshold;
+        emit ReputationThresholdChanged(prevValue, reputationThreshold);
+    }
+
+    function setHostingCompensation(uint256 hostingCompensation_) public onlyOwner {
+        address prevValue = hostingCompensation;
+        hostingCompensation = hostingCompensation_;
+        emit HostingCompensationChanged(prevValue, hostingCompensation);
     }
 
     function withdrawTokens(address beneficiary_, uint256 amount_) public onlyOwner {
         require(amount_ > 0, 'StorX: token amount has to be greater than 0');
         token.safeTransfer(beneficiary_, amount_);
+        emit WithdrewTokens(beneficiary_, amount_);
     }
 
     function withdrawXdc(address beneficiary_, uint256 amount_) public onlyOwner {
         require(amount_ > 0, 'StorX: xdc amount has to be greater than 0');
         beneficiary_.transfer(amount_);
-    }
-
-    function setIRepF(IRepF repAddr_) public onlyOwner {
-        iRepF = repAddr_;
-    }
-
-    function setReputationThreshold(uint256 threshold) public onlyOwner {
-        reputationThreshold = threshold;
-    }
-
-    function setHostingCompensation(uint256 hostingCompensation_) public onlyOwner {
-        hostingCompensation = hostingCompensation_;
+        emit WithdrewXdc(beneficiary_, amount_);
     }
 }
