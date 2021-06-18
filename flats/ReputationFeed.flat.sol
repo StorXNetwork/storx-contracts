@@ -59,9 +59,10 @@ contract Ownable {
     }
 }
 
-// File: contracts/DataFeeds/Operatable.sol
+// File: contracts/DataFeeds/Ownable.sol
 
 pragma solidity 0.4.24;
+
 
 contract Operatable is Ownable {
     address private _operator;
@@ -97,9 +98,10 @@ contract Operatable is Ownable {
     }
 }
 
-// File: contracts/DataFeeds/ReputationFeed.sol
+// File: contracts/DataFeeds/Ownable.sol
 
 pragma solidity 0.4.24;
+
 
 interface IReputationFeeds {
     function setReputation(address staker, uint256 reputation) external;
@@ -127,6 +129,10 @@ contract ReputationFeeds is Operatable {
         return reputations[staker];
     }
 
+    function getAllStaker() public view returns(address[]) {
+        return stakers;
+    }
+
     function addStaker(address staker, uint256 reputation) public onlyOperator {
         (bool exists, ) = getStakerIndex(staker);
         require(exists == false, 'ReputationFeeds: staker already exists');
@@ -139,7 +145,9 @@ contract ReputationFeeds is Operatable {
     function removeStaker(address staker) public onlyOperator {
         (bool exists, uint256 index) = getStakerIndex(staker);
         require(exists == true, 'ReputationFeeds: staker does not exists');
-        delete stakers[index];
+        stakers[index]=stakers[stakers.length-1];
+        delete stakers[stakers.length-1];
+        stakers.length--;
         isStaker[staker] = false;
         reputations[staker] = 0;
         emit RemovedStaker(staker);
