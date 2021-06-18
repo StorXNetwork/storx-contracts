@@ -116,8 +116,9 @@ contract StroxStaking is Ownable {
         _;
     }
 
-    modifier canRedeemDrip() {
-        require(lastDripAt + dripInterval < block.timestamp, 'StorX: cannot claim drip yet');
+    modifier canRedeemDrip(address staker) {
+        require(stakes[staker].exists, 'StorX: staker does not exist');
+        require(stakes[staker].lastRedeemedAt + dripInterval < block.timestamp, 'StorX: cannot claim drip yet');
         _;
     }
 
@@ -181,7 +182,7 @@ contract StroxStaking is Ownable {
         earnings = _earned(staker);
     }
 
-    function claimEarned(address claimAddress) public canRedeemDrip {
+    function claimEarned(address claimAddress) public canRedeemDrip(claimAddress) {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
         uint256 claimerReputation = iRepF.getReputation(claimAddress);
         if (claimerReputation < reputationThreshold) {
