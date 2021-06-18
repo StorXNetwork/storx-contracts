@@ -441,10 +441,12 @@ contract StroxStaking is Ownable {
             return;
         }
 
+        // update the redeemdate even if earnings are 0
         uint256 earnings = _earned(claimAddress);
-        require(earnings > 0, 'StorX: no earnings');
-        token.mint(claimAddress, earnings);
-
+        if (earnings>0) {
+            token.mint(claimAddress, earnings);
+        }
+        
         stakes[claimAddress].totalRedeemed += earnings;
         stakes[claimAddress].lastRedeemedAt = block.timestamp;
 

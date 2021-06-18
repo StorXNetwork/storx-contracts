@@ -182,7 +182,7 @@ contract StroxStaking is Ownable {
         earnings = _earned(staker);
     }
 
-    function claimEarned(address claimAddress) public canRedeemDrip(claimAddress) {
+function claimEarned(address claimAddress) public canRedeemDrip(claimAddress) {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
         uint256 claimerReputation = iRepF.getReputation(claimAddress);
         if (claimerReputation < reputationThreshold) {
@@ -192,10 +192,12 @@ contract StroxStaking is Ownable {
             return;
         }
 
+        // update the redeemdate even if earnings are 0
         uint256 earnings = _earned(claimAddress);
-        require(earnings > 0, 'StorX: no earnings');
-        token.mint(claimAddress, earnings);
-
+        if (earnings>0) {
+            token.mint(claimAddress, earnings);
+        }
+        
         stakes[claimAddress].totalRedeemed += earnings;
         stakes[claimAddress].lastRedeemedAt = block.timestamp;
 
