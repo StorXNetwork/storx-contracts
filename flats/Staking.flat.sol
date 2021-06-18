@@ -1,35 +1,36 @@
-// File: contracts/AddressUtils.sol
+// File: contracts\AddressUtils.sol
 
 pragma solidity ^0.4.24;
+
 
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-    /**
-     * Returns whether the target address is a contract
-     * @dev This function will return false if invoked during the constructor of a contract,
-     * as the code is not actually created until after the constructor finishes.
-     * @param _addr address to check
-     * @return whether the target address is a contract
-     */
-    function isContract(address _addr) internal view returns (bool) {
-        uint256 size;
-        // XXX Currently there is no better way to check if there is a contract in an address
-        // than to check the size of the code at that address.
-        // See https://ethereum.stackexchange.com/a/14016/36603
-        // for more details about how this works.
-        // TODO Check this again before the Serenity release, because all addresses will be
-        // contracts then.
-        // solium-disable-next-line security/no-inline-assembly
-        assembly {
-            size := extcodesize(_addr)
-        }
-        return size > 0;
-    }
+
+  /**
+   * Returns whether the target address is a contract
+   * @dev This function will return false if invoked during the constructor of a contract,
+   * as the code is not actually created until after the constructor finishes.
+   * @param _addr address to check
+   * @return whether the target address is a contract
+   */
+  function isContract(address _addr) internal view returns (bool) {
+    uint256 size;
+    // XXX Currently there is no better way to check if there is a contract in an address
+    // than to check the size of the code at that address.
+    // See https://ethereum.stackexchange.com/a/14016/36603
+    // for more details about how this works.
+    // TODO Check this again before the Serenity release, because all addresses will be
+    // contracts then.
+    // solium-disable-next-line security/no-inline-assembly
+    assembly { size := extcodesize(_addr) }
+    return size > 0;
+  }
+
 }
 
-// File: contracts/Staking/SafeMath.sol
+// File: contracts\Staking\SafeMath.sol
 
 pragma solidity ^0.4.24;
 
@@ -82,7 +83,7 @@ library SafeMath {
     }
 }
 
-// File: contracts/Staking/Ownable.sol
+// File: contracts\Staking\Ownable.sol
 
 pragma solidity ^0.4.24;
 
@@ -144,7 +145,7 @@ contract Ownable {
     }
 }
 
-// File: contracts/Staking/IREF.sol
+// File: contracts\Staking\IREF.sol
 
 pragma solidity ^0.4.24;
 
@@ -160,7 +161,7 @@ interface IRepF {
     function getStakerIndex(address staker) external view returns (bool, uint256);
 }
 
-// File: contracts/Staking/IERC20.sol
+// File: contracts\Staking\IERC20.sol
 
 pragma solidity ^0.4.24;
 
@@ -245,9 +246,14 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-// File: contracts/Staking/StorXStaking.sol
+// File: contracts\Staking\StorXStaking.sol
 
 pragma solidity ^0.4.24;
+
+
+
+
+
 
 /**
  * @title SafeERC20
@@ -310,6 +316,7 @@ contract StroxStaking is Ownable {
     event Unstaked(address staked_holder);
     event WithdrewStake(address staked_holder, uint256 amount);
     event ClaimedRewards(address staked_holder, uint256 amount);
+    event ClaimRewardRepNotMet(address staked_holder, uint256 threshold, uint256 reputation);
 
     // Parameter Change Events
     event MinStakeAmountChanged(uint256 prevValue, uint256 newValue);
@@ -405,7 +412,7 @@ contract StroxStaking is Ownable {
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
 
-        _totalStaked = _totalStaked.sub(amount_);
+        _totalStaked = _totalStaked.sub(stakes[msg.sender].stakedAmount);
 
         emit Unstaked(msg.sender);
     }
@@ -425,10 +432,11 @@ contract StroxStaking is Ownable {
 
     function claimEarned(address claimAddress) public canRedeemDrip {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
-        uint256 claimerThreshold = iRepF.getReputation(claimAddress);
-        if (claimerThreshold < reputationThreshold) {
+        uint256 claimerReputation = iRepF.getReputation(claimAddress);
+        if (claimerReputation < reputationThreshold) {
             // mark as redeemed and exit early
             stakes[claimAddress].lastRedeemedAt = block.timestamp;
+            emit ClaimRewardRepNotMet(claimAddress, reputationThreshold, claimerReputation);
             return;
         }
 
@@ -512,13 +520,13 @@ contract StroxStaking is Ownable {
     }
 
     function setReputationThreshold(uint256 threshold) public onlyOwner {
-        address prevValue = reputationThreshold;
+        uint256 prevValue = reputationThreshold;
         reputationThreshold = threshold;
         emit ReputationThresholdChanged(prevValue, reputationThreshold);
     }
 
     function setHostingCompensation(uint256 hostingCompensation_) public onlyOwner {
-        address prevValue = hostingCompensation;
+        uint256 prevValue = hostingCompensation;
         hostingCompensation = hostingCompensation_;
         emit HostingCompensationChanged(prevValue, hostingCompensation);
     }

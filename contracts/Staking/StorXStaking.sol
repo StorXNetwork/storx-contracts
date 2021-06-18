@@ -67,6 +67,7 @@ contract StroxStaking is Ownable {
     event Unstaked(address staked_holder);
     event WithdrewStake(address staked_holder, uint256 amount);
     event ClaimedRewards(address staked_holder, uint256 amount);
+    event ClaimRewardRepNotMet(address staked_holder, uint256 threshold, uint256 reputation);
 
     // Parameter Change Events
     event MinStakeAmountChanged(uint256 prevValue, uint256 newValue);
@@ -182,10 +183,11 @@ contract StroxStaking is Ownable {
 
     function claimEarned(address claimAddress) public canRedeemDrip {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
-        uint256 claimerThreshold = iRepF.getReputation(claimAddress);
-        if (claimerThreshold < reputationThreshold) {
+        uint256 claimerReputation = iRepF.getReputation(claimAddress);
+        if (claimerReputation < reputationThreshold) {
             // mark as redeemed and exit early
             stakes[claimAddress].lastRedeemedAt = block.timestamp;
+            emit ClaimRewardRepNotMet(claimAddress, reputationThreshold, claimerReputation);
             return;
         }
 
