@@ -162,7 +162,7 @@ contract StroxStaking is Ownable {
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
 
-        _totalStaked = _totalStaked.sub(amount_);
+        _totalStaked = _totalStaked.sub(stakes[msg.sender].stakedAmount);
 
         emit Unstaked(msg.sender);
     }
@@ -269,13 +269,13 @@ contract StroxStaking is Ownable {
     }
 
     function setReputationThreshold(uint256 threshold) public onlyOwner {
-        address prevValue = reputationThreshold;
+        uint256 prevValue = reputationThreshold;
         reputationThreshold = threshold;
         emit ReputationThresholdChanged(prevValue, reputationThreshold);
     }
 
     function setHostingCompensation(uint256 hostingCompensation_) public onlyOwner {
-        address prevValue = hostingCompensation;
+        uint256 prevValue = hostingCompensation;
         hostingCompensation = hostingCompensation_;
         emit HostingCompensationChanged(prevValue, hostingCompensation);
     }
