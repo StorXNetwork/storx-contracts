@@ -1,88 +1,111 @@
-// File: contracts/AddressUtils.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ */
 
 pragma solidity ^0.4.24;
 
 /**
- * Utility library of inline functions on addresses
+ * @title IERC20
+ * @dev Interface to ERC20 token
  */
-library AddressUtils {
+interface IERC20 {
     /**
-     * Returns whether the target address is a contract
-     * @dev This function will return false if invoked during the constructor of a contract,
-     * as the code is not actually created until after the constructor finishes.
-     * @param _addr address to check
-     * @return whether the target address is a contract
+     * @dev Returns the amount of tokens in existence.
      */
-    function isContract(address _addr) internal view returns (bool) {
-        uint256 size;
-        // XXX Currently there is no better way to check if there is a contract in an address
-        // than to check the size of the code at that address.
-        // See https://ethereum.stackexchange.com/a/14016/36603
-        // for more details about how this works.
-        // TODO Check this again before the Serenity release, because all addresses will be
-        // contracts then.
-        // solium-disable-next-line security/no-inline-assembly
-        assembly {
-            size := extcodesize(_addr)
-        }
-        return size > 0;
-    }
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address recipient, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * ////IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `sender` to `recipient` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
+
+    function mint(address to, uint256 amount) external;
+
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-// File: contracts/Staking/SafeMath.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ */
 
 pragma solidity ^0.4.24;
 
-/**
- * @title SafeMath
- * @dev Math operations with safety checks that throw on error
- */
-library SafeMath {
-    /**
-     * @dev Multiplies two numbers, throws on overflow.
-     */
-    function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
-        // benefit is lost if 'b' is also tested.
-        // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
-        if (_a == 0) {
-            return 0;
-        }
+interface IRepF {
+    function reputations(address staker) external view returns (uint256);
 
-        c = _a * _b;
-        assert(c / _a == _b);
-        return c;
-    }
+    function stakers(uint256 index) external view returns (address);
 
-    /**
-     * @dev Integer division of two numbers, truncating the quotient.
-     */
-    function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
-        // assert(_b > 0); // Solidity automatically throws when dividing by 0
-        // uint256 c = _a / _b;
-        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
-        return _a / _b;
-    }
+    function getReputation(address staker) external view returns (uint256);
 
-    /**
-     * @dev Subtracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
-     */
-    function sub(uint256 _a, uint256 _b) internal pure returns (uint256) {
-        assert(_b <= _a);
-        return _a - _b;
-    }
+    function isStaker(address staker) external view returns (bool);
 
-    /**
-     * @dev Adds two numbers, throws on overflow.
-     */
-    function add(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-        c = _a + _b;
-        assert(c >= _a);
-        return c;
-    }
+    function getStakerIndex(address staker) external view returns (bool, uint256);
 }
 
-// File: contracts/Staking/Ownable.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ */
 
 pragma solidity ^0.4.24;
 
@@ -144,110 +167,105 @@ contract Ownable {
     }
 }
 
-// File: contracts/Staking/IREF.sol
-
-pragma solidity ^0.4.24;
-
-interface IRepF {
-    function reputations(address staker) external view returns (uint256);
-
-    function stakers(uint256 index) external view returns (address);
-
-    function getReputation(address staker) external view returns (uint256);
-
-    function isStaker(address staker) external view returns (bool);
-
-    function getStakerIndex(address staker) external view returns (bool, uint256);
-}
-
-// File: contracts/Staking/IERC20.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ */
 
 pragma solidity ^0.4.24;
 
 /**
- * @title IERC20
- * @dev Interface to ERC20 token
+ * @title SafeMath
+ * @dev Math operations with safety checks that throw on error
  */
-interface IERC20 {
+library SafeMath {
     /**
-     * @dev Returns the amount of tokens in existence.
+     * @dev Multiplies two numbers, throws on overflow.
      */
-    function totalSupply() external view returns (uint256);
+    function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
+        // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
+        if (_a == 0) {
+            return 0;
+        }
+
+        c = _a * _b;
+        assert(c / _a == _b);
+        return c;
+    }
 
     /**
-     * @dev Returns the amount of tokens owned by `account`.
+     * @dev Integer division of two numbers, truncating the quotient.
      */
-    function balanceOf(address account) external view returns (uint256);
+    function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
+        // assert(_b > 0); // Solidity automatically throws when dividing by 0
+        // uint256 c = _a / _b;
+        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
+        return _a / _b;
+    }
 
     /**
-     * @dev Moves `amount` tokens from the caller's account to `recipient`.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
+     * @dev Subtracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
      */
-    function transfer(address recipient, uint256 amount) external returns (bool);
+    function sub(uint256 _a, uint256 _b) internal pure returns (uint256) {
+        assert(_b <= _a);
+        return _a - _b;
+    }
 
     /**
-     * @dev Returns the remaining number of tokens that `spender` will be
-     * allowed to spend on behalf of `owner` through {transferFrom}. This is
-     * zero by default.
-     *
-     * This value changes when {approve} or {transferFrom} are called.
+     * @dev Adds two numbers, throws on overflow.
      */
-    function allowance(address owner, address spender) external view returns (uint256);
-
-    /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * IMPORTANT: Beware that changing an allowance with this method brings the risk
-     * that someone may use both the old and the new allowance by unfortunate
-     * transaction ordering. One possible solution to mitigate this race
-     * condition is to first reduce the spender's allowance to 0 and set the
-     * desired value afterwards:
-     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
-     *
-     * Emits an {Approval} event.
-     */
-    function approve(address spender, uint256 amount) external returns (bool);
-
-    /**
-     * @dev Moves `amount` tokens from `sender` to `recipient` using the
-     * allowance mechanism. `amount` is then deducted from the caller's
-     * allowance.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
-     */
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) external returns (bool);
-
-    function mint(address to, uint256 amount) external;
-
-    /**
-     * @dev Emitted when `value` tokens are moved from one account (`from`) to
-     * another (`to`).
-     *
-     * Note that `value` may be zero.
-     */
-    event Transfer(address indexed from, address indexed to, uint256 value);
-
-    /**
-     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
-     * a call to {approve}. `value` is the new allowance.
-     */
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    function add(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
+        c = _a + _b;
+        assert(c >= _a);
+        return c;
+    }
 }
 
-// File: contracts/Staking/StorXStaking.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ */
 
 pragma solidity ^0.4.24;
+
+/**
+ * Utility library of inline functions on addresses
+ */
+library AddressUtils {
+    /**
+     * Returns whether the target address is a contract
+     * @dev This function will return false if invoked during the constructor of a contract,
+     * as the code is not actually created until after the constructor finishes.
+     * @param _addr address to check
+     * @return whether the target address is a contract
+     */
+    function isContract(address _addr) internal view returns (bool) {
+        uint256 size;
+        // XXX Currently there is no better way to check if there is a contract in an address
+        // than to check the size of the code at that address.
+        // See https://ethereum.stackexchange.com/a/14016/36603
+        // for more details about how this works.
+        // TODO Check this again before the Serenity release, because all addresses will be
+        // contracts then.
+        // solium-disable-next-line security/no-inline-assembly
+        assembly {
+            size := extcodesize(_addr)
+        }
+        return size > 0;
+    }
+}
+
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ */
+
+pragma solidity ^0.4.24;
+
+////import '../AddressUtils.sol';
+////import './SafeMath.sol';
+////import './Ownable.sol';
+////import './IREF.sol';
+////import './IERC20.sol';
 
 /**
  * @title SafeERC20
@@ -417,8 +435,10 @@ contract StorxStaking is Ownable {
         require(stakes[beneficiary_].staked, 'StorX: need to stake for earnings');
         uint256 tenure = (block.timestamp - stakes[beneficiary_].lastRedeemedAt);
         uint256 earnedStake =
-            tenure.mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(365);
-        uint256 earnedHost = tenure.mul(hostingCompensation).mul(interest).div(100).div(365);
+            tenure.div(ONE_DAY).mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(
+                365
+            );
+        uint256 earnedHost = tenure.div(ONE_DAY).mul(hostingCompensation).div(365);
         earned = earnedStake.add(earnedHost);
     }
 

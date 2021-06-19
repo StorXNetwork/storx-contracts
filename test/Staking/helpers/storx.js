@@ -11,3 +11,10 @@ exports.MintBalance = (token, operator, accounts, amount) => {
     }
   });
 };
+
+exports.CalculateEarning = ({ interest, hostingComp, days, amount }) => {
+  return Math.floor(
+    (parseFloat(amount) * parseFloat(days) * parseFloat(interest)) / 36500 +
+      (parseFloat(hostingComp) * parseFloat(days)) / 365
+  );
+};

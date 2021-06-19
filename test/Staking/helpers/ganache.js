@@ -5,7 +5,7 @@ const LOCAL = 'http://localhost:8545';
 const MineBlock = (ts = 1000) => {
   return new Promise((resolve, reject) => {
     const web3 = new Web3(new Web3.providers.HttpProvider(LOCAL));
-    web3.currentProvider.sendAsync(
+    web3.currentProvider.send(
       {
         jsonrpc: '2.0',
         method: 'evm_mine',

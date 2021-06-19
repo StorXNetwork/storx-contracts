@@ -174,8 +174,10 @@ contract StorxStaking is Ownable {
         require(stakes[beneficiary_].staked, 'StorX: need to stake for earnings');
         uint256 tenure = (block.timestamp - stakes[beneficiary_].lastRedeemedAt);
         uint256 earnedStake =
-            tenure.mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(365);
-        uint256 earnedHost = tenure.mul(hostingCompensation).mul(interest).div(100).div(365);
+            tenure.div(ONE_DAY).mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(
+                365
+            );
+        uint256 earnedHost = tenure.div(ONE_DAY).mul(hostingCompensation).div(365);
         earned = earnedStake.add(earnedHost);
     }
 

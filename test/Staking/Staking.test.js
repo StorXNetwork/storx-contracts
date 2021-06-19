@@ -11,7 +11,7 @@ const Staking = artifacts.require('StorxStaking');
 
 require('chai').use(require('chai-bignumber')(web3.BigNumber)).should();
 
-contract('Staking', ([owner, ...accounts]) => {
+contract('Staking: stake', ([owner, ...accounts]) => {
   const BAD_STAKER = accounts[0];
   const STAKERS = accounts.slice(1, accounts.length - 1);
   const NON_STAKER = accounts[accounts.length - 1];
