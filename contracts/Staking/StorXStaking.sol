@@ -149,7 +149,7 @@ contract StroxStaking is Ownable {
 
         stakes[msg.sender].stakedTime = block.timestamp;
         stakes[msg.sender].totalRedeemed = 0;
-        stakes[msg.sender].lastRedeemedAt = 0;
+        stakes[msg.sender].lastRedeemedAt = block.timestamp;
         stakes[msg.sender].stakedAmount = amount_;
         stakes[msg.sender].balance = 0;
 
