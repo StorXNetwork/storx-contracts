@@ -28,7 +28,7 @@ contract ReputationFeeds is Operatable {
         return reputations[staker];
     }
 
-    function getAllStaker() public view returns(address[]) {
+    function getAllStaker() public view returns (address[]) {
         return stakers;
     }
 
@@ -44,8 +44,8 @@ contract ReputationFeeds is Operatable {
     function removeStaker(address staker) public onlyOperator {
         (bool exists, uint256 index) = getStakerIndex(staker);
         require(exists == true, 'ReputationFeeds: staker does not exists');
-        stakers[index]=stakers[stakers.length-1];
-        delete stakers[stakers.length-1];
+        stakers[index] = stakers[stakers.length - 1];
+        delete stakers[stakers.length - 1];
         stakers.length--;
         isStaker[staker] = false;
         reputations[staker] = 0;

@@ -1,36 +1,35 @@
-// File: contracts\AddressUtils.sol
+// File: contracts/AddressUtils.sol
 
 pragma solidity ^0.4.24;
-
 
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-
-  /**
-   * Returns whether the target address is a contract
-   * @dev This function will return false if invoked during the constructor of a contract,
-   * as the code is not actually created until after the constructor finishes.
-   * @param _addr address to check
-   * @return whether the target address is a contract
-   */
-  function isContract(address _addr) internal view returns (bool) {
-    uint256 size;
-    // XXX Currently there is no better way to check if there is a contract in an address
-    // than to check the size of the code at that address.
-    // See https://ethereum.stackexchange.com/a/14016/36603
-    // for more details about how this works.
-    // TODO Check this again before the Serenity release, because all addresses will be
-    // contracts then.
-    // solium-disable-next-line security/no-inline-assembly
-    assembly { size := extcodesize(_addr) }
-    return size > 0;
-  }
-
+    /**
+     * Returns whether the target address is a contract
+     * @dev This function will return false if invoked during the constructor of a contract,
+     * as the code is not actually created until after the constructor finishes.
+     * @param _addr address to check
+     * @return whether the target address is a contract
+     */
+    function isContract(address _addr) internal view returns (bool) {
+        uint256 size;
+        // XXX Currently there is no better way to check if there is a contract in an address
+        // than to check the size of the code at that address.
+        // See https://ethereum.stackexchange.com/a/14016/36603
+        // for more details about how this works.
+        // TODO Check this again before the Serenity release, because all addresses will be
+        // contracts then.
+        // solium-disable-next-line security/no-inline-assembly
+        assembly {
+            size := extcodesize(_addr)
+        }
+        return size > 0;
+    }
 }
 
-// File: contracts\Staking\SafeMath.sol
+// File: contracts/Staking/SafeMath.sol
 
 pragma solidity ^0.4.24;
 
@@ -83,7 +82,7 @@ library SafeMath {
     }
 }
 
-// File: contracts\Staking\Ownable.sol
+// File: contracts/Staking/Ownable.sol
 
 pragma solidity ^0.4.24;
 
@@ -145,7 +144,7 @@ contract Ownable {
     }
 }
 
-// File: contracts\Staking\IREF.sol
+// File: contracts/Staking/IREF.sol
 
 pragma solidity ^0.4.24;
 
@@ -161,7 +160,7 @@ interface IRepF {
     function getStakerIndex(address staker) external view returns (bool, uint256);
 }
 
-// File: contracts\Staking\IERC20.sol
+// File: contracts/Staking/IERC20.sol
 
 pragma solidity ^0.4.24;
 
@@ -246,14 +245,9 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-// File: contracts\Staking\StorXStaking.sol
+// File: contracts/Staking/StorXStaking.sol
 
 pragma solidity ^0.4.24;
-
-
-
-
-
 
 /**
  * @title SafeERC20
@@ -367,7 +361,10 @@ contract StroxStaking is Ownable {
 
     modifier canRedeemDrip(address staker) {
         require(stakes[staker].exists, 'StorX: staker does not exist');
-        require(stakes[staker].lastRedeemedAt + dripInterval < block.timestamp, 'StorX: cannot claim drip yet');
+        require(
+            stakes[staker].lastRedeemedAt + dripInterval < block.timestamp,
+            'StorX: cannot claim drip yet'
+        );
         _;
     }
 
@@ -398,7 +395,7 @@ contract StroxStaking is Ownable {
 
         stakes[msg.sender].stakedTime = block.timestamp;
         stakes[msg.sender].totalRedeemed = 0;
-        stakes[msg.sender].lastRedeemedAt = 0;
+        stakes[msg.sender].lastRedeemedAt = block.timestamp;
         stakes[msg.sender].stakedAmount = amount_;
         stakes[msg.sender].balance = 0;
 
@@ -443,10 +440,10 @@ contract StroxStaking is Ownable {
 
         // update the redeemdate even if earnings are 0
         uint256 earnings = _earned(claimAddress);
-        if (earnings>0) {
+        if (earnings > 0) {
             token.mint(claimAddress, earnings);
         }
-        
+
         stakes[claimAddress].totalRedeemed += earnings;
         stakes[claimAddress].lastRedeemedAt = block.timestamp;
 
