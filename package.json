@@ -10,11 +10,12 @@
     "test-proxy": "truffle test ./test/testProxy/*.js > ./test-result/proxy-test.log",
     "test-token": "truffle test ./test/testToken/*.js > ./test-result/token-test.log",
     "test-all": "truffle test ",
-    "prettier:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol",
-    "prettier:solidity-flat": "./node_modules/.bin/prettier --write flats/**/*.sol",
+    "lint:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol",
+    "lint:solidity-flat": "./node_modules/.bin/prettier --write flats/**/*.sol",
+    "lint": "concurrently npm:lint:*",
     "watch": "concurrently npm:watch:*",
-    "watch:contract": "onchange  -d 1000 './contracts/*/*.sol' --  npm run prettier:solidity",
-    "watch:flat": "onchange  -d 1000 './flats/*/*.sol' --  npm run prettier:solidity"
+    "watch:contract": "onchange  -d 1000 './contracts/*/*.sol' --  npm run lint:solidity",
+    "watch:flat": "onchange  -d 1000 './flats/*/*.sol' --  npm run lint:solidity"
   },
   "keywords": [],
   "author": "",

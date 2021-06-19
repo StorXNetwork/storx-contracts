@@ -2,32 +2,31 @@
 
 pragma solidity ^0.4.24;
 
-
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-
-  /**
-   * Returns whether the target address is a contract
-   * @dev This function will return false if invoked during the constructor of a contract,
-   * as the code is not actually created until after the constructor finishes.
-   * @param _addr address to check
-   * @return whether the target address is a contract
-   */
-  function isContract(address _addr) internal view returns (bool) {
-    uint256 size;
-    // XXX Currently there is no better way to check if there is a contract in an address
-    // than to check the size of the code at that address.
-    // See https://ethereum.stackexchange.com/a/14016/36603
-    // for more details about how this works.
-    // TODO Check this again before the Serenity release, because all addresses will be
-    // contracts then.
-    // solium-disable-next-line security/no-inline-assembly
-    assembly { size := extcodesize(_addr) }
-    return size > 0;
-  }
-
+    /**
+     * Returns whether the target address is a contract
+     * @dev This function will return false if invoked during the constructor of a contract,
+     * as the code is not actually created until after the constructor finishes.
+     * @param _addr address to check
+     * @return whether the target address is a contract
+     */
+    function isContract(address _addr) internal view returns (bool) {
+        uint256 size;
+        // XXX Currently there is no better way to check if there is a contract in an address
+        // than to check the size of the code at that address.
+        // See https://ethereum.stackexchange.com/a/14016/36603
+        // for more details about how this works.
+        // TODO Check this again before the Serenity release, because all addresses will be
+        // contracts then.
+        // solium-disable-next-line security/no-inline-assembly
+        assembly {
+            size := extcodesize(_addr)
+        }
+        return size > 0;
+    }
 }
 
 // File: contracts/Staking/SafeMath.sol
@@ -250,11 +249,6 @@ interface IERC20 {
 
 pragma solidity ^0.4.24;
 
-
-
-
-
-
 /**
  * @title SafeERC20
  * @dev Wrappers around ERC20 operations that throw on failure.
@@ -288,7 +282,7 @@ library SafeERC20 {
     }
 }
 
-contract StroxStaking is Ownable {
+contract StorxStaking is Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
     using AddressUtils for address;
@@ -315,15 +309,13 @@ contract StroxStaking is Ownable {
     IRepF public iRepF;
     uint256 public reputationThreshold;
     uint256 public hostingCompensation = 750 * 12 * 10**18;
-    uint256 internal totalStaked;
+    uint256 public totalStaked;
     uint256 public minStakeAmount;
     uint256 public maxStakeAmount;
-    uint256 private coolOff = ONE_DAY * 7;
+    uint256 public coolOff = ONE_DAY * 7;
     uint256 public interest;
-    uint256 private dripInterval = 30 * ONE_DAY;
-    uint256 private lastDripAt = 0;
-    uint256 private totalRedeemed = 0;
-    uint256 private redeemInterval;
+    uint256 public totalRedeemed = 0;
+    uint256 public redeemInterval = 30 * ONE_DAY;
 
     event Staked(address staker, uint256 amount);
 
@@ -368,7 +360,7 @@ contract StroxStaking is Ownable {
     modifier canRedeemDrip(address staker) {
         require(stakes[staker].exists, 'StorX: staker does not exist');
         require(
-            stakes[staker].lastRedeemedAt + dripInterval < block.timestamp,
+            stakes[staker].lastRedeemedAt + redeemInterval < block.timestamp,
             'StorX: cannot claim drip yet'
         );
         _;
@@ -467,7 +459,7 @@ contract StroxStaking is Ownable {
 
     function nextDripAt(address claimerAddress) public view returns (uint256) {
         require(stakes[claimerAddress].staked == true, 'StorX: address has not staked');
-        return stakes[claimerAddress].lastRedeemedAt + dripInterval;
+        return stakes[claimerAddress].lastRedeemedAt + redeemInterval;
     }
 
     function canWithdrawStakeIn(address staker) public view returns (uint256) {
@@ -480,6 +472,10 @@ contract StroxStaking is Ownable {
 
     function thresholdMet(address staker) public view returns (bool) {
         return iRepF.getReputation(staker) > reputationThreshold;
+    }
+
+    function getAllStakeHolder() public view returns (address[]) {
+        return stakeHolders;
     }
 
     /**
