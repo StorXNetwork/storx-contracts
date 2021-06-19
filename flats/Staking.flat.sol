@@ -2,31 +2,32 @@
 
 pragma solidity ^0.4.24;
 
+
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-    /**
-     * Returns whether the target address is a contract
-     * @dev This function will return false if invoked during the constructor of a contract,
-     * as the code is not actually created until after the constructor finishes.
-     * @param _addr address to check
-     * @return whether the target address is a contract
-     */
-    function isContract(address _addr) internal view returns (bool) {
-        uint256 size;
-        // XXX Currently there is no better way to check if there is a contract in an address
-        // than to check the size of the code at that address.
-        // See https://ethereum.stackexchange.com/a/14016/36603
-        // for more details about how this works.
-        // TODO Check this again before the Serenity release, because all addresses will be
-        // contracts then.
-        // solium-disable-next-line security/no-inline-assembly
-        assembly {
-            size := extcodesize(_addr)
-        }
-        return size > 0;
-    }
+
+  /**
+   * Returns whether the target address is a contract
+   * @dev This function will return false if invoked during the constructor of a contract,
+   * as the code is not actually created until after the constructor finishes.
+   * @param _addr address to check
+   * @return whether the target address is a contract
+   */
+  function isContract(address _addr) internal view returns (bool) {
+    uint256 size;
+    // XXX Currently there is no better way to check if there is a contract in an address
+    // than to check the size of the code at that address.
+    // See https://ethereum.stackexchange.com/a/14016/36603
+    // for more details about how this works.
+    // TODO Check this again before the Serenity release, because all addresses will be
+    // contracts then.
+    // solium-disable-next-line security/no-inline-assembly
+    assembly { size := extcodesize(_addr) }
+    return size > 0;
+  }
+
 }
 
 // File: contracts/Staking/SafeMath.sol
@@ -249,6 +250,11 @@ interface IERC20 {
 
 pragma solidity ^0.4.24;
 
+
+
+
+
+
 /**
  * @title SafeERC20
  * @dev Wrappers around ERC20 operations that throw on failure.
@@ -305,12 +311,26 @@ contract StroxStaking is Ownable {
     mapping(address => Stake) public stakes;
     address[] public stakeHolders;
 
-    event Staked(address stake_holder, uint256 amount);
+    IERC20 public token;
+    IRepF public iRepF;
+    uint256 public reputationThreshold;
+    uint256 public hostingCompensation = 750 * 12 * 10**18;
+    uint256 internal totalStaked;
+    uint256 public minStakeAmount;
+    uint256 public maxStakeAmount;
+    uint256 private coolOff = ONE_DAY * 7;
+    uint256 public interest;
+    uint256 private dripInterval = 30 * ONE_DAY;
+    uint256 private lastDripAt = 0;
+    uint256 private totalRedeemed = 0;
+    uint256 private redeemInterval;
 
-    event Unstaked(address staked_holder);
-    event WithdrewStake(address staked_holder, uint256 amount);
-    event ClaimedRewards(address staked_holder, uint256 amount);
-    event ClaimRewardRepNotMet(address staked_holder, uint256 threshold, uint256 reputation);
+    event Staked(address staker, uint256 amount);
+
+    event Unstaked(address staker, uint256 amount);
+    event WithdrewStake(address staker, uint256 amount);
+    event ClaimedRewards(address staker, uint256 amount);
+    event MissedRewards(address staker, uint256 threshold, uint256 reputation);
 
     // Parameter Change Events
     event MinStakeAmountChanged(uint256 prevValue, uint256 newValue);
@@ -322,22 +342,8 @@ contract StroxStaking is Ownable {
     event ReputationThresholdChanged(uint256 prevValue, uint256 newValue);
     event HostingCompensationChanged(uint256 prevValue, uint256 newValue);
 
-    event WithdrewTokens(address beneficiary_, uint256 amount_);
-    event WithdrewXdc(address beneficiary_, uint256 amount_);
-
-    IERC20 public token;
-    IRepF public iRepF;
-    uint256 public reputationThreshold;
-    uint256 public hostingCompensation = 750 * 12 * 10**18;
-    uint256 internal _totalStaked;
-    uint256 public minStakeAmount;
-    uint256 public maxStakeAmount;
-    uint256 private coolOff = ONE_DAY * 7;
-    uint256 public interest;
-    uint256 private dripInterval = 30 * ONE_DAY;
-    uint256 private lastDripAt = 0;
-    uint256 private totalRedeemed = 0;
-    uint256 private redeemInterval;
+    event WithdrewTokens(address beneficiary, uint256 amount);
+    event WithdrewXdc(address beneficiary, uint256 amount);
 
     modifier whenStaked() {
         require(stakes[msg.sender].staked == true, 'StorX: not staked');
@@ -399,7 +405,7 @@ contract StroxStaking is Ownable {
         stakes[msg.sender].stakedAmount = amount_;
         stakes[msg.sender].balance = 0;
 
-        _totalStaked = _totalStaked.add(amount_);
+        totalStaked = totalStaked.add(amount_);
 
         token.safeTransferFrom(msg.sender, address(this), amount_);
 
@@ -410,9 +416,9 @@ contract StroxStaking is Ownable {
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
 
-        _totalStaked = _totalStaked.sub(stakes[msg.sender].stakedAmount);
+        totalStaked = totalStaked.sub(stakes[msg.sender].stakedAmount);
 
-        emit Unstaked(msg.sender);
+        emit Unstaked(msg.sender, stakes[msg.sender].stakedAmount);
     }
 
     function _earned(address beneficiary_) internal view returns (uint256 earned) {
@@ -434,7 +440,7 @@ contract StroxStaking is Ownable {
         if (claimerReputation < reputationThreshold) {
             // mark as redeemed and exit early
             stakes[claimAddress].lastRedeemedAt = block.timestamp;
-            emit ClaimRewardRepNotMet(claimAddress, reputationThreshold, claimerReputation);
+            emit MissedRewards(claimAddress, reputationThreshold, claimerReputation);
             return;
         }
 
@@ -459,8 +465,9 @@ contract StroxStaking is Ownable {
         emit WithdrewStake(msg.sender, withdrawAmount);
     }
 
-    function nextDripAt() public view returns (uint256) {
-        return lastDripAt + dripInterval;
+    function nextDripAt(address claimerAddress) public view returns (uint256) {
+        require(stakes[claimerAddress].staked == true, 'StorX: address has not staked');
+        return stakes[claimerAddress].lastRedeemedAt + dripInterval;
     }
 
     function canWithdrawStakeIn(address staker) public view returns (uint256) {

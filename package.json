@@ -12,7 +12,9 @@
     "test-all": "truffle test ",
     "prettier:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol",
     "prettier:solidity-flat": "./node_modules/.bin/prettier --write flats/**/*.sol",
-    "watch": "onchange  -d 1000 './contracts/*/*.sol' --  npm run prettier:solidity"
+    "watch": "concurrently npm:watch:*",
+    "watch:contract": "onchange  -d 1000 './contracts/*/*.sol' --  npm run prettier:solidity",
+    "watch:flat": "onchange  -d 1000 './flats/*/*.sol' --  npm run prettier:solidity"
   },
   "keywords": [],
   "author": "",
