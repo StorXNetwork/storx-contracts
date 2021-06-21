@@ -71,6 +71,8 @@ contract('Staking: unstake', ([owner, ...accounts]) => {
   });
 
   it('can unstake right away', async function () {
+    const oldStakeHolders = await this.staking.getAllStakeHolder();
+    assert.isTrue(oldStakeHolders.includes(this.currentStaker));
     const balanceStakerBefore = parseFloat(
       (await this.storx.balanceOf(this.currentStaker)).toString()
     );
@@ -99,6 +101,9 @@ contract('Staking: unstake', ([owner, ...accounts]) => {
       parseFloat(stakeBefore.lastRedeemedAt.toString()) + 8 * parseFloat(ONE_DAY);
 
     await MineBlock(TIME_SKIP_TO);
+
+    const newStakeHolders = await this.staking.getAllStakeHolder();
+    assert.isFalse(newStakeHolders.includes(this.currentStaker));
 
     const data2 = await this.staking.withdrawStake({ from: this.currentStaker });
 

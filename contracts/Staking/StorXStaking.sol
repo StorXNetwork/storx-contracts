@@ -144,10 +144,9 @@ contract StorxStaking is Ownable {
         if (stakes[msg.sender].exists == false) {
             stakes[msg.sender].exists = true;
             stakes[msg.sender].stakerHolder = msg.sender;
-
-            stakeHolders.push(msg.sender);
         }
 
+        stakeHolders.push(msg.sender);
         stakes[msg.sender].stakedTime = block.timestamp;
         stakes[msg.sender].totalRedeemed = 0;
         stakes[msg.sender].lastRedeemedAt = block.timestamp;
@@ -168,6 +167,11 @@ contract StorxStaking is Ownable {
         stakes[msg.sender].balance = leftoverBalance;
 
         totalStaked = totalStaked.sub(stakes[msg.sender].stakedAmount);
+        (bool exists, uint256 stakerIndex) = getStakerIndex(msg.sender);
+        require(exists, 'StorX: staker does not exist');
+        stakeHolders[stakerIndex] = stakeHolders[stakeHolders.length-1];
+        delete stakeHolders[stakeHolders.length-1];
+        stakeHolders.length--;
 
         emit Unstaked(msg.sender, stakes[msg.sender].stakedAmount);
     }
@@ -242,6 +246,13 @@ contract StorxStaking is Ownable {
 
     function getAllStakeHolder() public view returns (address[]) {
         return stakeHolders;
+    }
+
+    function getStakerIndex(address staker) public view returns (bool, uint256) {
+        for (uint256 i = 0; i < stakeHolders.length; i++) {
+            if (stakeHolders[i] == staker) return (true, i);
+        }
+        return (false, 0);
     }
 
     /**
