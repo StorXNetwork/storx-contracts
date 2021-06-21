@@ -1,7 +1,8 @@
-/**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
- */
 
+/** 
+ *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+*/
+            
 pragma solidity ^0.4.24;
 
 /**
@@ -85,10 +86,13 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-/**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
- */
 
+
+
+/** 
+ *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+*/
+            
 pragma solidity ^0.4.24;
 
 interface IRepF {
@@ -103,10 +107,13 @@ interface IRepF {
     function getStakerIndex(address staker) external view returns (bool, uint256);
 }
 
-/**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
- */
 
+
+
+/** 
+ *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+*/
+            
 pragma solidity ^0.4.24;
 
 /**
@@ -167,10 +174,13 @@ contract Ownable {
     }
 }
 
-/**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
- */
 
+
+
+/** 
+ *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+*/
+            
 pragma solidity ^0.4.24;
 
 /**
@@ -222,42 +232,47 @@ library SafeMath {
     }
 }
 
-/**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
- */
 
+
+
+/** 
+ *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+*/
+            
 pragma solidity ^0.4.24;
+
 
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-    /**
-     * Returns whether the target address is a contract
-     * @dev This function will return false if invoked during the constructor of a contract,
-     * as the code is not actually created until after the constructor finishes.
-     * @param _addr address to check
-     * @return whether the target address is a contract
-     */
-    function isContract(address _addr) internal view returns (bool) {
-        uint256 size;
-        // XXX Currently there is no better way to check if there is a contract in an address
-        // than to check the size of the code at that address.
-        // See https://ethereum.stackexchange.com/a/14016/36603
-        // for more details about how this works.
-        // TODO Check this again before the Serenity release, because all addresses will be
-        // contracts then.
-        // solium-disable-next-line security/no-inline-assembly
-        assembly {
-            size := extcodesize(_addr)
-        }
-        return size > 0;
-    }
+
+  /**
+   * Returns whether the target address is a contract
+   * @dev This function will return false if invoked during the constructor of a contract,
+   * as the code is not actually created until after the constructor finishes.
+   * @param _addr address to check
+   * @return whether the target address is a contract
+   */
+  function isContract(address _addr) internal view returns (bool) {
+    uint256 size;
+    // XXX Currently there is no better way to check if there is a contract in an address
+    // than to check the size of the code at that address.
+    // See https://ethereum.stackexchange.com/a/14016/36603
+    // for more details about how this works.
+    // TODO Check this again before the Serenity release, because all addresses will be
+    // contracts then.
+    // solium-disable-next-line security/no-inline-assembly
+    assembly { size := extcodesize(_addr) }
+    return size > 0;
+  }
+
 }
 
-/**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
- */
+
+/** 
+ *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+*/
 
 pragma solidity ^0.4.24;
 
@@ -338,7 +353,7 @@ contract StorxStaking is Ownable {
     event Staked(address staker, uint256 amount);
 
     event Unstaked(address staker, uint256 amount);
-    event WithdrewStake(address staker, uint256 amount);
+    event WithdrewStake(address staker, uint256 principal, uint256 earnings);
     event ClaimedRewards(address staker, uint256 amount);
     event MissedRewards(address staker, uint256 threshold, uint256 reputation);
 
@@ -378,7 +393,7 @@ contract StorxStaking is Ownable {
     modifier canRedeemDrip(address staker) {
         require(stakes[staker].exists, 'StorX: staker does not exist');
         require(
-            stakes[staker].lastRedeemedAt + redeemInterval < block.timestamp,
+            stakes[staker].lastRedeemedAt + redeemInterval <= block.timestamp,
             'StorX: cannot claim drip yet'
         );
         _;
@@ -423,8 +438,10 @@ contract StorxStaking is Ownable {
     }
 
     function unstake() public whenStaked {
+        uint256 leftoverBalance = _earned(msg.sender);
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
+        stakes[msg.sender].balance = leftoverBalance;
 
         totalStaked = totalStaked.sub(stakes[msg.sender].stakedAmount);
 
@@ -471,10 +488,15 @@ contract StorxStaking is Ownable {
     }
 
     function withdrawStake() public whenUnStaked {
+        require(canWithdrawStake(msg.sender), 'StorX: cannot withdraw yet');
         uint256 withdrawAmount = stakes[msg.sender].stakedAmount;
+        uint256 leftoverBalance = stakes[msg.sender].balance;
         token.transfer(msg.sender, withdrawAmount);
+        token.mint(msg.sender, leftoverBalance);
         stakes[msg.sender].stakedAmount = 0;
-        emit WithdrewStake(msg.sender, withdrawAmount);
+        stakes[msg.sender].totalRedeemed += leftoverBalance;
+        stakes[msg.sender].lastRedeemedAt = block.timestamp;
+        emit WithdrewStake(msg.sender, withdrawAmount, leftoverBalance);
     }
 
     function nextDripAt(address claimerAddress) public view returns (uint256) {
@@ -566,3 +588,4 @@ contract StorxStaking is Ownable {
         emit WithdrewXdc(beneficiary_, amount_);
     }
 }
+

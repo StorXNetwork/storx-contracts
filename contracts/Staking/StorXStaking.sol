@@ -77,7 +77,7 @@ contract StorxStaking is Ownable {
     event Staked(address staker, uint256 amount);
 
     event Unstaked(address staker, uint256 amount);
-    event WithdrewStake(address staker, uint256 amount);
+    event WithdrewStake(address staker, uint256 principal, uint256 earnings);
     event ClaimedRewards(address staker, uint256 amount);
     event MissedRewards(address staker, uint256 threshold, uint256 reputation);
 
@@ -117,7 +117,7 @@ contract StorxStaking is Ownable {
     modifier canRedeemDrip(address staker) {
         require(stakes[staker].exists, 'StorX: staker does not exist');
         require(
-            stakes[staker].lastRedeemedAt + redeemInterval < block.timestamp,
+            stakes[staker].lastRedeemedAt + redeemInterval <= block.timestamp,
             'StorX: cannot claim drip yet'
         );
         _;
@@ -162,8 +162,10 @@ contract StorxStaking is Ownable {
     }
 
     function unstake() public whenStaked {
+        uint256 leftoverBalance = _earned(msg.sender);
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
+        stakes[msg.sender].balance = leftoverBalance;
 
         totalStaked = totalStaked.sub(stakes[msg.sender].stakedAmount);
 
@@ -210,10 +212,15 @@ contract StorxStaking is Ownable {
     }
 
     function withdrawStake() public whenUnStaked {
+        require(canWithdrawStake(msg.sender), 'StorX: cannot withdraw yet');
         uint256 withdrawAmount = stakes[msg.sender].stakedAmount;
+        uint256 leftoverBalance = stakes[msg.sender].balance;
         token.transfer(msg.sender, withdrawAmount);
+        token.mint(msg.sender, leftoverBalance);
         stakes[msg.sender].stakedAmount = 0;
-        emit WithdrewStake(msg.sender, withdrawAmount);
+        stakes[msg.sender].totalRedeemed += leftoverBalance;
+        stakes[msg.sender].lastRedeemedAt = block.timestamp;
+        emit WithdrewStake(msg.sender, withdrawAmount, leftoverBalance);
     }
 
     function nextDripAt(address claimerAddress) public view returns (uint256) {

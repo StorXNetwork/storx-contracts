@@ -33,6 +33,7 @@
     "bignumber.js": "^9.0.1",
     "chai": "^4.2.0",
     "chai-bignumber": "^3.0.0",
+    "concurrently": "^6.2.0",
     "ganache-core": "^2.13.2",
     "lodash": "^4.17.20",
     "mocha": "^8.1.3",

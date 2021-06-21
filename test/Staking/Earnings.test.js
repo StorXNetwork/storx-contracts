@@ -4,6 +4,7 @@ const { MintBalance, CalculateEarning } = require('./helpers/storx');
 const { inLogs } = require('../testToken/helpers/expectEvent');
 const Tokenomics = require('./Tokenomics.json');
 const { GetLatestBlock, GetBlock, MineBlock } = require('./helpers/ganache');
+const { assertRevertWithMsg } = require('./helpers/assertRevert');
 
 const StorXToken = artifacts.require('StorxToken');
 const Reputation = artifacts.require('ReputationFeeds');
@@ -25,7 +26,9 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
   const HOSTING_COMPENSATION = 3650;
 
-  const daysToCheck = 730;
+  const TWO_YEAR = 730;
+
+  const daysToCheck = TWO_YEAR;
 
   beforeEach(async function () {
     this.storx = await StorXToken.new();
@@ -47,7 +50,10 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
     await this.staking.setMaxStakeAmount(MAX_STAKE);
     await this.staking.setRedeemInterval(REDEEM_INTERVAL);
     await this.staking.setIRepF(this.reputation.address);
+    await this.staking.setReputationThreshold(100);
     await this.staking.setHostingCompensation(HOSTING_COMPENSATION);
+
+    await this.storx.transferOperator(this.staking.address);
 
     this.currentStaker = STAKERS[0];
     await this.storx.approve(this.staking.address, STAKE_AMOUNT, {
@@ -83,4 +89,81 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
 
     console.log(finalEarnings);
   }).timeout(1000000000);
+
+  it('cannot redeem before redeem day', async function () {
+    const stake = await this.staking.stakes(this.currentStaker);
+    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 1 * parseFloat(ONE_DAY);
+    await MineBlock(TIME_SKIP_TO);
+    const earnings = parseFloat((await this.staking.earned(this.currentStaker)).toString());
+    assert.isTrue(earnings > 0);
+    assertRevertWithMsg(
+      this.staking.claimEarned(this.currentStaker),
+      'StorX: cannot claim drip yet'
+    );
+  });
+
+  it('cannot claim if not staked', async function () {
+    assertRevertWithMsg(this.staking.claimEarned(STAKERS[1]), 'StorX: staker does not exist');
+  });
+
+  it('cannot claim if reputation threshold not met', async function () {
+    await this.storx.approve(this.staking.address, await this.storx.balanceOf(BAD_STAKER), {
+      from: BAD_STAKER,
+    });
+    await this.staking.stake(MIN_STAKE, {
+      from: BAD_STAKER,
+    });
+    const stake = await this.staking.stakes(BAD_STAKER);
+    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 30 * parseFloat(ONE_DAY);
+    await MineBlock(TIME_SKIP_TO);
+    const earnings = parseFloat((await this.staking.earned(BAD_STAKER)).toString());
+    assert.isTrue(earnings > 0);
+    const beforebalance = await this.storx.balanceOf(BAD_STAKER).toString();
+    const data = await this.staking.claimEarned(BAD_STAKER);
+    const event = await inLogs(data.logs, 'MissedRewards');
+    const afterbalance = await this.storx.balanceOf(BAD_STAKER).toString();
+    assert.equal(beforebalance, afterbalance);
+    assert.equal(event.args.staker, BAD_STAKER);
+    assert.equal(event.args.threshold.toString(), 100);
+    assert.equal(event.args.reputation.toString(), 99);
+
+    const updatedStake = await this.staking.stakes(BAD_STAKER);
+    assert.equal(updatedStake.totalRedeemed, 0);
+    assert.equal((await this.staking.earned(BAD_STAKER)).toString(), 0);
+    assert.equal(
+      updatedStake.lastRedeemedAt.toString(),
+      (await GetBlock(data.receipt)).timestamp.toString()
+    );
+  });
+
+  it('redeems after redeem interval', async function () {
+    const stake = await this.staking.stakes(this.currentStaker);
+    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 20 * parseFloat(ONE_DAY);
+    await MineBlock(TIME_SKIP_TO);
+    const beforebalance_staker = parseFloat(
+      (await this.storx.balanceOf(this.currentStaker)).toString()
+    );
+    const beforeearnings = parseFloat((await this.staking.earned(this.currentStaker)).toString());
+    const beforebalance_staking = parseFloat(
+      (await this.storx.balanceOf(this.staking.address)).toString()
+    );
+
+    const data = await this.staking.claimEarned(this.currentStaker, { from: NON_STAKER });
+    const event = await inLogs(data.logs, 'ClaimedRewards');
+
+    const afterbalance_staker = parseFloat(
+      (await this.storx.balanceOf(this.currentStaker)).toString()
+    );
+    const afterearnings = parseFloat((await this.staking.earned(this.currentStaker)).toString());
+    const afterbalance_staking = parseFloat(
+      (await this.storx.balanceOf(this.staking.address)).toString()
+    );
+
+    assert.equal(afterbalance_staker, beforebalance_staker + beforeearnings);
+    assert.equal(afterearnings, 0);
+    assert.equal(beforebalance_staking, afterbalance_staking);
+
+    assert.equal(event.args.staker, this.currentStaker);
+    assert.equal(event.args.amount.toString(), beforeearnings);
+  });
 });
