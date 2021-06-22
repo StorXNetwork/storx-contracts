@@ -3,7 +3,7 @@ const { PrepopulateStaker } = require('./helpers/reputation');
 const { MintBalance, CalculateEarning } = require('./helpers/storx');
 const { inLogs } = require('../testToken/helpers/expectEvent');
 const Tokenomics = require('./Tokenomics.json');
-const { GetLatestBlock, GetBlock, MineBlock } = require('./helpers/ganache');
+const { GetLatestBlock, GetBlock, MineBlock, GetBalance } = require('./helpers/ganache');
 const { assertRevertWithMsg, assertRevert } = require('./helpers/assertRevert');
 
 const StorXToken = artifacts.require('StorxToken');
@@ -168,15 +168,156 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
     });
   });
 
-  // describe('setReputationThreshold', async function () {});
+  describe('setReputationThreshold', async function () {
+    it('setReputationThreshold: success on owner', async function () {
+      const prevValue = await this.staking.reputationThreshold();
+      const data = await this.staking.setReputationThreshold(777, { from: owner });
+      const event = await inLogs(data.logs, 'ReputationThresholdChanged');
+      assert.equal(prevValue.toString(), event.args.prevValue.toString());
+      assert.equal(777, event.args.newValue.toString());
+    });
 
-  // describe('setHostingCompensation', async function () {});
+    it('setReputationThreshold: revert on non-owner', async function () {
+      await assertRevertWithMsg(
+        this.staking.setIRepF(777, { from: STAKERS[0] }),
+        'Ownable: sender not owner'
+      );
+    });
+  });
 
-  // describe('withdrawTokens', async function () {});
+  describe('setHostingCompensation', async function () {
+    it('setHostingCompensation: success on owner', async function () {
+      const prevValue = await this.staking.hostingCompensation();
+      const data = await this.staking.setHostingCompensation(777, { from: owner });
+      const event = await inLogs(data.logs, 'HostingCompensationChanged');
+      assert.equal(prevValue.toString(), event.args.prevValue.toString());
+      assert.equal(777, event.args.newValue.toString());
+    });
 
-  // describe('withdrawXdc', async function () {});
+    it('setHostingCompensation: revert on non-owner', async function () {
+      await assertRevertWithMsg(
+        this.staking.setHostingCompensation(777, { from: STAKERS[0] }),
+        'Ownable: sender not owner'
+      );
+    });
+  });
 
-  // describe('transferOwnership', async function () {});
+  describe('withdrawTokens', async function () {
+    it('withdraws when amount > 0', async function () {
+      const beforeBalance = await this.storx.balanceOf(owner);
+      const contractBalanceBefore = await this.storx.balanceOf(this.staking.address);
 
-  // describe('setMaxEarningsCap', async function () {});
+      const data = await this.staking.withdrawTokens(owner, contractBalanceBefore, { from: owner });
+      const event = await inLogs(data.logs, 'WithdrewTokens');
+
+      const afterBalance = await this.storx.balanceOf(owner);
+      const contractBalanceAfter = await this.storx.balanceOf(this.staking.address);
+      assert.equal(
+        contractBalanceBefore.sub(contractBalanceAfter).toString(),
+        afterBalance.sub(beforeBalance).toString()
+      );
+      assert.equal(event.args.beneficiary, owner);
+      assert.equal(event.args.amount, contractBalanceBefore.sub(contractBalanceAfter).toString());
+    });
+
+    it('reverts on non-owner', async function () {
+      await assertRevertWithMsg(
+        this.staking.withdrawTokens(owner, 1000, { from: STAKERS[0] }),
+        'Ownable: sender not owner'
+      );
+    });
+
+    it('reverts on 0 amount', async function () {
+      await assertRevertWithMsg(
+        this.staking.withdrawTokens(owner, 0, {
+          from: owner,
+        }),
+        'StorX: token amount has to be greater than 0'
+      );
+    });
+  });
+
+  describe('setMaxEarningsCap', async function () {
+    it('setMaxEarningsCap: success when owner', async function () {
+      it('setMaxEarningsCap: success on owner', async function () {
+        const prevValue = await this.staking.maxEarningsCap();
+        const data = await this.staking.setMaxEarningsCap(777, { from: owner });
+        const event = await inLogs(data.logs, 'MaxEarningCapChanged');
+        assert.equal(prevValue.toString(), event.args.prevValue.toString());
+        assert.equal(777, event.args.newValue.toString());
+      });
+    });
+
+    it('setMaxEarningsCap: revert on non-owner', async function () {
+      await assertRevertWithMsg(
+        this.staking.setMaxEarningCap(1000, { from: STAKERS[0] }),
+        'Ownable: sender not owner'
+      );
+    });
+  });
+});
+
+contract('Ownable', function ([owner, newOwner, ...rst]) {
+  const accounts = [owner, newOwner, ...rst];
+  const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+  const INITIAL_BALANCE = 1000000000;
+  const INTEREST = 6;
+
+  beforeEach(async function () {
+    this.storx = await StorXToken.new();
+    await this.storx.initialize(
+      Tokenomics.name,
+      Tokenomics.symbol,
+      Tokenomics.decimals,
+      Tokenomics.initialSupply,
+      {
+        from: owner,
+      }
+    );
+    this.reputation = await Reputation.new({ from: owner });
+    await PrepopulateStaker(this.reputation, [...rst]);
+    await MintBalance(this.storx, owner, accounts, INITIAL_BALANCE);
+    this.staking = await Staking.new(this.storx.address, INTEREST, { from: owner });
+  });
+
+  describe('when not owner', function () {
+    it('does not display owner', async function () {
+      assert.notEqual(await this.staking.owner(), newOwner);
+    });
+
+    it('reverts on ownership change', async function () {
+      await assertRevert(this.staking.transferOwnership(newOwner, { from: newOwner }));
+    });
+
+    it('reverts on renounce owner', async function () {
+      await assertRevert(this.staking.renounceOwnership({ from: newOwner }));
+    });
+  });
+
+  describe('when owner', function () {
+    it('display owner', async function () {
+      assert.equal(await this.staking.owner(), owner);
+    });
+
+    it('ownership changes', async function () {
+      const { logs } = await this.staking.transferOwnership(newOwner, { from: owner });
+
+      assert.equal(logs.length, 1);
+      assert.equal(logs[0].event, 'OwnershipTransferred');
+      assert.equal(logs[0].args.previousOwner, owner);
+      assert.equal(logs[0].args.newOwner, newOwner);
+
+      assert.equal(await this.staking.owner(), newOwner);
+    });
+
+    it('renounce owner', async function () {
+      const { logs } = await this.staking.renounceOwnership({ from: owner });
+
+      assert.equal(logs.length, 1);
+      assert.equal(logs[0].event, 'OwnershipRenounced');
+      assert.equal(logs[0].args.previousOwner, owner);
+
+      assert.equal(await this.staking.owner(), ZERO_ADDRESS);
+    });
+  });
 });

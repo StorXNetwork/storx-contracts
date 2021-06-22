@@ -140,7 +140,7 @@ contract Ownable {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender == owner,'Ownable: sender not owner');
         _;
     }
 
@@ -349,6 +349,7 @@ contract StorxStaking is Ownable {
     uint256 public interest;
     uint256 public totalRedeemed = 0;
     uint256 public redeemInterval = 30 * ONE_DAY;
+    uint256 public maxEarningsCap = 40000*10**18;
 
     event Staked(address staker, uint256 amount);
 
@@ -366,6 +367,7 @@ contract StorxStaking is Ownable {
     event ReputationFeedChanged(address prevValue, address newValue);
     event ReputationThresholdChanged(uint256 prevValue, uint256 newValue);
     event HostingCompensationChanged(uint256 prevValue, uint256 newValue);
+    event MaxEarningCapChanged(uint256 prevValue, uint256 newValue);
 
     event WithdrewTokens(address beneficiary, uint256 amount);
     event WithdrewXdc(address beneficiary, uint256 amount);
@@ -469,6 +471,7 @@ contract StorxStaking is Ownable {
 
     function claimEarned(address claimAddress) public canRedeemDrip(claimAddress) {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
+        
         uint256 claimerReputation = iRepF.getReputation(claimAddress);
         if (claimerReputation < reputationThreshold) {
             // mark as redeemed and exit early
@@ -482,6 +485,8 @@ contract StorxStaking is Ownable {
         if (earnings > 0) {
             token.mint(claimAddress, earnings);
         }
+
+        require(earnings <= maxEarningsCap, 'StorX: earnings exceed max earning cap');
 
         stakes[claimAddress].totalRedeemed += earnings;
         stakes[claimAddress].lastRedeemedAt = block.timestamp;
@@ -585,6 +590,12 @@ contract StorxStaking is Ownable {
         uint256 prevValue = hostingCompensation;
         hostingCompensation = hostingCompensation_;
         emit HostingCompensationChanged(prevValue, hostingCompensation);
+    }
+
+    function setMaxEarningCap(uint256 maxEarningCap_) public onlyOwner {
+        uint256 prevValue = maxEarningCap_;
+        maxEarningsCap=maxEarningCap_;
+        emit MaxEarningCapChanged(prevValue, maxEarningsCap);
     }
 
     function withdrawTokens(address beneficiary_, uint256 amount_) public onlyOwner {

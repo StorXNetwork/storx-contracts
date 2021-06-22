@@ -28,7 +28,7 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
 
   const TWO_YEAR = 730;
 
-  const daysToCheck = TWO_YEAR;
+  const daysToCheck = 60;
 
   beforeEach(async function () {
     this.storx = await StorXToken.new();
@@ -165,5 +165,16 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
 
     assert.equal(event.args.staker, this.currentStaker);
     assert.equal(event.args.amount.toString(), beforeearnings);
+  });
+
+  it('cannot claim if earnings exceed MaxEarningsCap', async function () {
+    await this.staking.setMaxEarningCap(10, { from: owner });
+    const stake = await this.staking.stakes(this.currentStaker);
+    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 20 * parseFloat(ONE_DAY);
+    await MineBlock(TIME_SKIP_TO);
+    assertRevertWithMsg(
+      this.staking.claimEarned(this.currentStaker, { from: NON_STAKER }),
+      'StorX: earnings exceed max earning cap'
+    );
   });
 });

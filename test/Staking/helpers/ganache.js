@@ -37,6 +37,12 @@ const GetLatestBlock = () => {
   return web3.eth.getBlock('latest');
 };
 
+const GetBalance = (address) => {
+  const web3 = new Web3(new Web3.providers.HttpProvider(LOCAL));
+  return web3.eth.getBalance(address);
+};
+
 exports.MineBlock = MineBlock;
 exports.GetLatestBlock = GetLatestBlock;
 exports.GetBlock = GetBlock;
+exports.GetBalance = GetBalance;
