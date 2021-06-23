@@ -207,13 +207,14 @@ contract StorxStaking is Ownable {
 
         // update the redeemdate even if earnings are 0
         uint256 earnings = _earned(claimAddress);
-        if (earnings > 0) {
-            token.mint(claimAddress, earnings);
-        }
 
         if (earnings >= maxEarningsCap) {
             emit MaxEarningsCapReached(claimAddress, earnings, maxEarningsCap);
             earnings = maxEarningsCap;
+        }
+
+        if (earnings > 0) {
+            token.mint(claimAddress, earnings);
         }
 
         stakes[claimAddress].totalRedeemed += earnings;
