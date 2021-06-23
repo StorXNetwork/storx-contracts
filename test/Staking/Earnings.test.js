@@ -85,9 +85,9 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
       );
     }
 
-    const finalEarnings = (await this.staking.earned(this.currentStaker)).toString();
+    // const finalEarnings = (await this.staking.earned(this.currentStaker)).toString();
 
-    console.log(finalEarnings);
+    // console.log(finalEarnings);
   }).timeout(1000000000);
 
   it('cannot redeem before redeem day', async function () {
@@ -167,14 +167,21 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
     assert.equal(event.args.amount.toString(), beforeearnings);
   });
 
-  it('cannot claim if earnings exceed MaxEarningsCap', async function () {
+  it('can claim upto max if earnings exceed MaxEarningsCap', async function () {
     await this.staking.setMaxEarningCap(10, { from: owner });
     const stake = await this.staking.stakes(this.currentStaker);
     const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 20 * parseFloat(ONE_DAY);
     await MineBlock(TIME_SKIP_TO);
-    assertRevertWithMsg(
-      this.staking.claimEarned(this.currentStaker, { from: NON_STAKER }),
-      'StorX: earnings exceed max earning cap'
-    );
+    const earnings = await this.staking.earned(this.currentStaker);
+    const data = await this.staking.claimEarned(this.currentStaker, { from: NON_STAKER });
+    const event_earning = await inLogs(data.logs, 'MaxEarningsCapReached');
+    const event_claim = await inLogs(data.logs, 'ClaimedRewards');
+
+    assert.equal(event_earning.args.staker, this.currentStaker);
+    assert.equal(event_earning.args.cap.toString(), 10);
+    assert.equal(event_earning.args.earnings.toString(), earnings.toString())
+
+    assert.equal(event_claim.args.staker, this.currentStaker);
+    assert.equal(event_claim.args.amount.toString(), 10);
   });
 });

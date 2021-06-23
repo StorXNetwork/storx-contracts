@@ -1,6 +1,6 @@
 
 /** 
- *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
 */
             
 pragma solidity ^0.4.24;
@@ -90,7 +90,7 @@ interface IERC20 {
 
 
 /** 
- *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
 */
             
 pragma solidity ^0.4.24;
@@ -111,7 +111,7 @@ interface IRepF {
 
 
 /** 
- *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
 */
             
 pragma solidity ^0.4.24;
@@ -178,7 +178,7 @@ contract Ownable {
 
 
 /** 
- *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
 */
             
 pragma solidity ^0.4.24;
@@ -236,7 +236,7 @@ library SafeMath {
 
 
 /** 
- *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
 */
             
 pragma solidity ^0.4.24;
@@ -271,7 +271,7 @@ library AddressUtils {
 
 
 /** 
- *  SourceUnit: c:\Users\Admin\Desktop\rudresh\storx-contracts\contracts\Staking\StorXStaking.sol
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
 */
 
 pragma solidity ^0.4.24;
@@ -357,6 +357,7 @@ contract StorxStaking is Ownable {
     event WithdrewStake(address staker, uint256 principal, uint256 earnings);
     event ClaimedRewards(address staker, uint256 amount);
     event MissedRewards(address staker, uint256 threshold, uint256 reputation);
+    event MaxEarningsCapReached(address staker. uint256 earnings, uint256 cap);
 
     // Parameter Change Events
     event MinStakeAmountChanged(uint256 prevValue, uint256 newValue);
@@ -486,7 +487,10 @@ contract StorxStaking is Ownable {
             token.mint(claimAddress, earnings);
         }
 
-        require(earnings <= maxEarningsCap, 'StorX: earnings exceed max earning cap');
+        if (earnings >= maxEarningsCap) {
+            emit MaxEarningsCapReached(claimAddress, earnings, maxEarningsCap);
+            earnings = maxEarningsCap;
+        }
 
         stakes[claimAddress].totalRedeemed += earnings;
         stakes[claimAddress].lastRedeemedAt = block.timestamp;

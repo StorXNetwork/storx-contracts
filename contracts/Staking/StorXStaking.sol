@@ -81,6 +81,7 @@ contract StorxStaking is Ownable {
     event WithdrewStake(address staker, uint256 principal, uint256 earnings);
     event ClaimedRewards(address staker, uint256 amount);
     event MissedRewards(address staker, uint256 threshold, uint256 reputation);
+    event MaxEarningsCapReached(address staker, uint256 earnings, uint256 cap);
 
     // Parameter Change Events
     event MinStakeAmountChanged(uint256 prevValue, uint256 newValue);
@@ -210,7 +211,10 @@ contract StorxStaking is Ownable {
             token.mint(claimAddress, earnings);
         }
 
-        require(earnings <= maxEarningsCap, 'StorX: earnings exceed max earning cap');
+        if (earnings >= maxEarningsCap) {
+            emit MaxEarningsCapReached(claimAddress, earnings, maxEarningsCap);
+            earnings = maxEarningsCap;
+        }
 
         stakes[claimAddress].totalRedeemed += earnings;
         stakes[claimAddress].lastRedeemedAt = block.timestamp;
