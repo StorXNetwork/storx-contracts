@@ -73,7 +73,7 @@ contract StorxStaking is Ownable {
     uint256 public interest;
     uint256 public totalRedeemed = 0;
     uint256 public redeemInterval = 30 * ONE_DAY;
-    uint256 public maxEarningsCap = 40000*10**18;
+    uint256 public maxEarningsCap = 40000 * 10**18;
 
     event Staked(address staker, uint256 amount);
 
@@ -172,8 +172,8 @@ contract StorxStaking is Ownable {
         totalStaked = totalStaked.sub(stakes[msg.sender].stakedAmount);
         (bool exists, uint256 stakerIndex) = getStakerIndex(msg.sender);
         require(exists, 'StorX: staker does not exist');
-        stakeHolders[stakerIndex] = stakeHolders[stakeHolders.length-1];
-        delete stakeHolders[stakeHolders.length-1];
+        stakeHolders[stakerIndex] = stakeHolders[stakeHolders.length - 1];
+        delete stakeHolders[stakeHolders.length - 1];
         stakeHolders.length--;
 
         emit Unstaked(msg.sender, stakes[msg.sender].stakedAmount);
@@ -196,7 +196,7 @@ contract StorxStaking is Ownable {
 
     function claimEarned(address claimAddress) public canRedeemDrip(claimAddress) {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
-        
+
         uint256 claimerReputation = iRepF.getReputation(claimAddress);
         if (claimerReputation < reputationThreshold) {
             // mark as redeemed and exit early
@@ -322,7 +322,7 @@ contract StorxStaking is Ownable {
 
     function setMaxEarningCap(uint256 maxEarningCap_) public onlyOwner {
         uint256 prevValue = maxEarningCap_;
-        maxEarningsCap=maxEarningCap_;
+        maxEarningsCap = maxEarningCap_;
         emit MaxEarningCapChanged(prevValue, maxEarningsCap);
     }
 

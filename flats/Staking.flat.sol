@@ -1,8 +1,7 @@
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 /**
@@ -86,13 +85,10 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 interface IRepF {
@@ -107,13 +103,10 @@ interface IRepF {
     function getStakerIndex(address staker) external view returns (bool, uint256);
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 /**
@@ -140,7 +133,7 @@ contract Ownable {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(msg.sender == owner,'Ownable: sender not owner');
+        require(msg.sender == owner, 'Ownable: sender not owner');
         _;
     }
 
@@ -174,13 +167,10 @@ contract Ownable {
     }
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 /**
@@ -232,47 +222,42 @@ library SafeMath {
     }
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
-pragma solidity ^0.4.24;
+ */
 
+pragma solidity ^0.4.24;
 
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-
-  /**
-   * Returns whether the target address is a contract
-   * @dev This function will return false if invoked during the constructor of a contract,
-   * as the code is not actually created until after the constructor finishes.
-   * @param _addr address to check
-   * @return whether the target address is a contract
-   */
-  function isContract(address _addr) internal view returns (bool) {
-    uint256 size;
-    // XXX Currently there is no better way to check if there is a contract in an address
-    // than to check the size of the code at that address.
-    // See https://ethereum.stackexchange.com/a/14016/36603
-    // for more details about how this works.
-    // TODO Check this again before the Serenity release, because all addresses will be
-    // contracts then.
-    // solium-disable-next-line security/no-inline-assembly
-    assembly { size := extcodesize(_addr) }
-    return size > 0;
-  }
-
+    /**
+     * Returns whether the target address is a contract
+     * @dev This function will return false if invoked during the constructor of a contract,
+     * as the code is not actually created until after the constructor finishes.
+     * @param _addr address to check
+     * @return whether the target address is a contract
+     */
+    function isContract(address _addr) internal view returns (bool) {
+        uint256 size;
+        // XXX Currently there is no better way to check if there is a contract in an address
+        // than to check the size of the code at that address.
+        // See https://ethereum.stackexchange.com/a/14016/36603
+        // for more details about how this works.
+        // TODO Check this again before the Serenity release, because all addresses will be
+        // contracts then.
+        // solium-disable-next-line security/no-inline-assembly
+        assembly {
+            size := extcodesize(_addr)
+        }
+        return size > 0;
+    }
 }
 
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
+ */
 
 pragma solidity ^0.4.24;
 
@@ -349,7 +334,7 @@ contract StorxStaking is Ownable {
     uint256 public interest;
     uint256 public totalRedeemed = 0;
     uint256 public redeemInterval = 30 * ONE_DAY;
-    uint256 public maxEarningsCap = 40000*10**18;
+    uint256 public maxEarningsCap = 40000 * 10**18;
 
     event Staked(address staker, uint256 amount);
 
@@ -357,7 +342,7 @@ contract StorxStaking is Ownable {
     event WithdrewStake(address staker, uint256 principal, uint256 earnings);
     event ClaimedRewards(address staker, uint256 amount);
     event MissedRewards(address staker, uint256 threshold, uint256 reputation);
-    event MaxEarningsCapReached(address staker. uint256 earnings, uint256 cap);
+    event MaxEarningsCapReached(address staker, uint256 earnings, uint256 cap);
 
     // Parameter Change Events
     event MinStakeAmountChanged(uint256 prevValue, uint256 newValue);
@@ -448,8 +433,8 @@ contract StorxStaking is Ownable {
         totalStaked = totalStaked.sub(stakes[msg.sender].stakedAmount);
         (bool exists, uint256 stakerIndex) = getStakerIndex(msg.sender);
         require(exists, 'StorX: staker does not exist');
-        stakeHolders[stakerIndex] = stakeHolders[stakeHolders.length-1];
-        delete stakeHolders[stakeHolders.length-1];
+        stakeHolders[stakerIndex] = stakeHolders[stakeHolders.length - 1];
+        delete stakeHolders[stakeHolders.length - 1];
         stakeHolders.length--;
 
         emit Unstaked(msg.sender, stakes[msg.sender].stakedAmount);
@@ -472,7 +457,7 @@ contract StorxStaking is Ownable {
 
     function claimEarned(address claimAddress) public canRedeemDrip(claimAddress) {
         require(stakes[claimAddress].staked == true, 'StorX: not staked');
-        
+
         uint256 claimerReputation = iRepF.getReputation(claimAddress);
         if (claimerReputation < reputationThreshold) {
             // mark as redeemed and exit early
@@ -598,7 +583,7 @@ contract StorxStaking is Ownable {
 
     function setMaxEarningCap(uint256 maxEarningCap_) public onlyOwner {
         uint256 prevValue = maxEarningCap_;
-        maxEarningsCap=maxEarningCap_;
+        maxEarningsCap = maxEarningCap_;
         emit MaxEarningCapChanged(prevValue, maxEarningsCap);
     }
 
@@ -614,4 +599,3 @@ contract StorxStaking is Ownable {
         emit WithdrewXdc(beneficiary_, amount_);
     }
 }
-
