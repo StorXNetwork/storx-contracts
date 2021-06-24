@@ -313,11 +313,11 @@ contract StorxStaking is Ownable {
         uint256 stakedAmount;
         bool staked;
         bool exists;
+        bool unstaked;
         uint256 stakedTime;
         uint256 unstakedTime;
         uint256 totalRedeemed;
         uint256 lastRedeemedAt;
-        uint256 unstaked;
         uint256 balance; // ? required
     }
 
