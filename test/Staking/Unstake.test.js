@@ -67,7 +67,7 @@ contract('Staking: unstake', ([owner, ...accounts]) => {
   });
 
   it('cannot unstake if not staked', async function () {
-    assertRevertWithMsg(this.staking.unstake({ from: BAD_STAKER }), 'StorX: not staked');
+    await assertRevertWithMsg(this.staking.unstake({ from: BAD_STAKER }), 'StorX: not staked');
   });
 
   it('can unstake right away', async function () {
@@ -91,6 +91,7 @@ contract('Staking: unstake', ([owner, ...accounts]) => {
     assert.isFalse(stakeAfter.staked);
     assert.equal(event.args.staker, this.currentStaker);
     assert.equal(event.args.amount.toString(), STAKE_AMOUNT);
+    assert.isTrue(stakeAfter.unstaked);
 
     await assertRevertWithMsg(
       this.staking.withdrawStake({ from: this.currentStaker }),
@@ -106,6 +107,8 @@ contract('Staking: unstake', ([owner, ...accounts]) => {
     assert.isFalse(newStakeHolders.includes(this.currentStaker));
 
     const data2 = await this.staking.withdrawStake({ from: this.currentStaker });
+    const stakesLast = await this.staking.stakes(this.currentStaker);
+
 
     const balanceStakerAfter = parseFloat(
       (await this.storx.balanceOf(this.currentStaker)).toString()
@@ -120,6 +123,7 @@ contract('Staking: unstake', ([owner, ...accounts]) => {
     assert.equal(event2.args.staker, this.currentStaker);
     assert.equal(event2.args.principal.toString(), STAKE_AMOUNT);
     assert.equal(event2.args.earnings.toString(), 0);
+    assert.isFalse(stakesLast.unstaked);
   });
 
   it('unstakes properly with rewards', async function () {

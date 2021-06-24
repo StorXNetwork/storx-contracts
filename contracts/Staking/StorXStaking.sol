@@ -259,7 +259,7 @@ contract StorxStaking is Ownable {
     }
 
     function thresholdMet(address staker) public view returns (bool) {
-        return iRepF.getReputation(staker) > reputationThreshold;
+        return iRepF.getReputation(staker) >= reputationThreshold;
     }
 
     function getAllStakeHolder() public view returns (address[]) {

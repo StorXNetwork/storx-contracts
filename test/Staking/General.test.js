@@ -30,7 +30,7 @@ contract('Staking: general', ([owner, ...accounts]) => {
 
   const daysToCheck = TWO_YEAR;
 
-  before(async function () {
+  beforeEach(async function () {
     this.storx = await StorXToken.new();
     await this.storx.initialize(
       Tokenomics.name,
@@ -130,7 +130,7 @@ contract('Staking: general', ([owner, ...accounts]) => {
   });
 
   it('threshold met -ve test', async function () {
-    assert.isTrue(await this.staking.thresholdMet(STAKERS[1]));
+    assert.isFalse(await this.staking.thresholdMet(BAD_STAKER));
   });
 
   it('canWithdrawStake ', async function () {

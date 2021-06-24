@@ -179,7 +179,7 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
 
     it('setReputationThreshold: revert on non-owner', async function () {
       await assertRevertWithMsg(
-        this.staking.setIRepF(777, { from: STAKERS[0] }),
+        this.staking.setReputationThreshold(777, { from: STAKERS[0] }),
         'Ownable: sender not owner'
       );
     });
