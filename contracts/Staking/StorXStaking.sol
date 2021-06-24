@@ -56,6 +56,7 @@ contract StorxStaking is Ownable {
         uint256 unstakedTime;
         uint256 totalRedeemed;
         uint256 lastRedeemedAt;
+        uint256 unstaked;
         uint256 balance; // ? required
     }
 
@@ -168,6 +169,7 @@ contract StorxStaking is Ownable {
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
         stakes[msg.sender].balance = leftoverBalance;
+        stakes[msg.sender].unstaked = true;
 
         totalStaked = totalStaked.sub(stakes[msg.sender].stakedAmount);
         (bool exists, uint256 stakerIndex) = getStakerIndex(msg.sender);
@@ -232,6 +234,7 @@ contract StorxStaking is Ownable {
         token.transfer(msg.sender, withdrawAmount);
         token.mint(msg.sender, leftoverBalance);
         stakes[msg.sender].stakedAmount = 0;
+        stakes[msg.sender].unstaked = false;
         stakes[msg.sender].totalRedeemed += leftoverBalance;
         stakes[msg.sender].lastRedeemedAt = block.timestamp;
         emit WithdrewStake(msg.sender, withdrawAmount, leftoverBalance);
