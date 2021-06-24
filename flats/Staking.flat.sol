@@ -1,8 +1,7 @@
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 /**
@@ -86,13 +85,10 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 interface IRepF {
@@ -107,13 +103,10 @@ interface IRepF {
     function getStakerIndex(address staker) external view returns (bool, uint256);
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 /**
@@ -174,13 +167,10 @@ contract Ownable {
     }
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
+ */
+
 pragma solidity ^0.4.24;
 
 /**
@@ -232,47 +222,42 @@ library SafeMath {
     }
 }
 
-
-
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
-            
-pragma solidity ^0.4.24;
+ */
 
+pragma solidity ^0.4.24;
 
 /**
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
-
-  /**
-   * Returns whether the target address is a contract
-   * @dev This function will return false if invoked during the constructor of a contract,
-   * as the code is not actually created until after the constructor finishes.
-   * @param _addr address to check
-   * @return whether the target address is a contract
-   */
-  function isContract(address _addr) internal view returns (bool) {
-    uint256 size;
-    // XXX Currently there is no better way to check if there is a contract in an address
-    // than to check the size of the code at that address.
-    // See https://ethereum.stackexchange.com/a/14016/36603
-    // for more details about how this works.
-    // TODO Check this again before the Serenity release, because all addresses will be
-    // contracts then.
-    // solium-disable-next-line security/no-inline-assembly
-    assembly { size := extcodesize(_addr) }
-    return size > 0;
-  }
-
+    /**
+     * Returns whether the target address is a contract
+     * @dev This function will return false if invoked during the constructor of a contract,
+     * as the code is not actually created until after the constructor finishes.
+     * @param _addr address to check
+     * @return whether the target address is a contract
+     */
+    function isContract(address _addr) internal view returns (bool) {
+        uint256 size;
+        // XXX Currently there is no better way to check if there is a contract in an address
+        // than to check the size of the code at that address.
+        // See https://ethereum.stackexchange.com/a/14016/36603
+        // for more details about how this works.
+        // TODO Check this again before the Serenity release, because all addresses will be
+        // contracts then.
+        // solium-disable-next-line security/no-inline-assembly
+        assembly {
+            size := extcodesize(_addr)
+        }
+        return size > 0;
+    }
 }
 
-
-/** 
+/**
  *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
-*/
+ */
 
 pragma solidity ^0.4.24;
 
@@ -468,7 +453,7 @@ contract StorxStaking is Ownable {
     }
 
     function _earned(address beneficiary_) internal view returns (uint256 earned) {
-        if (stakes[beneficiary_].staked==false) return 0;
+        if (stakes[beneficiary_].staked == false) return 0;
         uint256 tenure = (block.timestamp - stakes[beneficiary_].lastRedeemedAt);
         uint256 earnedStake =
             tenure.div(ONE_DAY).mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(
@@ -628,4 +613,3 @@ contract StorxStaking is Ownable {
         emit WithdrewXdc(beneficiary_, amount_);
     }
 }
-

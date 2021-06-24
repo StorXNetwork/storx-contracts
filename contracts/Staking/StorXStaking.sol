@@ -192,7 +192,7 @@ contract StorxStaking is Ownable {
     }
 
     function _earned(address beneficiary_) internal view returns (uint256 earned) {
-        if (stakes[beneficiary_].staked==false) return 0;
+        if (stakes[beneficiary_].staked == false) return 0;
         uint256 tenure = (block.timestamp - stakes[beneficiary_].lastRedeemedAt);
         uint256 earnedStake =
             tenure.div(ONE_DAY).mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(
