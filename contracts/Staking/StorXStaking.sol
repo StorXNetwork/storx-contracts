@@ -108,6 +108,16 @@ contract StorxStaking is Ownable {
         _;
     }
 
+    modifier whenNotUnStaked() {
+        require(
+            stakes[msg.sender].exists == true &&
+                stakes[msg.sender].unstaked == false &&
+                stakes[msg.sender].stakedAmount == 0,
+            'StorX: in unstake period'
+        );
+        _;
+    }
+
     modifier whenUnStaked() {
         require(
             stakes[msg.sender].exists == true &&
@@ -164,7 +174,7 @@ contract StorxStaking is Ownable {
         emit Staked(msg.sender, amount_);
     }
 
-    function unstake() public whenStaked {
+    function unstake() public whenStaked whenNotUnStaked {
         uint256 leftoverBalance = _earned(msg.sender);
         stakes[msg.sender].unstakedTime = block.timestamp;
         stakes[msg.sender].staked = false;
@@ -182,7 +192,7 @@ contract StorxStaking is Ownable {
     }
 
     function _earned(address beneficiary_) internal view returns (uint256 earned) {
-        require(stakes[beneficiary_].staked, 'StorX: need to stake for earnings');
+        if (stakes[beneficiary_].staked==false) return 0;
         uint256 tenure = (block.timestamp - stakes[beneficiary_].lastRedeemedAt);
         uint256 earnedStake =
             tenure.div(ONE_DAY).mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(

@@ -82,12 +82,13 @@ contract('Staking: general', ([owner, ...accounts]) => {
     );
   });
 
-  it('reverts on when non-staker', async function () {
-    const stake = await this.staking.stakes(this.currentStaker);
-    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 30 * parseFloat(ONE_DAY);
-    await MineBlock(TIME_SKIP_TO);
-    await assertRevertWithMsg(this.staking.earned(NON_STAKER), 'StorX: need to stake for earnings');
-  });
+  // !earnings will be 0
+  // it('reverts on when non-staker', async function () {
+  //   const stake = await this.staking.stakes(this.currentStaker);
+  //   const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 30 * parseFloat(ONE_DAY);
+  //   await MineBlock(TIME_SKIP_TO);
+  //   await assertRevertWithMsg(this.staking.earned(NON_STAKER), 'StorX: need to stake for earnings');
+  // });
 
   it('returns proper drip time', async function () {
     const stake = await this.staking.stakes(this.currentStaker);
