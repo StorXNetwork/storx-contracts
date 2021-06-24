@@ -109,12 +109,7 @@ contract StorxStaking is Ownable {
     }
 
     modifier whenNotUnStaked() {
-        require(
-            stakes[msg.sender].exists == true &&
-                stakes[msg.sender].unstaked == false &&
-                stakes[msg.sender].stakedAmount == 0,
-            'StorX: in unstake period'
-        );
+        require(stakes[msg.sender].unstaked == false, 'StorX: in unstake period');
         _;
     }
 
