@@ -144,7 +144,7 @@ contract StorxStaking is Ownable {
         interest = interest_;
     }
 
-    function stake(uint256 amount_) public whenNotStaked {
+    function stake(uint256 amount_) public whenNotStaked whenNotUnStaked {
         require(amount_ >= minStakeAmount, 'StorX: invalid amount');
         require(amount_ <= maxStakeAmount, 'StorX: invalid amount');
         require(iRepF.isStaker(msg.sender), 'StorX: sender not staker');

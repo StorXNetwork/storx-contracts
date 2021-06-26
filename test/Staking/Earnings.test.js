@@ -4,7 +4,8 @@ const { MintBalance, CalculateEarning } = require('./helpers/storx');
 const { inLogs } = require('../testToken/helpers/expectEvent');
 const Tokenomics = require('./Tokenomics.json');
 const { GetLatestBlock, GetBlock, MineBlock } = require('./helpers/ganache');
-const { assertRevertWithMsg } = require('./helpers/assertRevert');
+const { assertRevertWithMsg, assertRevert } = require('./helpers/assertRevert');
+const { shouldBehaveLikeStakingEarnings } = require('./behaviours/Staking.earnings.behaviour');
 
 const StorXToken = artifacts.require('StorxToken');
 const Reputation = artifacts.require('ReputationFeeds');
@@ -66,29 +67,7 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
     this.logs = data.logs;
   });
 
-  it(`earnings reflected after ${daysToCheck} day`, async function () {
-    for (let i = 1; i <= daysToCheck; i++) {
-      const dayCount = i;
-      const stake = await this.staking.stakes(this.currentStaker);
-      const TIME_SKIP_TO =
-        parseFloat(stake.lastRedeemedAt.toString()) + dayCount * parseFloat(ONE_DAY);
-      const skippedTs = await MineBlock(TIME_SKIP_TO);
-      const earnings = (await this.staking.earned(this.currentStaker)).toString();
-      assert.equal(
-        earnings,
-        CalculateEarning({
-          interest: INTEREST,
-          hostingComp: HOSTING_COMPENSATION,
-          days: dayCount,
-          amount: STAKE_AMOUNT,
-        })
-      );
-    }
-
-    // const finalEarnings = (await this.staking.earned(this.currentStaker)).toString();
-
-    // console.log(finalEarnings);
-  }).timeout(1000000000);
+  shouldBehaveLikeStakingEarnings(accounts);
 
   it('cannot redeem before redeem day', async function () {
     const stake = await this.staking.stakes(this.currentStaker);
@@ -179,9 +158,35 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
 
     assert.equal(event_earning.args.staker, this.currentStaker);
     assert.equal(event_earning.args.cap.toString(), 10);
-    assert.equal(event_earning.args.earnings.toString(), earnings.toString())
+    assert.equal(event_earning.args.earnings.toString(), earnings.toString());
 
     assert.equal(event_claim.args.staker, this.currentStaker);
     assert.equal(event_claim.args.amount.toString(), 10);
+  });
+
+  it('cannot claim after unstake', async function () {
+    const stake = await this.staking.stakes(this.currentStaker);
+    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 20 * parseFloat(ONE_DAY);
+    await MineBlock(TIME_SKIP_TO);
+    await this.staking.unstake({ from: this.currentStaker });
+    assert.equal((await this.staking.earned(this.currentStaker)).toString(), 0);
+    await assertRevertWithMsg(this.staking.claimEarned(this.currentStaker), 'StorX: not staked');
+  });
+
+  it('after unstake earnings reflected in leftover balance', async function () {
+    const stake = await this.staking.stakes(this.currentStaker);
+    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 20 * parseFloat(ONE_DAY);
+    const calculatedEarnings = CalculateEarning({
+      interest: INTEREST,
+      hostingComp: HOSTING_COMPENSATION,
+      days: 20,
+      amount: STAKE_AMOUNT,
+    });
+    await MineBlock(TIME_SKIP_TO);
+    await this.staking.unstake({ from: this.currentStaker });
+    const stakeAfter = await this.staking.stakes(this.currentStaker);
+    const earnedAfter = await this.staking.earned(this.currentStaker);
+    assert.equal(stakeAfter.balance.toString(), calculatedEarnings);
+    assert.equal(earnedAfter.toString(), 0);
   });
 });

@@ -9,6 +9,7 @@
   "scripts": {
     "test-proxy": "truffle test ./test/testProxy/*.js > ./test-result/proxy-test.log",
     "test-token": "truffle test ./test/testToken/*.js > ./test-result/token-test.log",
+    "test-staking": "truffle test ./test/Staking/*.js > ./test-result/staking-test.log",
     "test-all": "truffle test ",
     "lint:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol",
     "lint:solidity-flat": "./node_modules/.bin/prettier --write flats/**/*.sol",
