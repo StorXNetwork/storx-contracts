@@ -375,12 +375,7 @@ contract StorxStaking is Ownable {
     }
 
     modifier whenUnStaked() {
-        require(
-            stakes[msg.sender].exists == true &&
-                stakes[msg.sender].staked == false &&
-                stakes[msg.sender].stakedAmount > 0,
-            'StorX: not un-staked'
-        );
+        require(stakes[msg.sender].unstaked == true, 'StorX: not un-staked');
         _;
     }
 
@@ -396,6 +391,7 @@ contract StorxStaking is Ownable {
     function canWithdrawStake(address staker) public view returns (bool) {
         require(stakes[staker].exists, 'StorX: stakeholder does not exists');
         require(stakes[staker].staked == false, 'StorX: stakeholder still has stake');
+        require(stakes[staker].unstaked == true, 'StorX: not in unstake period');
         uint256 unstakeTenure = block.timestamp - stakes[staker].unstakedTime;
         return coolOff < unstakeTenure;
     }

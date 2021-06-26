@@ -75,14 +75,14 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
     await MineBlock(TIME_SKIP_TO);
     const earnings = parseFloat((await this.staking.earned(this.currentStaker)).toString());
     assert.isTrue(earnings > 0);
-    assertRevertWithMsg(
+    await assertRevertWithMsg(
       this.staking.claimEarned(this.currentStaker),
       'StorX: cannot claim drip yet'
     );
   });
 
   it('cannot claim if not staked', async function () {
-    assertRevertWithMsg(this.staking.claimEarned(STAKERS[1]), 'StorX: staker does not exist');
+    await assertRevertWithMsg(this.staking.claimEarned(STAKERS[1]), 'StorX: staker does not exist');
   });
 
   it('cannot claim if reputation threshold not met', async function () {

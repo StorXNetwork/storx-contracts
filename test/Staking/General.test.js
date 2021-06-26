@@ -101,47 +101,80 @@ contract('Staking: general', ([owner, ...accounts]) => {
     await assertRevertWithMsg(this.staking.nextDripAt(STAKERS[1]), 'StorX: address has not staked');
   });
 
-  it('canWithdrawStakeIn returns proper time', async function () {
-    const data = await this.staking.unstake({ from: this.currentStaker });
-    const stake = await this.staking.stakes(this.currentStaker);
-    const { timestamp } = await GetBlock(data.receipt);
-    const coolOff = parseFloat((await this.staking.coolOff()).toString());
-    const withdrawIn = (await this.staking.canWithdrawStakeIn(this.currentStaker)).toString();
+  describe('canWithdrawStakeIn', async function () {
+    it('canWithdrawStakeIn returns proper time', async function () {
+      const data = await this.staking.unstake({ from: this.currentStaker });
+      const stake = await this.staking.stakes(this.currentStaker);
+      const { timestamp } = await GetBlock(data.receipt);
+      const coolOff = parseFloat((await this.staking.coolOff()).toString());
+      const withdrawIn = (await this.staking.canWithdrawStakeIn(this.currentStaker)).toString();
 
-    assert.equal(
-      Math.floor(
-        (coolOff + parseFloat(stake.unstakedTime.toString()) - parseFloat(timestamp.toString())) /
-          10
-      ),
-      Math.floor(withdrawIn / 10)
-    );
-    assert.equal(7 * ONE_DAY, withdrawIn);
+      assert.equal(
+        Math.floor(
+          (coolOff + parseFloat(stake.unstakedTime.toString()) - parseFloat(timestamp.toString())) /
+            10
+        ),
+        Math.floor(withdrawIn / 10)
+      );
+      assert.equal(7 * ONE_DAY, withdrawIn);
+    });
+
+    it('reverts on canWithdrawStakeIn', async function () {
+      await assertRevertWithMsg(
+        this.staking.canWithdrawStakeIn(STAKERS[1]),
+        'StorX: stakeholder does not exists'
+      );
+    });
   });
 
-  it('reverts on canWithdrawStakeIn', async function () {
-    await assertRevertWithMsg(
-      this.staking.canWithdrawStakeIn(STAKERS[1]),
-      'StorX: stakeholder does not exists'
-    );
+  describe('thresholdMet', async function () {
+    it('threshold met +ve test', async function () {
+      assert.isTrue(await this.staking.thresholdMet(this.currentStaker));
+    });
+
+    it('threshold met -ve test', async function () {
+      assert.isFalse(await this.staking.thresholdMet(BAD_STAKER));
+    });
   });
 
-  it('threshold met +ve test', async function () {
-    assert.isTrue(await this.staking.thresholdMet(this.currentStaker));
-  });
+  describe('canWithdrawStake', async function () {
+    it('revert on when not staked', async function () {
+      await assertRevertWithMsg(
+        this.staking.canWithdrawStake(NON_STAKER),
+        'StorX: stakeholder does not exists'
+      );
+    });
 
-  it('threshold met -ve test', async function () {
-    assert.isFalse(await this.staking.thresholdMet(BAD_STAKER));
-  });
+    it('revert on when staked', async function () {
+      await assertRevertWithMsg(
+        this.staking.canWithdrawStake(this.currentStaker),
+        'StorX: stakeholder still has stake'
+      );
+    });
 
-  it('canWithdrawStake ', async function () {
-    const data = await this.staking.unstake({ from: this.currentStaker });
-    const stake = await this.staking.stakes(this.currentStaker);
+    it('proper data for staker', async function () {
+      const data = await this.staking.unstake({ from: this.currentStaker });
+      const stake = await this.staking.stakes(this.currentStaker);
 
-    assert.isFalse(await this.staking.canWithdrawStake(this.currentStaker));
+      assert.isFalse(await this.staking.canWithdrawStake(this.currentStaker));
 
-    const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 30 * parseFloat(ONE_DAY);
-    await MineBlock(TIME_SKIP_TO);
+      const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 30 * parseFloat(ONE_DAY);
+      await MineBlock(TIME_SKIP_TO);
 
-    assert.isTrue(await this.staking.canWithdrawStake(this.currentStaker));
+      assert.isTrue(await this.staking.canWithdrawStake(this.currentStaker));
+    });
+
+    it('reverts on non-staker', async function () {
+      const data = await this.staking.unstake({ from: this.currentStaker });
+      const stake = await this.staking.stakes(this.currentStaker);
+
+      const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 30 * parseFloat(ONE_DAY);
+      await MineBlock(TIME_SKIP_TO);
+      await this.staking.withdrawStake({ from: this.currentStaker });
+      await assertRevertWithMsg(
+        this.staking.canWithdrawStake(this.currentStaker),
+        'StorX: not in unstake period'
+      );
+    });
   });
 });
