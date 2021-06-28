@@ -244,7 +244,7 @@ contract StorxStaking is Ownable {
         uint256 withdrawAmount = stakes[msg.sender].stakedAmount;
         uint256 leftoverBalance = stakes[msg.sender].balance;
         token.transfer(msg.sender, withdrawAmount);
-        token.mint(msg.sender, leftoverBalance);
+        if (leftoverBalance > 0) token.mint(msg.sender, leftoverBalance);
         stakes[msg.sender].stakedAmount = 0;
         stakes[msg.sender].unstaked = false;
         stakes[msg.sender].totalRedeemed += leftoverBalance;

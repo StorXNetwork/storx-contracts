@@ -44,7 +44,7 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
     this.reputation = await Reputation.new({ from: owner });
     await PrepopulateStaker(this.reputation, [BAD_STAKER, ...STAKERS]);
     await MintBalance(this.storx, owner, accounts, INITIAL_BALANCE);
-    this.staking = await Staking.new(this.storx.address, INTEREST, { from: owner });
+    this.staking = await Staking.new(this.storx.address, INTEREST, this.reputation.address, { from: owner });
 
     await this.staking.setMinStakeAmount(MIN_STAKE);
     await this.staking.setMaxStakeAmount(MAX_STAKE);
@@ -301,7 +301,7 @@ contract('Ownable', function ([owner, newOwner, ...rst]) {
     this.reputation = await Reputation.new({ from: owner });
     await PrepopulateStaker(this.reputation, [...rst]);
     await MintBalance(this.storx, owner, accounts, INITIAL_BALANCE);
-    this.staking = await Staking.new(this.storx.address, INTEREST, { from: owner });
+    this.staking = await Staking.new(this.storx.address, INTEREST,this.reputation.address, { from: owner });
   });
 
   describe('when not owner', function () {

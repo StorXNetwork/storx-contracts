@@ -44,7 +44,7 @@ contract('Staking: general', ([owner, ...accounts]) => {
     this.reputation = await Reputation.new();
     await PrepopulateStaker(this.reputation, [BAD_STAKER, ...STAKERS]);
     await MintBalance(this.storx, owner, accounts, INITIAL_BALANCE);
-    this.staking = await Staking.new(this.storx.address, INTEREST);
+    this.staking = await Staking.new(this.storx.address, INTEREST, this.reputation.address);
 
     await this.staking.setMinStakeAmount(MIN_STAKE);
     await this.staking.setMaxStakeAmount(MAX_STAKE);
