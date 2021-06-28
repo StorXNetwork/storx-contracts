@@ -63,13 +63,13 @@ contract StorxStaking is Ownable {
     mapping(address => Stake) public stakes;
     address[] public stakeHolders;
 
-    IERC20 public token;
+    IERC20 public token; // initialized in constructor
     IRepF public iRepF;
     uint256 public reputationThreshold;
     uint256 public hostingCompensation = 750 * 12 * 10**18;
     uint256 public totalStaked;
-    uint256 public minStakeAmount;
-    uint256 public maxStakeAmount;
+    uint256 public minStakeAmount = 10000 * 10**18;
+    uint256 public maxStakeAmount = 1000000 * 10**18;
     uint256 public coolOff = ONE_DAY * 7;
     uint256 public interest;
     uint256 public totalRedeemed = 0;
@@ -138,9 +138,14 @@ contract StorxStaking is Ownable {
         return coolOff < unstakeTenure;
     }
 
-    constructor(IERC20 token_, uint256 interest_) public {
+    constructor(
+        IERC20 token_,
+        uint256 interest_,
+        IRepF reputationContract_
+    ) public {
         token = token_;
         interest = interest_;
+        iRepF = reputationContract_;
     }
 
     function stake(uint256 amount_) public whenNotStaked whenNotUnStaked {
