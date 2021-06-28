@@ -24,7 +24,7 @@ contract('Staking: direct stake', ([owner, ...accounts]) => {
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
 
   before(async function () {
@@ -72,7 +72,7 @@ contract('Staking: can stake after withdrawal', ([owner, ...accounts]) => {
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
 
   before(async function () {
@@ -134,7 +134,7 @@ contract('Staking: proper earnings after withdrawal', ([owner, ...accounts]) => 
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
   const HOSTING_COMPENSATION = 3650;
 
@@ -202,7 +202,7 @@ contract('Staking: -ve test', ([owner, ...accounts]) => {
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
 
   beforeEach(async function () {

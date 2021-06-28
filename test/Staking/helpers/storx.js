@@ -26,9 +26,9 @@ exports.TransferBalance = (token, operator, accounts, amount) => {
   });
 };
 
-exports.CalculateEarning = ({ interest, hostingComp, days, amount }) => {
+exports.CalculateEarning = ({ interest, hostingComp, days, amount, precision=100 }) => {
   return Math.floor(
-    (parseFloat(amount) * parseFloat(days) * parseFloat(interest)) / 36500 +
+    (parseFloat(amount) * parseFloat(days) * parseFloat(interest / precision)) / 36500 +
       (parseFloat(hostingComp) * parseFloat(days)) / 365
   );
 };

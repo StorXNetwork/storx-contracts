@@ -22,7 +22,7 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
   const HOSTING_COMPENSATION = 3650;
 
@@ -255,13 +255,37 @@ contract('Staking: earnings', ([owner, ...accounts]) => {
       );
     });
   });
+
+  describe('setInterestPrecision', async function () {
+    it('setInterestPrecision: revert when  not greater than 0', async function () {
+      await assertRevertWithMsg(
+        this.staking.setInterestPrecision(0, { from: owner }),
+        'StorX: precision cannot be 0'
+      );
+    });
+
+    it('setInterestPrecision: success when owner & greater than 0', async function () {
+      const prevValue = await this.staking.interestPrecision();
+      const data = await this.staking.setInterestPrecision(1000, { from: owner });
+      const event = await inLogs(data.logs, 'InterestPrecisionChanged');
+      assert.equal(prevValue.toString(), event.args.prevValue.toString());
+      assert.equal(1000, event.args.newValue.toString());
+    });
+
+    it('setInterestPrecision: revert when not owner', async function () {
+      await assertRevertWithMsg(
+        this.staking.setInterestPrecision(1000, { from: STAKERS[0] }),
+        'Ownable: sender not owner'
+      );
+    });
+  });
 });
 
 contract('Ownable', function ([owner, newOwner, ...rst]) {
   const accounts = [owner, newOwner, ...rst];
   const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
   const INITIAL_BALANCE = 1000000000;
-  const INTEREST = 6;
+  const INTEREST = 600;
 
   beforeEach(async function () {
     this.storx = await StorXToken.new();

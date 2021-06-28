@@ -22,7 +22,7 @@ contract('Staking: unstake', ([owner, ...accounts]) => {
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
   const HOSTING_COMPENSATION = 3650;
 

@@ -22,13 +22,13 @@ function shouldBehaveLikeStakingEarnings(accounts) {
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
   const HOSTING_COMPENSATION = 3650;
 
   const TWO_YEAR = 730;
 
-  const daysToCheck = 60;
+  const daysToCheck = 720;
 
   it(`earnings reflected after ${daysToCheck} day`, async function () {
     for (let i = 1; i <= daysToCheck; i++) {

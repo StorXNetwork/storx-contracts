@@ -22,7 +22,7 @@ contract('Staking: general', ([owner, ...accounts]) => {
   const MIN_STAKE = 10;
   const MAX_STAKE = 1000000;
   const STAKE_AMOUNT = 100000;
-  const INTEREST = 6;
+  const INTEREST = 600;
   const REDEEM_INTERVAL = 15 * ONE_DAY; // IN SECONDS; 15 days
   const HOSTING_COMPENSATION = 3650;
 
@@ -175,6 +175,54 @@ contract('Staking: general', ([owner, ...accounts]) => {
         this.staking.canWithdrawStake(this.currentStaker),
         'StorX: not in unstake period'
       );
+    });
+  });
+
+  describe('totalRedeemed', async function () {
+    it('reflects claimed earnings', async function () {
+      const stake = await this.staking.stakes(this.currentStaker);
+      const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 20 * parseFloat(ONE_DAY);
+      const calculatedEarnings = CalculateEarning({
+        interest: INTEREST,
+        hostingComp: HOSTING_COMPENSATION,
+        days: 20,
+        amount: STAKE_AMOUNT,
+      });
+      await MineBlock(TIME_SKIP_TO);
+      const totalRedeemed_before = (await this.staking.totalRedeemed()).toString();
+      const earnedAfter = (await this.staking.earned(this.currentStaker)).toString();
+      await this.staking.claimEarned(this.currentStaker);
+      const totalRedeemed_after = (await this.staking.totalRedeemed()).toString();
+      const diff = parseFloat(totalRedeemed_after) - parseFloat(totalRedeemed_before);
+      assert.equal(diff, earnedAfter);
+    });
+
+    it('reflects leftover earnings', async function () {
+      await this.staking.setCoolOff(0, { from: owner });
+      const stake = await this.staking.stakes(this.currentStaker);
+      const TIME_SKIP_TO = parseFloat(stake.lastRedeemedAt.toString()) + 20 * parseFloat(ONE_DAY);
+      const calculatedEarnings = CalculateEarning({
+        interest: INTEREST,
+        hostingComp: HOSTING_COMPENSATION,
+        days: 20,
+        amount: STAKE_AMOUNT,
+      });
+      await MineBlock(TIME_SKIP_TO);
+      const x = await this.staking.unstake({ from: this.currentStaker });
+      const ts = (await GetBlock(x.receipt)).timestamp;
+      await MineBlock(parseFloat(ts) + 1);
+      const stakeAfter = await this.staking.stakes(this.currentStaker);
+      const earnedAfter = await this.staking.earned(this.currentStaker);
+      const canWithdrawStakeIn = (
+        await this.staking.canWithdrawStakeIn(this.currentStaker)
+      ).toString();      
+      assert.equal(stakeAfter.balance.toString(), calculatedEarnings);
+      assert.equal(earnedAfter.toString(), 0);
+      const totalRedeemed_before = (await this.staking.totalRedeemed()).toString();
+      await this.staking.withdrawStake({ from: this.currentStaker });
+      const totalRedeemed_after = (await this.staking.totalRedeemed()).toString();
+      const diff = parseFloat(totalRedeemed_after) - parseFloat(totalRedeemed_before);
+      assert.equal(diff, calculatedEarnings);
     });
   });
 });

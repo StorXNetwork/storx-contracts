@@ -76,6 +76,8 @@ contract StorxStaking is Ownable {
     uint256 public redeemInterval = 30 * ONE_DAY;
     uint256 public maxEarningsCap = 40000 * 10**18;
 
+    uint256 public interestPrecision = 100;
+
     event Staked(address staker, uint256 amount);
 
     event Unstaked(address staker, uint256 amount);
@@ -94,6 +96,7 @@ contract StorxStaking is Ownable {
     event ReputationThresholdChanged(uint256 prevValue, uint256 newValue);
     event HostingCompensationChanged(uint256 prevValue, uint256 newValue);
     event MaxEarningCapChanged(uint256 prevValue, uint256 newValue);
+    event InterestPrecisionChanged(uint256 prevValue, uint256 newValue);
 
     event WithdrewTokens(address beneficiary, uint256 amount);
     event WithdrewXdc(address beneficiary, uint256 amount);
@@ -186,9 +189,12 @@ contract StorxStaking is Ownable {
         if (stakes[beneficiary_].staked == false) return 0;
         uint256 tenure = (block.timestamp - stakes[beneficiary_].lastRedeemedAt);
         uint256 earnedStake =
-            tenure.div(ONE_DAY).mul(stakes[beneficiary_].stakedAmount).mul(interest).div(100).div(
-                365
-            );
+            tenure
+                .div(ONE_DAY)
+                .mul(stakes[beneficiary_].stakedAmount)
+                .mul(interest.div(interestPrecision))
+                .div(100)
+                .div(365);
         uint256 earnedHost = tenure.div(ONE_DAY).mul(hostingCompensation).div(365);
         earned = earnedStake.add(earnedHost);
     }
@@ -238,6 +244,7 @@ contract StorxStaking is Ownable {
         stakes[msg.sender].unstaked = false;
         stakes[msg.sender].totalRedeemed += leftoverBalance;
         stakes[msg.sender].lastRedeemedAt = block.timestamp;
+        totalRedeemed += leftoverBalance;
         emit WithdrewStake(msg.sender, withdrawAmount, leftoverBalance);
     }
 
@@ -329,6 +336,13 @@ contract StorxStaking is Ownable {
         uint256 prevValue = maxEarningCap_;
         maxEarningsCap = maxEarningCap_;
         emit MaxEarningCapChanged(prevValue, maxEarningsCap);
+    }
+
+    function setInterestPrecision(uint256 interestPrecision_) public onlyOwner {
+        require(interestPrecision_ > 0, 'StorX: precision cannot be 0');
+        uint256 prevValue = interestPrecision;
+        interestPrecision = interestPrecision_;
+        emit InterestPrecisionChanged(prevValue, interestPrecision);
     }
 
     function withdrawTokens(address beneficiary_, uint256 amount_) public onlyOwner {
