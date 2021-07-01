@@ -1,4 +1,6 @@
-// File: contracts/DataFeeds/Ownable.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/DataFeeds/ReputationFeed.sol
+ */
 
 pragma solidity 0.4.24;
 
@@ -59,9 +61,13 @@ contract Ownable {
     }
 }
 
-// File: contracts/DataFeeds/Ownable.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/DataFeeds/ReputationFeed.sol
+ */
 
 pragma solidity 0.4.24;
+
+////import './Ownable.sol';
 
 contract Operatable is Ownable {
     address private _operator;
@@ -97,9 +103,13 @@ contract Operatable is Ownable {
     }
 }
 
-// File: contracts/DataFeeds/Ownable.sol
+/**
+ *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/DataFeeds/ReputationFeed.sol
+ */
 
 pragma solidity 0.4.24;
+
+////import './Operatable.sol';
 
 interface IReputationFeeds {
     function setReputation(address staker, uint256 reputation) external;
