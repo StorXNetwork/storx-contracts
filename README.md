@@ -29,7 +29,7 @@ This empowers us to change the contract functionality at a later stage after dep
 
 ## Audit
 
-AN internal audit has been done of the smarrt contract and its report can be found [here](/audit/report/StorXAudit.pdf)
+An internal audit has been done of the smart contract and its report can be found [here](/audit/report/StorXAudit.pdf)
 
 
 # StorX - Staking
