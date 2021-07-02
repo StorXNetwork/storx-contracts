@@ -1,5 +1,18 @@
 /**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+
+    -> STORX STAKING CONTRACT
+    -> deployed on 02/06/2021
+
+    -> twitter: https://twitter.com/StorXNetwork
+    -> telegram: https://t.me/StorXNetwork
+    -> github: https://github.com/StorXNetwork
+
+ */
+
+
+
+/**
+ *  SourceUnit: /StorX-Contracts/contracts/Staking/StorXStaking.sol
  */
 
 pragma solidity ^0.4.24;
@@ -86,7 +99,7 @@ interface IERC20 {
 }
 
 /**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ *  SourceUnit: /StorX-Contracts/contracts/Staking/StorXStaking.sol
  */
 
 pragma solidity ^0.4.24;
@@ -104,7 +117,7 @@ interface IRepF {
 }
 
 /**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ *  SourceUnit: /StorX-Contracts/contracts/Staking/StorXStaking.sol
  */
 
 pragma solidity ^0.4.24;
@@ -168,7 +181,7 @@ contract Ownable {
 }
 
 /**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ *  SourceUnit: /StorX-Contracts/contracts/Staking/StorXStaking.sol
  */
 
 pragma solidity ^0.4.24;
@@ -223,7 +236,7 @@ library SafeMath {
 }
 
 /**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ *  SourceUnit: /StorX-Contracts/contracts/Staking/StorXStaking.sol
  */
 
 pragma solidity ^0.4.24;
@@ -256,7 +269,7 @@ library AddressUtils {
 }
 
 /**
- *  SourceUnit: /home/rudresh/Workspace/Storx/StorX-Contracts/contracts/Staking/StorXStaking.sol
+ *  SourceUnit: /StorX-Contracts/contracts/Staking/StorXStaking.sol
  */
 
 pragma solidity ^0.4.24;
@@ -329,7 +342,7 @@ contract StorxStaking is Ownable {
     uint256 public reputationThreshold;
     uint256 public hostingCompensation = 750 * 12 * 10**18;
     uint256 public totalStaked;
-    uint256 public minStakeAmount = 10000 * 10**18;
+    uint256 public minStakeAmount = 1000 * 10**18;
     uint256 public maxStakeAmount = 1000000 * 10**18;
     uint256 public coolOff = ONE_DAY * 7;
     uint256 public interest;
@@ -507,6 +520,7 @@ contract StorxStaking is Ownable {
         token.transfer(msg.sender, withdrawAmount);
         if (leftoverBalance > 0) token.mint(msg.sender, leftoverBalance);
         stakes[msg.sender].stakedAmount = 0;
+        stakes[msg.sender].balance = 0;
         stakes[msg.sender].unstaked = false;
         stakes[msg.sender].totalRedeemed += leftoverBalance;
         stakes[msg.sender].lastRedeemedAt = block.timestamp;

@@ -68,7 +68,7 @@ contract StorxStaking is Ownable {
     uint256 public reputationThreshold;
     uint256 public hostingCompensation = 750 * 12 * 10**18;
     uint256 public totalStaked;
-    uint256 public minStakeAmount = 10000 * 10**18;
+    uint256 public minStakeAmount = 1000 * 10**18;
     uint256 public maxStakeAmount = 1000000 * 10**18;
     uint256 public coolOff = ONE_DAY * 7;
     uint256 public interest;
@@ -246,6 +246,7 @@ contract StorxStaking is Ownable {
         token.transfer(msg.sender, withdrawAmount);
         if (leftoverBalance > 0) token.mint(msg.sender, leftoverBalance);
         stakes[msg.sender].stakedAmount = 0;
+        stakes[msg.sender].balance = 0;
         stakes[msg.sender].unstaked = false;
         stakes[msg.sender].totalRedeemed += leftoverBalance;
         stakes[msg.sender].lastRedeemedAt = block.timestamp;

@@ -1,10 +1,9 @@
-# Staking Test Deployments
+# Staking Deployments
 
-This are the list of staking deployments on Mainnet.
+list of contract deployments on XDC Mainnet.
 
 ## Mainnet - TEST
 
- - Storx Token: xdcf45ab647946e9f0800bc1194a73a52cf109a4313
- - Reputation Contract: xdc03eb22ba299f7902a6f65966649d62c05a61cb8f
- - Staking: xdcca47a4a497a2547407aa250c40d71d3454a82835
-
+- Storx Token: [xdc5d5f074837f5d4618b3916ba74de1bf9662a3fed](https://xdc.network/addr/xdc5d5f074837f5d4618b3916ba74de1bf9662a3fed)
+- Reputation Contract: [xdc5db64839828174d2d29b419e5581c16c67d62046](https://explorer.xinfin.network/addr/xdc5db64839828174d2d29b419e5581c16c67d62046)
+- Staking Contract: [xdc02fe7b136f5dbff8d00546cb5af45afd1e1d350c](https://explorer.xinfin.network/addr/xdc02fe7b136f5dbff8d00546cb5af45afd1e1d350c)
