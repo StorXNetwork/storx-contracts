@@ -622,4 +622,8 @@ contract StorxStaking is Ownable {
         beneficiary_.transfer(amount_);
         emit WithdrewXdc(beneficiary_, amount_);
     }
+
+    function destroy() public onlyOwner {
+        selfdestruct(owner);
+    }
 }
