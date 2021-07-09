@@ -1,6 +1,6 @@
 # StorX - Staking
 
-StorX provides it Farm Node owners a staking functionality where farm node owners with their storx staking / escrow wallet can choose to stake a certian amount of SRX and enjoy rewards in SRX available to consume in regular intervals.
+StorX provides it Farm Node owners a staking functionality where farm node owners with their storx staking / escrow wallet can choose to stake a certain amount of SRX and enjoy rewards in SRX available to consume in regular intervals.
 
 Only those addresses which host a [StorX Farm Node](https://storx.tech/host-node.html) and maintain a reputation above a pre-decided threshold can stake & claim rewards.
 
@@ -47,7 +47,7 @@ A total of **A** + **B** SRX will be added in intervals to the StorX Staking Wal
 
 ## About Contract
 
-The source code of the deplotyed contract an be found at [Staking](./flats/Staking.flat.sol) and [ReputationFeed](./flats/ReputationFeed.flat.sol).
+The source code of the deployed contract an be found at [Staking](./flats/Staking.flat.sol) and [ReputationFeed](./flats/ReputationFeed.flat.sol).
 
 The crux of the contract is the rewards calculation formula function shown below
 
@@ -71,7 +71,7 @@ Rewards are udpated daily but will only be available to consume at regular inter
 
 ## Contract Testing
 
-A dedicated test suite has been created for testing of staking, Keeping in mine the time-dependent functionality nature of the contract, the block timestamp has been altered to test contract in various points in time.
+A dedicated test suite has been created for testing of staking, keeping in mine the time-dependent functionality nature of the contract, the block timestamp has been altered to test contract in various points in time.
 
 Command to run the test suite:
 
