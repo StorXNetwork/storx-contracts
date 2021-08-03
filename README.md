@@ -124,7 +124,7 @@ Staking test suite can be found [here](./test/Staking)
 
 ## Community Tools  
 
- - [General Contract Viewer](http://gcv.raavan.online/) - using this tool you can interact with any contract by adding the ABI & address, by default SRX token details are shown.  
+ - [General Contract Viewer](http://gcv.xinfin.network/) - using this tool you can interact with any contract by adding the ABI & address, by default SRX token details are shown.  
 
 ## Troubleshooting
 
