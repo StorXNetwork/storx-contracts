@@ -2,7 +2,7 @@
 
 This repository contains smart contracts for StorX Token, its Proxy Contract & Staking Contract. The Proxy contract has been inspired from the USDC contract on ethereum blockchain.
 
-# StorX - ERC20 Token
+# StorX - XRC20 Token
 ## Tokenomics
 
 - Name: STORX
