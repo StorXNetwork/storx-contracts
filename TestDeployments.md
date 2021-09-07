@@ -26,6 +26,6 @@ UPDATED TOKENOMICS:
 - Implementation: [xdc0643a9f683888e74442d5e313d357dc6b6122543](https://explorer.apothem.network/addr/xdc0643a9f683888e74442d5e313d357dc6b6122543) [Code](/flats/StorxToken.flat.sol)  
   
 
-ADDED BURN & DESTROY:
+ADDED BURN & DESTROY: ( LATEST )
 - Proxy: [xdc8a000e77af0dc2c1ae42b8cf47ef78f4fd429e66](https://explorer.apothem.network/addr/xdc8a000e77af0dc2c1ae42b8cf47ef78f4fd429e66) [Code](/flats/Proxy.flat.sol)  
 - Implementation: [xdc3db3715985a9891e7b41c2c2dc3f740d1d831d8a](https://explorer.apothem.network/addr/xdc3db3715985a9891e7b41c2c2dc3f740d1d831d8a) [Code](/flats/StorxToken.flat.sol)  
