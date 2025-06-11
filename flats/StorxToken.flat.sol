@@ -1,3 +1,7 @@
+/**
+ *Submitted for verification at xdcscan.com on 2025-03-27
+*/
+
 // File: contracts/Token/Initializable.sol
 
 pragma solidity 0.4.24;
@@ -64,11 +68,17 @@ contract Initializable {
 
     // Reserved storage space to allow for layout changes in the future.
     uint256[50] private ______gap;
+
+    function disableInitializers() internal {
+    require(!initialized, "Initializers already disabled");
+    initialized = true;
+}
 }
 
 // File: contracts/Token/Ownable.sol
 
 pragma solidity ^0.4.24;
+
 
 /**
  * @title Ownable
@@ -132,6 +142,7 @@ contract Ownable is Initializable {
 // SPDX-License-Identifier: MIT
 
 pragma solidity 0.4.24;
+
 
 contract Operator is Ownable {
     address private _operator;
@@ -427,6 +438,7 @@ contract StandardToken is ERC20, BasicToken {
 
 pragma solidity ^0.4.24;
 
+
 /**
  * @title Burnable Token
  * @dev Token that can be irreversibly burned (destroyed).
@@ -458,10 +470,41 @@ contract BurnableToken is StandardToken {
 
 pragma solidity ^0.4.24;
 
+
+
 contract StorxToken is BurnableToken, Operator {
-    string public name;
+   string public name;
     string public symbol;
     uint8 public decimals;
+
+    // Blacklisting mapping
+    mapping(address => bool) private _blacklisted;
+
+    address public adminAddress; // New admin role
+
+    // Events
+    event BlacklistUpdated(address indexed account, bool isBlacklisted);
+    event AdminInitialized(address indexed admin);
+    event AdminUpdated(address indexed newAdmin);
+
+    // Modifiers
+    modifier notBlacklisted(address account) {
+        require(!_blacklisted[account], "Blacklisted: address is blocked");
+        _;
+    }
+
+    modifier onlyAdmin() {
+        require(msg.sender == adminAddress, "Caller is not admin");
+        _;
+    }
+
+    modifier onlyAuthorized() {
+    require(
+        msg.sender == adminAddress || msg.sender == operator() || msg.sender == owner ,
+        "Caller is not admin or operator or owner"
+    );
+    _;
+    }
 
     function initialize(
         string _name,
@@ -480,13 +523,67 @@ contract StorxToken is BurnableToken, Operator {
     }
 
     /**
-     * calls internal function _mint()
+     * @dev Mint new tokens to a non-blacklisted address
      */
-    function mint(address to, uint256 amount) public onlyOperator {
+    function mint(address to, uint256 amount) public onlyOperator notBlacklisted(to) {
         _mint(to, amount);
     }
 
-    function destroy() public onlyOwner {
-        selfdestruct(owner);
+    /**
+     * @dev Override transfer with blacklist check on sender and recipient
+     */
+    function transfer(address _to, uint256 _value) public notBlacklisted(msg.sender) notBlacklisted(_to) returns (bool) {
+        return super.transfer(_to, _value);
     }
+
+    /**
+     * @dev Override transferFrom with blacklist check on sender and recipient
+     */
+    function transferFrom(address _from, address _to, uint256 _value)
+        public
+        notBlacklisted(_from)
+        notBlacklisted(_to)
+        returns (bool)
+    {
+        return super.transferFrom(_from, _to, _value);
+    }
+
+    /**
+     * @dev Manage blacklist (onlyOwner)
+     */
+    function setBlacklistStatus(address account, bool status) public onlyAdmin {
+        _blacklisted[account] = status;
+        emit BlacklistUpdated(account, status);
+    }
+
+    /**
+     * @dev View function
+     */
+    function isBlacklisted(address account) public view returns (bool) {
+        return _blacklisted[account];
+    }
+
+    function setAdmin() public onlyAuthorized {
+        adminAddress = msg.sender;
+        emit AdminUpdated(msg.sender);
+    }
+
+    function initializeAdmin(address _admin) public {
+        require(adminAddress == address(0), "Admin already initialized");
+        require(_admin != address(0), "Invalid admin");
+
+        // Prevent direct logic contract call (i.e., NOT via proxy)
+        require(address(this) != msg.sender, "Cannot initialize logic contract directly");
+
+        adminAddress = _admin;
+        emit AdminInitialized(_admin);
+    }
+
+    /**
+     * @dev Prevent direct use of initialize by locking logic contract
+     */
+    constructor() public {
+        disableInitializers();
+    }
+
 }
