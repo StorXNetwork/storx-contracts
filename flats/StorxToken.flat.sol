@@ -173,7 +173,7 @@ contract Operator is Ownable {
 
     function _transferOperator(address newOperator_) internal {
         require(newOperator_ != address(0), 'operator: zero address given for new operator');
-        emit OperatorTransferred(address(0), newOperator_);
+        emit OperatorTransferred(_operator, newOperator_);
         _operator = newOperator_;
     }
 }
@@ -485,7 +485,7 @@ contract StorxToken is BurnableToken, Operator {
     // Events
     event BlacklistUpdated(address indexed account, bool isBlacklisted);
     event AdminInitialized(address indexed admin);
-    event AdminUpdated(address indexed newAdmin);
+    event AdminUpdated(address indexed previousAdmin, address indexed newAdmin);
 
     // Modifiers
     modifier notBlacklisted(address account) {
@@ -518,6 +518,8 @@ contract StorxToken is BurnableToken, Operator {
         balances[msg.sender] = _totalSupply;
         totalSupply_ = _totalSupply;
 
+        emit Transfer(address(0), msg.sender, _totalSupply); 
+        
         _initializeOwner();
         _initializeOperator();
     }
@@ -563,9 +565,11 @@ contract StorxToken is BurnableToken, Operator {
         return _blacklisted[account];
     }
 
-    function setAdmin() public onlyAuthorized {
-        adminAddress = msg.sender;
-        emit AdminUpdated(msg.sender);
+    function setAdmin(address newAdmin) public onlyAuthorized {
+        require(newAdmin != address(0), "Zero address");
+        address previousAdmin = adminAddress;
+        adminAddress = newAdmin;
+        emit AdminUpdated(previousAdmin, newAdmin);
     }
 
     function initializeAdmin(address _admin) public {
